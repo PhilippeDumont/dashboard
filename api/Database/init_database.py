@@ -1,4 +1,5 @@
 import sqlite3
+import logging
 
 
 TABLES = {
@@ -35,35 +36,38 @@ TABLES = {
     }
 
 
-def run():
-    conn = sqlite3.connect('dashboard.db')
+def run_create(conn):
     _init_database(conn)
     return 'The DB was created'
+
+def run_delete(conn):
+
+    cursor = conn.cursor()
+    _reset_database(cursor)
+    cursor.close()
+    return 'The DB was deleted'
 
 
 def _init_database(conn):
     cursor = conn.cursor()
-    print('Creating the db')
+    logging.info('Init database')
     _create_tables(cursor)
     cursor.close()
 
 
 def _create_tables(cursor):
-    print('Creating tables')
     for name in TABLES:
         query = TABLES[name]
         try:
+            logging.info("Creating table %s", name)
             cursor.execute(query)
         except sqlite3.Error as err:
-            print(err.args[0])
-        print('Tables created')
+            logging.error('Error: %s', err.args[0])
+        logging.info("Table %s successfully created", name)
 
 
-def _reset_database():
-    conn = sqlite3.connect('dashboard.db')
-    cursor = conn.cursor()
-    cursor.execute('DELETE FROM activities')
-    cursor.execute('DELETE FROM sqlite_sequence WHERE name="activities"')
-    cursor.execute('DELETE FROM items')
-    cursor.execute('DELETE FROM sqlite_sequence WHERE name="items"')
-    cursor.close()
+def _reset_database(cursor):
+    return cursor.execute('DELETE FROM activities')
+    return cursor.execute('DELETE FROM sqlite_sequence WHERE name="activities"')
+    return cursor.execute('DELETE FROM items')
+    return cursor.execute('DELETE FROM sqlite_sequence WHERE name="items"')
