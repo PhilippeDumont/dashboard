@@ -1,14 +1,14 @@
 import sqlite3
 import logging
-
+from database import reset_database
 
 TABLES = {
     'items': (
     "CREATE TABLE  IF NOT EXISTS `items` ("
-    "  `item_id` int NOT NULL,"
+    "  `item_id` varchar(200) NOT NULL,"
     "  `item_type` varchar(50) NOT NULL,"
-    "  `value` varchar(50) NULL,"
-    "  `parent_id` int NULL,"
+    "  `value` varchar(1000) NULL,"
+    "  `parent_id` varchar(200) NULL,"
     "  `parent_type` varchar(50) NULL,"
     "  PRIMARY KEY (`item_id`, `item_type`),"
     "  CONSTRAINT `fk_items_items` FOREIGN KEY (`parent_id`, `parent_type`)"
@@ -36,16 +36,10 @@ TABLES = {
     }
 
 
-def run_create(conn):
+def run(conn):
+    isCreated = _test_if_exist(conn)
     _init_database(conn)
     return 'The DB was created'
-
-def run_delete(conn):
-
-    cursor = conn.cursor()
-    _reset_database(cursor)
-    cursor.close()
-    return 'The DB was deleted'
 
 
 def _init_database(conn):
@@ -65,9 +59,12 @@ def _create_tables(cursor):
             logging.error('Error: %s', err.args[0])
         logging.info("Table %s successfully created", name)
 
-
-def _reset_database(cursor):
-    return cursor.execute('DELETE FROM activities')
-    return cursor.execute('DELETE FROM sqlite_sequence WHERE name="activities"')
-    return cursor.execute('DELETE FROM items')
-    return cursor.execute('DELETE FROM sqlite_sequence WHERE name="items"')
+def _test_if_exist(conn):
+    cursor = conn.cursor()
+    # get the count of tables with the name
+    cursor.execute('''SELECT count(name) FROM sqlite_master WHERE type='table' AND name='activities' ''')
+    # if the count is 1, then table exists
+    if cursor.fetchone()[0] == 1:
+        reset_database.run(conn)
+    # commit the changes to db
+    conn.commit()
