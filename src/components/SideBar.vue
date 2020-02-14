@@ -2,21 +2,30 @@
     <v-container>
         <div class="sideBar">
             <ul>
-                <li class="item">
+
+                <router-link to="/Home">
+                <li class="item">           
                     <svg viewBox="0 0 24 24">
                         <path fill="currentColor" d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z" />
                     </svg>
                     <br />
-                    Home
+                    Home     
                 </li>
-                <li class="item">
+                </router-link>
+
+                <router-link to="/Level1">
+                <li class="item">                
                     <svg viewBox="0 0 24 24">
                         <path fill="currentColor" d="M3,22V8H7V22H3M10,22V2H14V22H10M17,22V14H21V22H17Z" />
                     </svg>
                     <br />
-                    Level 1
+                    Level 1                 
                 </li>
+                </router-link>
+
+                <router-link to="/Level2">
                 <li class="item">
+
                     <svg viewBox="0 0 24 24">
                         <path fill="currentColor"
                             d="M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C12.21,2 12.41,2.06 12.57,2.18L20.47,6.62C20.79,6.79 21,7.12 21,7.5V16.5M12,4.15L6.04,7.5L12,10.85L17.96,7.5L12,4.15M5,15.91L11,19.29V12.58L5,9.21V15.91M19,15.91V9.21L13,12.58V19.29L19,15.91Z" />
@@ -24,6 +33,9 @@
                     <br />
                     Level 2
                 </li>
+                </router-link>
+
+                <router-link to="/Level3">
                 <li class="item">
                     <svg viewBox="0 0 24 24">
                         <path fill="currentColor"
@@ -32,22 +44,31 @@
                     <br />
                     Level 3
                 </li>
+                </router-link>
+
+                <router-link to="/Level4">
                 <li class="item">
                     <svg viewBox="0 0 24 24">
                         <path fill="currentColor"
                             d="M10,19H13V22H10V19M12,2C17.35,2.22 19.68,7.62 16.5,11.67C15.67,12.67 14.33,13.33 13.67,14.17C13,15 13,16 13,17H10C10,15.33 10,13.92 10.67,12.92C11.33,11.92 12.67,11.33 13.5,10.67C15.92,8.43 15.32,5.26 12,5A3,3 0 0,0 9,8H6A6,6 0 0,1 12,2Z" />
                     </svg>
                     <br />
-                    Level 4
+                    Level 4                 
                 </li>
+                </router-link>
+
+                <router-link to="/Edit">
                 <li id="edit" class="item">
                     <svg viewBox="0 0 24 24">
                         <path fill="currentColor"
                             d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
                     </svg>
                     <br />
-                    Edit
+                    Edit            
                 </li>
+                </router-link>
+
+                <router-link to="/Settings">
                 <li class="item">
                     <svg viewBox="0 0 24 24">
                         <path fill="currentColor"
@@ -56,6 +77,7 @@
                     <br />
                     Settings
                 </li>
+                </router-link>
             </ul>
         </div>
     </v-container>
@@ -72,6 +94,11 @@
 
 
 <style scoped>
+    .v-application a  {
+        color: white;
+        text-decoration: none;
+     }
+
     #edit {
         margin-top: 140px;
     }
