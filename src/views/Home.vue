@@ -1,19 +1,20 @@
 <template>
   <div class="home">
-    <v-container class="grey lighten-5">
-      <v-row no-gutters>
+    <v-container fluid>
+      <v-row>
 
         <v-col cols="8">
           <v-row>
             <create></create>
           </v-row>
+          <v-divider />
           <v-row>
             <open></open>
           </v-row>
         </v-col>
 
         <v-col cols="4">
-          <explanation></explanation>
+          <explication></explication>
         </v-col>
 
       </v-row>
@@ -25,14 +26,21 @@
 // @ is an alias to /src
 import Create from '@/components/home/Create.vue'
 import Open from '@/components/home/Open.vue'
-import Explanation from '@/components/home/Explanation.vue'
+import Explication from '@/components/home/Explication.vue'
 
 export default {
   name: 'Home',
   components: {
     Create,
     Open,
-    Explanation
+    Explication
   }
 }
 </script>
+
+<style scoped>
+  .home {
+    margin-left: 100px;
+    z-index: 1;
+  }
+</style>

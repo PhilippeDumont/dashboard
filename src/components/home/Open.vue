@@ -1,70 +1,29 @@
 <template>
-  <div>
-      <!-- <v-container>
-          <v-row>
-              <v-col>
-                  <h1>Open a project</h1>
-              </v-col>
-          </v-row>
-
-             list with sheetes
-          <v-row justify="space-around">
-              <v-col v-for="project in projects" v-bind:key="project">
-                  <v-sheet
-                  class="mx-auto"
-                  height="100"
-                  width="100"
-                  elevation="6"
-                  ></v-sheet>
-                  {{project}}
-              </v-col>
-          </v-row>
-
-          <v-row justify="center">
-            <v-col v-for="project in projects" v-bind:key="project">
-                <v-card>
-                    <v-img src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"></v-img>
-                    <v-img src="../../assets/logo.png" height="150" width="150"></v-img>
-                    <v-card-text>{{project}}</v-card-text>
-                </v-card>
+    <v-container>
+        <v-row>
+            <v-col>
+                <h1 class="title">Open a project</h1>
             </v-col>
-          </v-row>
-      </v-container> -->
-
-      <v-container>
-          <v-row>
-              <v-col>
-                  <h1>Open a project</h1>
-              </v-col>
-          </v-row>
-          <v-row dense>
+        </v-row>
+        <!-- <v-row dense class="grey">
             <v-col v-for="project in projects" v-bind:key="project">
                 <v-card width="150" height="250">
                     <v-img :src="require('../../assets/graph.svg')" height="150" width="150"></v-img>
                     <v-card-text>{{project}}</v-card-text>
                 </v-card>
             </v-col>
-          </v-row>
-      </v-container>
+        </v-row> -->
 
-      <!-- <hr/>
-
-      <v-container fluid>
-          <v-row dense>
-              <v-col
-              v-for="card in cards"
-              :key="card.title">
-                <v-card>
-                    <v-img
-                    :src="card.src"
-                    class="white--text align-end"
-                    height="200px"></v-img>
-                    <v-cardv-text="card.title"></v-cardv-text="card.title">
+        <div style="margin: 20px"></div>
+        <v-row dense>
+            <v-col v-for="project in projects" v-bind:key="project">
+                <v-card class="card" width="150" height="250">
+                    <v-img :src="require('../../assets/graph.svg')" height="150" width="150"></v-img>
+                    <v-card-text>{{project}}</v-card-text>
                 </v-card>
-              </v-col>
-          </v-row>
-      </v-container> -->
-  </div>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
@@ -85,3 +44,20 @@ export default {
   })
 }
 </script>
+
+<style scoped>
+.card {
+    box-shadow: 6px 6px 20px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition:0.2s;
+}
+.card:hover{
+    transform: scale(1.05);
+     box-shadow: 6px 6px 25px 4px rgba(0, 0, 0, 0.18);
+}
+
+.card:active{
+    transform: scale(0.97);
+     box-shadow: 6px 6px 18px 2px rgba(0, 0, 0, 0.23);
+}
+</style>
