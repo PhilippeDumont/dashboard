@@ -19,9 +19,6 @@
 <script>
 
 export default {
-  name: 'Explication',
-  components: {
-    
-  }
+  name: 'Explication'
 }
 </script>

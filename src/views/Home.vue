@@ -23,7 +23,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import Create from '@/components/home/Create.vue'
 import Open from '@/components/home/Open.vue'
 import Explication from '@/components/home/Explication.vue'

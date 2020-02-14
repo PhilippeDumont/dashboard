@@ -17,11 +17,6 @@
             <span>
                 <v-select :items="items" label="Plateform" outlined dense hide-details></v-select>
             </span>
-
-            <!-- <v-col cols="7">What kind of plateform do you use ?</v-col>
-            <v-col cols="5">
-                <v-select :items="items" label="Plateform" outlined dense hide-details></v-select>
-            </v-col> -->
         </v-row>
 
         <v-row>

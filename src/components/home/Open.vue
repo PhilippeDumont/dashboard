@@ -5,17 +5,8 @@
                 <h1 class="title">Open a project</h1>
             </v-col>
         </v-row>
-        <!-- <v-row dense class="grey">
-            <v-col v-for="project in projects" v-bind:key="project">
-                <v-card width="150" height="250">
-                    <v-img :src="require('../../assets/graph.svg')" height="150" width="150"></v-img>
-                    <v-card-text>{{project}}</v-card-text>
-                </v-card>
-            </v-col>
-        </v-row> -->
 
-        <div style="margin: 20px"></div>
-        <v-row dense>
+        <v-row>
             <v-col v-for="project in projects" v-bind:key="project">
                 <v-card class="card" width="150" height="250">
                     <v-img :src="require('../../assets/graph.svg')" height="150" width="150"></v-img>
