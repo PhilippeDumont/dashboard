@@ -3,7 +3,6 @@
       <v-container>
           <SideBar />
       </v-container>
-      
   </v-app>
 </template>
 

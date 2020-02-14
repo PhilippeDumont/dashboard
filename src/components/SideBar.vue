@@ -14,12 +14,14 @@
                     <li id="edit" class="item">
                         <v-icon color="white" size="50">mdi-pencil</v-icon>
                         <br />
-                        Edit
+                    
+                        Edit 
                     </li>
                     <li class="item">
                         <v-icon color="white" size="50">mdi-settings</v-icon>
                         <br />
                         Settings
+                    
                     </li>
                 </ul>
         </div>
@@ -29,6 +31,7 @@
 
 <script>
     export default {
+    
         data() {
             return {
                 items: [
@@ -39,7 +42,7 @@
                     { title: 'Level 3', icon: 'mdi-account' },
                     { title: 'Level 4', icon: 'mdi-help-box' },
                 ],
-            }
+            } 
         },
     }
 </script>
