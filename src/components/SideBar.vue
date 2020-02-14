@@ -67,7 +67,6 @@
                     Edit            
                 </li>
                 </router-link>
-
                 <router-link to="/Settings">
                 <li class="item">
                     <svg viewBox="0 0 24 24">
@@ -98,10 +97,6 @@
         color: white;
         text-decoration: none;
      }
-
-    #edit {
-        margin-top: 140px;
-    }
 
     .item:hover {
         background-color: blueviolet;
@@ -184,24 +179,6 @@
         background: #013F52;
     }
 
-    @media screen and (min-height: 480px) and (max-height: 720px) {
-        #edit {
-            margin-top: 0;
-        }
-    }
-
-    @media screen and (min-height: 720px) and (max-height: 1080px) {
-        #edit {
-            margin-top: 80px;
-        }
-    }
-
-    @media screen and (min-height: 1080px) and (max-height: 2160px) {
-        #edit {
-            margin-top: 120px;
-        }
-    }
-
     @media screen and (min-width: 1920px) and (max-width: 3840px) {
         .sideBar ul li {
             font-size: 30px;
@@ -210,12 +187,6 @@
         svg {
             height: 70px;
             width: 70px;
-        }
-    }
-
-    @media screen and (min-height: 2160px) and (max-height: 4320px) {
-        #edit {
-            margin-top: 500px;
         }
     }
 
