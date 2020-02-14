@@ -28,7 +28,14 @@ function createWindow () {
     createProtocol('app')
     // Load the index.html when not in development
     win.loadURL('app://./index.html')
-  }
+    }
+
+    console.log("HELLO")
+
+    var python = require('child_process').spawn('python', ['src/hello.py']);
+    python.stdout.on('data', function (data) {
+        console.log("data: ", data.toString('utf8'));
+    });
 
   win.on('closed', () => {
     win = null
