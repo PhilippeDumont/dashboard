@@ -2,7 +2,6 @@
     <v-container>
         <div class="sideBar">
             <ul>
-
                 <router-link to="/Home">
                 <li class="item">           
                     <svg viewBox="0 0 24 24">
@@ -87,16 +86,12 @@
     export default {
         data() {
             return {}
-        },
+        }
     }
 </script>
 
 
 <style scoped>
-    .v-application a  {
-        color: white;
-        text-decoration: none;
-     }
 
     .item:hover {
         background-color: blueviolet;
@@ -135,6 +130,11 @@
         width: 50px;
         height: 50px;
     }
+
+    .v-application a  {
+        color: white;
+        text-decoration: none;
+     }
 
     ::-webkit-scrollbar {
         height: 6px;
