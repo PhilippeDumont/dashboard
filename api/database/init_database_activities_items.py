@@ -1,6 +1,7 @@
 import sqlite3
 import logging
-from database import reset_database
+import os
+from database import reset_database_activities_items
 
 TABLES = {
     'items': (
@@ -36,9 +37,15 @@ TABLES = {
     }
 
 
-def run(conn):
-    isCreated = _test_if_exist(conn)
+def run(db_name):
+    try:
+        if not os.path.exists("../database_files/act_it_db"):
+            os.makedirs("../database_files/act_it_db")
+    except Exception as err:
+        logging.error(err)
+    conn = sqlite3.connect("../database_files/act_it_db/" + db_name)
     _init_database(conn)
+    conn.commit()
     return 'The DB was created'
 
 
@@ -59,12 +66,13 @@ def _create_tables(cursor):
             logging.error('Error: %s', err.args[0])
         logging.info("Table %s successfully created", name)
 
-def _test_if_exist(conn):
+
+"""def _test_if_exist(conn):
     cursor = conn.cursor()
     # get the count of tables with the name
     cursor.execute('''SELECT count(name) FROM sqlite_master WHERE type='table' AND name='activities' ''')
     # if the count is 1, then table exists
     if cursor.fetchone()[0] == 1:
-        reset_database.run(conn)
+        reset_database_activities_items.run(conn)
     # commit the changes to db
-    conn.commit()
+    conn.commit()"""
