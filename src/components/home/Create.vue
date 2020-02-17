@@ -25,8 +25,8 @@
                     <v-icon medium dark>mdi-plus</v-icon>
                     Import ITEMS file
                 </v-btn>
-                <v-icon color="green">mdi-checkbox-marked-circle</v-icon>
-                <v-icon color="red">mdi-cancel</v-icon>
+                <v-icon class="validate-success" color="green">mdi-checkbox-marked-circle</v-icon>
+                <v-icon color="red">mdi-close-circle</v-icon>
             </v-col>
         </v-row>
 
@@ -37,7 +37,7 @@
                     Import ACTIONS file
                 </v-btn>
                 <v-icon color="green">mdi-checkbox-marked-circle</v-icon>
-                <v-icon color="red">mdi-cancel</v-icon>
+                <v-icon color="red">mdi-close-circle</v-icon>
             </v-col>
         </v-row>
 
@@ -51,7 +51,7 @@
                     </template>
                 </v-btn>
                 <v-icon color="green">mdi-checkbox-marked-circle</v-icon>
-                <v-icon color="red">mdi-cancel</v-icon>
+                <v-icon color="red">mdi-close-circle</v-icon>
             </v-col>
         </v-row>
     </v-container>
