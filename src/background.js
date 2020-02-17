@@ -1,6 +1,7 @@
 'use strict'
 
-import { app, protocol, BrowserWindow } from 'electron'
+import { app, protocol, BrowserWindow , ipcMain, dialog } from 'electron'
+import { pythonProcess } from './pythonProcess.js'
 import {
   createProtocol,
   /* installVueDevtools */
@@ -94,3 +95,86 @@ if (isDevelopment) {
     })
   }
 }
+
+
+
+// In this file you can include the rest of your app's specific main process
+// code. You can also put them in separate files and require them here.
+
+/*************************************************************
+ * API Python
+ * Execute a script python
+ * requestName: 'api-python'
+ * args: [functionName, {functionArg}]
+ * The list of function name is listed in the python API
+ *************************************************************/
+
+ipcMain.on('api-python', (event, args) => {
+  console.log("ipc-api-python: " + args);
+  // var python = require('child_process').spawn('python', ['api/']);
+  //   python.stdout.on('data', function (data) {
+  //       console.log("data: ", data.toString('utf8'));
+  //   });
+
+  pythonProcess(args).then((value) => {
+     event.reply('api-python-reply', value)
+   }).catch((e) => {
+     console.log('Error in python file')
+     console.log(e)
+   })
+})
+
+
+/*************************************************************
+ * API OS
+ * Open the Operating System File dialog
+ * requestName: 'open-dialog'
+ * args: None
+ *************************************************************/
+
+// ipcMain.on('open-json-file', (event, args) => {
+//   dialog.showOpenDialog({ properties: [ 'openFile', 'multiSelections' ]}).then((e) => {
+//     readFileInJson(e.filePaths[0]).then((data) => {
+//       console.log(data)
+//       event.reply('open-json-file-reply', data )
+//     }).catch()
+//   }).catch((e) => {
+//     console.log(e)
+//   })
+// })
+
+
+ipcMain.on('import-activity-file', (event, args) => {
+  console.log("ipc-import-activity: " + args);
+  dialog.showOpenDialog({ properties: [ 'openFile', 'multiSelections' ]}).then((e) => {
+    let path = e.filePaths[0]
+    let args = ['import_activity_file', path]
+
+    pythonProcess(args).then((value) => {
+      event.reply('import-activity-file-reply', value)
+    }).catch((e) => {
+      console.log('Error in python file')
+      console.log(e)
+    })
+  }).catch((e) => {
+    console.log(e)
+  })
+})
+
+
+ipcMain.on('import-item-file', (event, args) => {
+  console.log("ipc-import-item: " + args);
+  dialog.showOpenDialog({ properties: [ 'openFile', 'multiSelections' ]}).then((e) => {
+    let path = e.filePaths[0]
+    let args = ['import_item_file', path]
+
+    pythonProcess(args).then((value) => {
+      event.reply('import-item-file', value)
+    }).catch((e) => {
+      console.log('Error in python file')
+      console.log(e)
+    })
+  }).catch((e) => {
+    console.log(e)
+  })
+})

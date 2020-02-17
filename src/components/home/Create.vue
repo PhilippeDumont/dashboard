@@ -21,12 +21,12 @@
 
         <v-row>
             <v-col>
-                <v-btn color="blue-grey" class="ma-2 white--text text-left" width="250">
+                <v-btn color="blue-grey" class="ma-2 white--text text-left" width="250" @click="importItemFile()">
                     <v-icon medium dark>mdi-plus</v-icon>
                     Import ITEMS file
                 </v-btn>
                 <v-icon color="green">mdi-checkbox-marked-circle</v-icon>
-                <v-icon color="red">mdi-cancel</v-icon>
+                <v-icon color="red">mdi-close-circle</v-icon>
             </v-col>
         </v-row>
 
@@ -37,7 +37,7 @@
                     Import ACTIONS file
                 </v-btn>
                 <v-icon color="green">mdi-checkbox-marked-circle</v-icon>
-                <v-icon color="red">mdi-cancel</v-icon>
+                <v-icon color="red">mdi-close-circle</v-icon>
             </v-col>
         </v-row>
 
@@ -51,13 +51,19 @@
                     </template>
                 </v-btn>
                 <v-icon color="green">mdi-checkbox-marked-circle</v-icon>
-                <v-icon color="red">mdi-cancel</v-icon>
+                <v-icon color="red">mdi-close-circle</v-icon>
+            </v-col>
+        </v-row>
+        <v-row>
+            <v-col>
+                <v-btn @click="initDB()">init DB</v-btn>
             </v-col>
         </v-row>
     </v-container>
 </template>
 
 <script>
+import { sendRequest } from '@/utils.js';
 export default {
   name: 'Create',
   components: {
@@ -73,8 +79,38 @@ export default {
         
         value => (value && value.length <= 40) || 'Max 40 characters'
       ],
-      items: ['Default', 'Edx', 'Slack']
+      items: ['Default', 'Edx', 'Slack'],
+      mydata: []
   }),
+  methods: {
+      initDB() {
+
+        //   var python = require('child_process').spawn('python', ['src/hello.py']);
+        // python.stdout.on('data', function (data) {
+        //     console.log("data: ", data.toString('utf8'));
+        // });
+
+        // let python = require('child_process').spawn('python', ['api/database/init_database.py']);
+        // console.log(python);
+        // python.stdout.on('data', function (data) {
+        //     console.log("data: ", data.toString('utf8'));
+        // })
+
+          sendRequest('api-python', 'init_db').then((arg) => {
+              console.log(arg);
+          }).catch((e) => {
+              console.log(e);
+          })
+      },
+      importItemFile() {
+          sendRequest('import-item-file').then((arg) => {
+              this.mydata = arg;
+              console.log(this.mydata);
+          }).catch((e) => {
+              console.log(e)
+          });
+      }
+  },
   watch: {
       loader () {
         const l = this.loader;

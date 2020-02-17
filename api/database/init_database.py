@@ -1,6 +1,7 @@
 import sqlite3
 import logging
 from database import reset_database
+import sys
 
 TABLES = {
     'items': (
@@ -37,9 +38,9 @@ TABLES = {
 
 
 def run(conn):
-    isCreated = _test_if_exist(conn)
     _init_database(conn)
-    return 'The DB was created'
+    print('The DB was created')
+    sys.stdout.flush()
 
 
 def _init_database(conn):
@@ -68,3 +69,11 @@ def _test_if_exist(conn):
         reset_database.run(conn)
     # commit the changes to db
     conn.commit()
+
+
+
+
+conn = sqlite3.connect('example.db')
+print('The DB was created')
+run(conn)
+sys.stdout.flush()
