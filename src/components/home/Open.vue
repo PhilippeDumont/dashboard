@@ -30,8 +30,8 @@ export default {
         { title: 'Projet Slack 2018', src: require('../../assets/graph.svg'), flex: 6 },
         { title: 'Projet Elium 2019', src: '../../assets/logo.png', flex: 6 },
         { title: 'Project 2', src: '../../assets/logo.png', flex: 6 },
-        { title: 'Project', src: '../../assets/logo.png', flex: 6 },
-      ],
+        { title: 'Project', src: '../../assets/logo.png', flex: 6 }
+      ]
   })
 }
 </script>
@@ -44,11 +44,11 @@ export default {
 }
 .card:hover{
     transform: scale(1.05);
-     box-shadow: 6px 6px 25px 4px rgba(0, 0, 0, 0.18);
+    box-shadow: 6px 6px 25px 4px rgba(0, 0, 0, 0.18);
 }
 
 .card:active{
     transform: scale(0.97);
-     box-shadow: 6px 6px 18px 2px rgba(0, 0, 0, 0.23);
+    box-shadow: 6px 6px 18px 2px rgba(0, 0, 0, 0.23);
 }
 </style>
