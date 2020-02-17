@@ -30,8 +30,6 @@ function createWindow () {
     win.loadURL('app://./index.html')
     }
 
-    console.log("HELLO")
-
     var python = require('child_process').spawn('python', ['src/hello.py']);
     python.stdout.on('data', function (data) {
         console.log("data: ", data.toString('utf8'));
