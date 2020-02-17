@@ -86,6 +86,8 @@
     export default {
         data() {
             return {}
+        },
+        methods:{
         }
     }
 </script>
@@ -94,8 +96,7 @@
 <style scoped>
 
     .item:hover {
-        background-color: blueviolet;
-        filter: grayscale(50%);
+        transform: scale(1.05);
     }
 
     .item:active {
@@ -120,9 +121,9 @@
     }
 
     .sideBar ul li {
-        border-radius: 8px;
         list-style: none;
-        margin: 10px;
+        margin: 15px 0;
+        padding: 0 10px;
         text-align: center;
     }
 
@@ -131,8 +132,14 @@
         height: 50px;
     }
 
+    .router-link-active li{
+        border-left: solid;
+        border-left-color: rgba(138, 43, 226, 1) !important;
+        border-left-width: 7px;
+    }
+
     .v-application a  {
-        color: white;
+        color: rgba(255, 255, 255, 1);
         text-decoration: none;
      }
 
