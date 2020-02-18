@@ -1,6 +1,8 @@
 """
-Reset the database by deleting all the data
+Reset the database by deleting all the data in the tables activities and items
 """
+
+
 def run(conn):
     cursor = conn.cursor()
     _reset_database(cursor)
