@@ -6,59 +6,64 @@
             </v-col>
         </v-row>
 
-        <v-row>
-            <v-col cols="6">
-                <v-text-field label="Name Project" :rules="rules" hide-details="auto"></v-text-field>
-            </v-col>
-        </v-row>
+        <v-form ref="form">
+            <v-row>
+                <v-col cols="6">
+                    <v-text-field label="Name Project" v-model="projectName" :rules="rules" hide-details="auto"
+                        required></v-text-field>
+                </v-col>
+            </v-row>
 
-        <v-row align="center">
-            <span>What kind of plateform do you use ?</span>
-            <span>
-                <v-select :items="items" label="Plateform" outlined dense hide-details></v-select>
-            </span>
-        </v-row>
+            <v-row align="center">
+                <span>What kind of plateform do you use ?</span>
+                <span>
+                    <v-select :items="items" label="Plateform" outlined dense hide-details></v-select>
+                </span>
+            </v-row>
 
-        <v-row>
-            <v-col>
-                <v-btn color="blue-grey" class="ma-2 white--text text-left" width="250" @click="importItemFile()">
-                    <v-icon medium dark>mdi-plus</v-icon>
-                    Import ITEMS file
-                </v-btn>
-                <v-icon color="green">mdi-checkbox-marked-circle</v-icon>
-                <v-icon color="red">mdi-close-circle</v-icon>
-            </v-col>
-        </v-row>
+            <v-row>
+                <v-col>
+                    <v-btn color="blue-grey" class="ma-2 white--text text-left" width="250" @click="importItemFile()">
+                        <v-icon medium dark>mdi-plus</v-icon>
+                        Import ITEMS file
+                    </v-btn>
+                    <v-icon color="green">mdi-checkbox-marked-circle</v-icon>
+                    <v-icon color="red">mdi-close-circle</v-icon>
+                </v-col>
+            </v-row>
 
-        <v-row>
-            <v-col>
-                <v-btn color="blue-grey" class="ma-2 white--text" width="250">
-                    <v-icon medium dark>mdi-plus</v-icon>
-                    Import ACTIONS file
-                </v-btn>
-                <v-icon color="green">mdi-checkbox-marked-circle</v-icon>
-                <v-icon color="red">mdi-close-circle</v-icon>
-            </v-col>
-        </v-row>
+            <v-row>
+                <v-col>
+                    <v-btn color="blue-grey" class="ma-2 white--text" width="250">
+                        <v-icon medium dark>mdi-plus</v-icon>
+                        Import ACTIONS file
+                    </v-btn>
+                    <v-icon color="green">mdi-checkbox-marked-circle</v-icon>
+                    <v-icon color="red">mdi-close-circle</v-icon>
+                </v-col>
+            </v-row>
 
-        <v-row>
-            <v-col>
-                <v-btn class="ma-2 white--text" :color="colorBtnCreate" width="250" :loading="loading"
-                    @click="loader = 'loading'">
-                    Create
-                    <template v-slot:loader>
-                        <span>Loading...</span>
-                    </template>
-                </v-btn>
-                <v-icon color="green">mdi-checkbox-marked-circle</v-icon>
-                <v-icon color="red">mdi-close-circle</v-icon>
-            </v-col>
-        </v-row>
-        <v-row>
-            <v-col>
-                <v-btn @click="initDB()">init DB</v-btn>
-            </v-col>
-        </v-row>
+            <v-row>
+                <v-col>
+                    <v-btn class="ma-2 white--text" :color="colorBtnCreate" width="250" :loading="loading"
+                        @click="loader = 'loading'">
+                        Create
+                        <template v-slot:loader>
+                            <span>Loading...</span>
+                        </template>
+                    </v-btn>
+                    <v-icon color="green">mdi-checkbox-marked-circle</v-icon>
+                    <v-icon color="red">mdi-close-circle</v-icon>
+                </v-col>
+            </v-row>
+
+            <v-row>
+                <v-col>
+                    <v-btn @click="initDB()">init DB</v-btn>
+                </v-col>
+            </v-row>
+        </v-form>
+
     </v-container>
 </template>
 
@@ -70,6 +75,7 @@ export default {
     
   },
   data: () => ({
+      projectName: '',
       loader: null,
       loading: false,
       colorBtnCreate: 'blue-grey',
@@ -83,6 +89,9 @@ export default {
       mydata: []
   }),
   methods: {
+      resetForm () {
+          this.$refs.form.reset();
+      },
       initDB() {
 
         //   var python = require('child_process').spawn('python', ['src/hello.py']);
@@ -96,11 +105,18 @@ export default {
         //     console.log("data: ", data.toString('utf8'));
         // })
 
-          sendRequest('api-python', 'init_db').then((arg) => {
-              console.log(arg);
-          }).catch((e) => {
-              console.log(e);
-          })
+        // if (this.$refs.form.validate()) {
+
+        // }
+
+        // console.log(this.projectName);
+        //   sendRequest('api-python', 'init_db').then((arg) => {
+        //       console.log(arg);
+        //   }).catch((e) => {
+        //       console.log(e);
+        //   })
+        
+        this.resetForm();
       },
       importItemFile() {
           sendRequest('import-item-file').then((arg) => {
