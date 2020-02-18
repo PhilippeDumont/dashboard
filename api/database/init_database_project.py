@@ -7,7 +7,11 @@ TABLES = {
     'projects': (
     "CREATE TABLE IF NOT EXISTS `projects` ("
     "  `id` INTEGER PRIMARY KEY AUTOINCREMENT,"
-    "  `name` varchar(200) NOT NULL"
+    "  `name` varchar(200) NOT NULL,"
+    "  `creationDate` datetime NOT NULL,"
+    "  `lastOpeningDate` datetime NOT NULL,"
+    "  `nbAct` INTEGER NULL,"
+    "  `nbItem` INTEGER NULL"
     ");")
     }
 

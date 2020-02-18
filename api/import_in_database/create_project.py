@@ -9,7 +9,7 @@ def run(project_name):
         logging.error(err)
 
 
-def create_new_project(project_name):
+def create_new_project(project_name) :
     conn = sqlite3.connect("../database_files/project_db/all_project.db")
     cursor = conn.cursor()
 
