@@ -4,8 +4,6 @@ import unittest
 import sqlite3
 unittest.TestLoader.sortTestMethodsUsing = None
 
-conn_in_project = sqlite3.connect('../dashboard_project.db')
-conn_in_activities_items = sqlite3.connect('../dashboard_activities_items.db')
 linkCSV = "../data_format"
 
 
@@ -13,8 +11,9 @@ class TestFillDBActivitiesAndItem(unittest.TestCase):
 
     def test_is_activity_imported(self):
         # import one line of data in the database
-        import_activity_csv.run(conn_in_activities_items, linkCSV + "/activity_data.csv")
-        cursor = conn_in_activities_items.cursor()
+        import_activity_csv.run("project1", linkCSV + "/activity_data.csv")
+        conn = sqlite3.connect("../database_files/act_it_db/project1.db")
+        cursor = conn.cursor()
         # get the data back from the database
         cursor.execute('''SELECT * FROM activities''')
         # test if we get the good value
@@ -23,8 +22,9 @@ class TestFillDBActivitiesAndItem(unittest.TestCase):
 
     def test_is_item_imported(self):
         # import one line of data in the database
-        import_item_csv.run(conn_in_activities_items, linkCSV + "/item_data.csv")
-        cursor = conn_in_activities_items.cursor()
+        import_item_csv.run("project1", linkCSV + "/item_data.csv")
+        conn = sqlite3.connect("../database_files/act_it_db/project1.db")
+        cursor = conn.cursor()
         # get the data back from the database
         cursor.execute('''SELECT * FROM items''')
         # test if we get the good value

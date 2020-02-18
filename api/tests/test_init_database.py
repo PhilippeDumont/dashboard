@@ -5,7 +5,7 @@ from database import init_database_activities_items
 from database import init_database_project
 unittest.TestLoader.sortTestMethodsUsing = None
 
-db_act_it_name = "project1.db"
+db_act_it_name = "project1"
 # LAUNCH THIS TEST BEFORE ANYTHING ELSE !!!
 
 
