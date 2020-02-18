@@ -36,3 +36,4 @@ def _open_csv_file(cursor, path):
         except Exception as exception:
             logging.error(exception)
 
+
