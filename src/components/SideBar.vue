@@ -96,7 +96,7 @@
 <style scoped>
 
     .item:hover{
-        border-left: solid 7px rgba(138, 43, 226, 1) !important;
+        border-left: solid 5px rgba(138, 43, 226, 1) !important;
         transition: border-left 150ms ease-out;
     }
 
@@ -134,12 +134,13 @@
     }
 
     .router-link-active li{
-        border-left: solid 7px rgba(138, 43, 226, 1) !important;
+        border-left: solid 5px rgba(138, 43, 226, 1) !important;
     }
 
     .v-application a  {
         color: rgba(255, 255, 255, 1);
         text-decoration: none;
+        font-size: 13px;
      }
 
     ::-webkit-scrollbar {
