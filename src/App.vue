@@ -1,17 +1,20 @@
 <template>
   <v-app>
           <SideBar />
+          <SelectProject></SelectProject>
           <router-view></router-view>
   </v-app>
 </template>
 
 <script>
     import SideBar from '@/components/SideBar';
+    import SelectProject from '@/components/SelectProject';
     export default {
       name: 'App',
 
       components: {
         SideBar,
+        SelectProject,
       },
 
       data: () => ({
@@ -61,4 +64,6 @@
     ::-webkit-scrollbar-track:active {
         background: #013F52;
     }
+
+    
 </style>

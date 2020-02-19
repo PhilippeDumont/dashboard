@@ -95,8 +95,9 @@
 
 <style scoped>
 
-    .item:hover {
-        transform: scale(1.05);
+    .item:hover{
+        border-left: solid 7px rgba(138, 43, 226, 1) !important;
+        transition: border-left 150ms ease-out;
     }
 
     .item:active {
@@ -133,9 +134,7 @@
     }
 
     .router-link-active li{
-        border-left: solid;
-        border-left-color: rgba(138, 43, 226, 1) !important;
-        border-left-width: 7px;
+        border-left: solid 7px rgba(138, 43, 226, 1) !important;
     }
 
     .v-application a  {

@@ -11,7 +11,7 @@ from typing import List
 
 def run(project_name, path):
     try:
-        conn = sqlite3.connect("../database_files/act_it_db/" + project_name + ".db")
+        conn = sqlite3.connect("api/database_files/act_it_db/" + project_name + ".db")
         _import_activity_file(conn, path)
         conn.commit()
     except Exception as err:
