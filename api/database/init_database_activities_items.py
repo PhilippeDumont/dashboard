@@ -39,11 +39,11 @@ TABLES = {
 
 def run(project_name):
     try:
-        if not os.path.exists("../database_files/act_it_db"):
-            os.makedirs("../database_files/act_it_db")
+        if not os.path.exists("api/database_files/act_it_db"):
+            os.makedirs("api/database_files/act_it_db")
     except Exception as err:
         logging.error(err)
-    conn = sqlite3.connect("../database_files/act_it_db/" + project_name + ".db")
+    conn = sqlite3.connect("api/database_files/act_it_db/" + project_name + ".db")
     _init_database(conn)
     conn.commit()
     return 'The DB was created'
