@@ -25,12 +25,12 @@ conn = sqlite3.connect('example.db')
 
 my_parser = argparse.ArgumentParser(description='Call the python API')
 my_parser.add_argument('method', type=str, help='The method to call')
-my_parser.add_argument('options', nargs='?', type=str, help='The options of the method called')
+my_parser.add_argument('options', nargs='*', type=str, help='The options of the method called')
 args = my_parser.parse_args()
 print("args: ", args)
 
 input_method = args.method
-input_options = args.options
+input_options = args.options[0].split(',')
 print("options: ", input_options)
 
 
@@ -42,9 +42,12 @@ list_of_function = [
 
 try:
     if input_method == 'init_db':
-        print(init_database_activities_items.run(input_options))
+        print(init_database_activities_items.run(input_options[0]))
     elif input_method == 'import_item_file':
+        # print(input_options[0] + input_options[1])
         print(import_item_csv.run(input_options[0], input_options[1]))
+    elif input_method == 'import_activity_file':
+        print(import_activity_csv.run(input_options[0], input_options[1]))
     else:
         print('The function ' + input_method + ' doesn\'t exist. The list of functions is: \n' + '\n'.join(list_of_function) )
 except IndexError as e:
