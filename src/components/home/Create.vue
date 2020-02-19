@@ -25,6 +25,7 @@
                     <v-icon medium dark>mdi-plus</v-icon>
                     Import ITEMS file
                 </v-btn>
+
                 <v-icon color="green">mdi-checkbox-marked-circle</v-icon>
                 <v-icon color="red">mdi-close-circle</v-icon>
             </v-col>
@@ -52,6 +53,7 @@
                 </v-btn>
                 <v-icon color="green">mdi-checkbox-marked-circle</v-icon>
                 <v-icon color="red">mdi-close-circle</v-icon>
+
             </v-col>
         </v-row>
         <v-row>

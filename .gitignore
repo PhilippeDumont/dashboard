@@ -3,6 +3,7 @@ node_modules
 .vs
 .vscode
 dist_electron
+api/venv
 /dist
 
 # local env files
