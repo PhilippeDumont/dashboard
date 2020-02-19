@@ -3,15 +3,19 @@ Import an Item CSV file in DB
 '''
 import logging
 import csv
+import sqlite3
 
 from import_in_database import activity_item_import
 from typing import List
 
 
-def run(conn, options):
-    path = options
-    _import_item_file(conn, path)
-    conn.commit()
+def run(project_name, path):
+    try:
+        conn = sqlite3.connect("api/database_files/act_it_db/" + project_name + ".db")
+        _import_item_file(conn, path)
+        conn.commit()
+    except Exception as err:
+        logging.error("Can't add data to an uncreated project")
 
 
 def _import_item_file(conn, path):
@@ -31,4 +35,5 @@ def _open_csv_file(cursor, path):
                 activity_item_import.save_item_in_db(cursor, row)
         except Exception as exception:
             logging.error(exception)
+
 
