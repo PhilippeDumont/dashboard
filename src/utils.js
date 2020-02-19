@@ -13,7 +13,7 @@ export async function sendRequest(requestName, ...args) {
     return new Promise((resolve) => {
         ipcRenderer.send(requestName, args)
         ipcRenderer.once(requestName + '-reply', (event, arg) => {
-            resolve(arg)
+            resolve(arg);
         })
 
     })

@@ -15,7 +15,8 @@ import logging
 
 # from methods import demo
 # from methods import active_users
-from database import init_database
+from database import init_database_project
+from database import init_database_activities_items
 from methods_on_csv import import_activity_csv
 from methods_on_csv import import_item_csv
 # from methods import activity
@@ -54,9 +55,11 @@ list_of_function = [
 
 try:
     if input_method == 'init_db':
-        print(init_database.run(conn))
-    elif input_method == 'import-item-file':
-        print(import_item_csv.run(conn, input_options))
+        print(init_database_activities_items.run(input_options))
+    elif input_method == 'import_item_file':
+        print(import_item_csv.run(input_options[0], input_options[1]))
+    # elif input_method == 'import-item-file':
+    #     print(import_item_csv.run(input_options))
     # elif input_method == 'active_users':
     #     print(active_users.run(conn, input_options))
     # elif input_method == 'context':
