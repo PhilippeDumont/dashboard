@@ -107,7 +107,7 @@ export default {
             }
         },
         importDatas() {
-            sendRequest('api-python', 'import_item_file', this.projectName, 'D:\\Maxence\\Private\\SML\\Data_format\\3-item_data.csv').then((arg) => {
+            sendRequest('api-python', 'import_item_file', [this.projectName, this.pathItems]).then((arg) => {
                 console.log(arg);
                 
                 this.resetForm();

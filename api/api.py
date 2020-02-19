@@ -35,21 +35,8 @@ print("options: ", input_options)
 
 
 list_of_function = [
-    'demo',
     'init_db',
-    'activity_by_month',
-    'active_users',
-    'context',
-    'list_activity_type',
-    'list_item_type',
-    'in_out_degree',
-    'rush_time_mean',
-    'rush_time',
-    'user_month_stat',
-    'user_stat',
-    'import_activity_file',
-    'import_item_file',
-    'activities'
+    'import_item_file'
 ]
 
 
@@ -58,34 +45,6 @@ try:
         print(init_database_activities_items.run(input_options))
     elif input_method == 'import_item_file':
         print(import_item_csv.run(input_options[0], input_options[1]))
-    # elif input_method == 'import-item-file':
-    #     print(import_item_csv.run(input_options))
-    # elif input_method == 'active_users':
-    #     print(active_users.run(conn, input_options))
-    # elif input_method == 'context':
-    #     print(active_users.run(conn, input_options))
-    # elif input_method == 'list_activity_type':
-    #     print(active_users.run(conn, input_options))
-    # elif input_method == 'list_item_type':
-    #     print(active_users.run(conn, input_options))
-    # elif input_method == 'in_out_degree':
-    #     print(active_users.run(conn, input_options))
-    # elif input_method == 'rush_time_mean':
-    #     print(active_users.run(conn, input_options))
-    # elif input_method == 'rush_time_mean':
-    #     print(active_users.run(conn, input_options))
-    # elif input_method == 'rush_time':
-    #     print(active_users.run(conn, input_options))
-    # elif input_method == 'user_month_stat':
-    #     print(active_users.run(conn, input_options))
-    # elif input_method == 'user_stat':
-    #     print(active_users.run(conn, input_options))
-    # elif input_method == 'import_activity_file':
-    #     print(import_activity_file.run(conn, input_options))
-    # elif input_method == 'import_item_file':
-    #     print(import_item_file.run(conn, input_options))
-    # elif input_method == 'activity':
-    #     print(activity.read(conn, input_options))
     else:
         print('The function ' + input_method + ' doesn\'t exist. The list of functions is: \n' + '\n'.join(list_of_function) )
 except IndexError as e:
@@ -93,43 +52,20 @@ except IndexError as e:
     sys.exit()
 
 
-
-# try:
-#     if input_method == 'demo':
-#         print(demo.run(input_options))
-#     elif input_method == 'init_db':
-#         print(init_db.run(conn, input_options))
-#     elif input_method == 'activity_by_month':
-#         print(active_users.run(conn, input_options))
-#     elif input_method == 'active_users':
-#         print(active_users.run(conn, input_options))
-#     elif input_method == 'context':
-#         print(active_users.run(conn, input_options))
-#     elif input_method == 'list_activity_type':
-#         print(active_users.run(conn, input_options))
-#     elif input_method == 'list_item_type':
-#         print(active_users.run(conn, input_options))
-#     elif input_method == 'in_out_degree':
-#         print(active_users.run(conn, input_options))
-#     elif input_method == 'rush_time_mean':
-#         print(active_users.run(conn, input_options))
-#     elif input_method == 'rush_time_mean':
-#         print(active_users.run(conn, input_options))
-#     elif input_method == 'rush_time':
-#         print(active_users.run(conn, input_options))
-#     elif input_method == 'user_month_stat':
-#         print(active_users.run(conn, input_options))
-#     elif input_method == 'user_stat':
-#         print(active_users.run(conn, input_options))
-#     elif input_method == 'import_activity_file':
-#         print(import_activity_file.run(conn, input_options))
-#     elif input_method == 'import_item_file':
-#         print(import_item_file.run(conn, input_options))
-#     elif input_method == 'activity':
-#         print(activity.read(conn, input_options))
-#     else:
-#         print('The function ' + input_method + ' doesn\'t exist. The list of functions is: \n' + '\n'.join(list_of_function) )
-# except IndexError as e:
-#     print('Add argument in the command line')
-#     sys.exit()
-
+# list_of_function = [
+#     'demo',
+#     'init_db',
+#     'activity_by_month',
+#     'active_users',
+#     'context',
+#     'list_activity_type',
+#     'list_item_type',
+#     'in_out_degree',
+#     'rush_time_mean',
+#     'rush_time',
+#     'user_month_stat',
+#     'user_stat',
+#     'import_activity_file',
+#     'import_item_file',
+#     'activities'
+# ]
