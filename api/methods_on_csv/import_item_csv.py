@@ -11,7 +11,7 @@ from typing import List
 
 def run(project_name, path):
     try:
-        conn = sqlite3.connect("../database_files/act_it_db/" + project_name + ".db")
+        conn = sqlite3.connect("api/database_files/act_it_db/" + project_name + ".db")
         _import_item_file(conn, path)
         conn.commit()
     except Exception as err:
@@ -35,4 +35,5 @@ def _open_csv_file(cursor, path):
                 activity_item_import.save_item_in_db(cursor, row)
         except Exception as exception:
             logging.error(exception)
+
 

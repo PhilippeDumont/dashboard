@@ -2,7 +2,7 @@ import logging
 import sqlite3
 import unittest
 from import_in_database import create_project
-project_name = "WALLAH"
+project_name = "ProjectTestSubject"
 
 
 class TestFillProjectDatabase(unittest.TestCase):
