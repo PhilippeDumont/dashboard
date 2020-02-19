@@ -1,28 +1,27 @@
 import sqlite3
 import logging
 import os
-from database import reset_database_projects
 
 TABLES = {
     'projects': (
     "CREATE TABLE IF NOT EXISTS `projects` ("
     "  `id` INTEGER PRIMARY KEY AUTOINCREMENT,"
     "  `name` varchar(200) NOT NULL,"
-    "  `creationDate` datetime NOT NULL,"
-    "  `lastOpeningDate` datetime NOT NULL,"
-    "  `nbAct` INTEGER NULL,"
-    "  `nbItem` INTEGER NULL"
+    "  `creation_date` datetime NOT NULL,"
+    "  `last_opening_date` datetime NOT NULL,"
+    "  `nb_activities` INTEGER NOT NULL,"
+    "  `nb_items` INTEGER NOT NULL"
     ");")
     }
 
 
 def run():
     try:
-        if not os.path.exists("../database_files/project_db"):
-            os.makedirs("../database_files/project_db")
+        if not os.path.exists("api/database_files/project_db"):
+            os.makedirs("api/database_files/project_db")
     except Exception as err:
         logging.error(err)
-    conn = sqlite3.connect("../database_files/project_db/all_project.db")
+    conn = sqlite3.connect("api/database_files/project_db/all_project.db")
     _init_database(conn)
     conn.commit()
     return 'The DB was created'
