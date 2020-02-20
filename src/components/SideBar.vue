@@ -18,7 +18,7 @@
                 </router-link>
 
                 <!-- LEVEL1 -->
-                <router-link to="/Level1" tag="button" v-bind:disabled="isDisabled" v-bind:class="{disabled: isDisabled}" v-on="on">
+                <router-link to="/Level1" tag="button" v-bind:class="{disabled: isDisabled}">
                 <li class="item">   
                     <!-- CHART ICON -->             
                     <svg viewBox="0 0 24 24">
@@ -30,7 +30,7 @@
                 </router-link>
 
                 <!-- LEVEL2 -->
-                <router-link to="/Level2" tag="button" v-bind:disabled="isDisabled" v-bind:class="{disabled: isDisabled}">
+                <router-link to="/Level2" tag="button" v-bind:class="{disabled: isDisabled}">
                 <li class="item">
                     <!-- CUBE ICON -->
                     <svg viewBox="0 0 24 24">
@@ -43,7 +43,7 @@
                 </router-link>
 
                 <!-- LEVEL3 -->
-                <router-link to="/Level3" tag="button" v:bind:style="[isDisabled ? {disabled} : ''" v-bind:disabled="isDisabled" v-bind:class="{disabled: isDisabled}">
+                <router-link to="/Level3" tag="button" v:bind:style="[isDisabled ? {disabled} : ''" v-bind:class="{disabled: isDisabled}">
                 <li class="item">
                     <!-- USER ICON -->
                     <svg viewBox="0 0 24 24">
@@ -56,7 +56,7 @@
                 </router-link>
 
                 <!-- LEVEL4 -->
-                <router-link to="/Level4" tag="button" v-bind:disabled="isDisabled" v-bind:class="{disabled: isDisabled}">
+                <router-link to="/Level4" tag="button" v-bind:class="{disabled: isDisabled}">
                 <li class="item">
                     <!-- QUESTIONMARK ICON -->
                     <svg viewBox="0 0 24 24">
