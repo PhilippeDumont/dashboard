@@ -9,21 +9,16 @@
         <v-form ref="form">
             <v-row>
                 <v-col cols="6">
-                    <v-text-field label="Name Project" v-model="projectName"
-                        :rules="rules" 
-                        required></v-text-field>
+                    <v-text-field label="Name Project" v-model="projectName" :rules="rules" required></v-text-field>
                 </v-col>
             </v-row>
 
             <v-row align="center" class="row-select">
                 <span>What kind of plateform do you use ?</span>
                 <span>
-                    <v-select label="Plateform" v-model="plateform" :items="items" 
-                        :rules="[v => !!v || 'Item is required']"
-                        outlined
-                        dense
-                        hide-details="auto"
-                        required></v-select>
+                    <v-select label="Plateform" v-model="plateform" :items="items"
+                        :rules="[v => !!v || 'Item is required']" outlined dense hide-details="auto" required>
+                    </v-select>
                 </span>
             </v-row>
 
@@ -51,8 +46,7 @@
 
             <v-row>
                 <v-col>
-                    <v-btn color="blue-grey" class="ma-2 white--text" width="250"
-                        @click="initDB()"
+                    <v-btn color="blue-grey" class="ma-2 white--text" width="250" @click="initDB()"
                         :disabled="!isPathItems || !isPathActivities">
                         Create
                     </v-btn>
@@ -67,6 +61,7 @@
 
 <script>
 import { sendRequest } from '@/utils.js';
+
 export default {
     name: 'Create',
     components: {
@@ -76,7 +71,7 @@ export default {
         projectName: '',
         rules: [
             value => !!value || 'Required.',
-            value => (value && value.length >= 1) || 'Min 3 characters',
+            value => (value && value.length >= 3) || 'Min 3 characters',
             value => (value && value.length <= 40) || 'Max 40 characters'
         ],
         plateform: null,
@@ -86,7 +81,6 @@ export default {
         pathActivities: null,
         isPathActivities: null,
         isProjectCreated: false,
-        mydata: []
     }),
     methods: {
         resetForm() {
@@ -109,10 +103,11 @@ export default {
             }
         },
         importDatas() {
+            // replace '\' in path by '/'
             this.pathItems = this.pathItems.replace(/\\/g, '/');      
+            // import items and then activites
             sendRequest('api-python', 'import_item_file', [this.projectName, this.pathItems]).then((arg) => {
                 console.log("Frontend-arg: "+arg);
-                
                 sendRequest('api-python', 'import_activity_file', [this.projectName, this.pathActivities]).then((arg) => {
                     console.log("arg-activities "+arg);
                 }).catch((e) => {
@@ -126,7 +121,7 @@ export default {
             });
         },
         getPathItemsFile() {
-            sendRequest('import-path').then((arg) =>{
+            sendRequest('open-dialog').then((arg) =>{
                 if (arg) {
                     this.pathItems = arg;
                     this.isPathItems = true;
@@ -140,7 +135,7 @@ export default {
             });
         },
         getPathActivitiesFile() {
-            sendRequest('import-path').then((arg) =>{
+            sendRequest('open-dialog').then((arg) =>{
                 if (arg) {
                     this.pathActivities = arg;
                     this.isPathActivities = true;
@@ -163,7 +158,7 @@ span {
 }
 
 .row-select {
-    height: 100px;
+    height: 94px;
 }
 
 .custom-loader {

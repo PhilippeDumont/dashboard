@@ -8,9 +8,14 @@
 
         <v-row>
             <v-col v-for="project in projects" v-bind:key="project">
-                <v-card class="card" width="150" height="250">
+                <v-card class="card" width="150" height="300">
                     <v-img :src="require('../../assets/graph.svg')" height="150" width="150"></v-img>
                     <v-card-text>{{project}}</v-card-text>
+                    <!-- <v-card-action>
+                        <v-btn>
+                            <v-icon>system-update-alt</v-icon>
+                        </v-btn>
+                    </v-card-action> -->
                 </v-card>
             </v-col>
         </v-row>
@@ -18,12 +23,8 @@
 </template>
 
 <script>
-
 export default {
   name: 'Open',
-  components: {
-    
-  },
   data: () => ({
       projects: ['Projet Slack 2018, un texte un peu trop long', 'Projet Elium 2019', 'Project 2', 'Project'],
       cards: [

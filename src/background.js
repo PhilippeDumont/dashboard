@@ -100,15 +100,25 @@ if (isDevelopment) {
  * requestName: 'api-python'
  * args: [functionName, {functionArg}]
  * The list of function name is listed in the python API
+ * ***********************************************************
+ * List of requests present in the API :
+ * -------------------------------------------------------------------------------------------------------------------
+ * | Function name        | Description                            | Function args model                             |
+ * |-----------------------------------------------------------------------------------------------------------------|
+ * | init_db              | Allow to create a database with the    | init_db, project_name                           |
+ * |                      | name of the project                    |                                                 |
+ * |-----------------------------------------------------------------------------------------------------------------|
+ * | import_item_file     | Allow to load items by a file with a   | import_item_file, [project_name, file_path]     |
+ * |                      | CSV format in the specified project    |                                                 |
+ * |-----------------------------------------------------------------------------------------------------------------|
+ * | import_activity_file | Allow to load activities by a file     | import_activity_file, [project_name, file_path] |
+ * |                      | with a CSV format in the specified     |                                                 |
+ * |                      | project                                |                                                 |
+ * -------------------------------------------------------------------------------------------------------------------
+ * 
  *************************************************************/
-
 ipcMain.on('api-python', (event, args) => {
   console.log("ipc-api-python: " + args);
-  // var python = require('child_process').spawn('python', ['api/']);
-  //   python.stdout.on('data', function (data) {
-  //       console.log("data: ", data.toString('utf8'));
-  //   });
-
   pythonProcess(args).then((value) => {
      event.reply('api-python-reply', value)
    }).catch((e) => {
@@ -125,11 +135,10 @@ ipcMain.on('api-python', (event, args) => {
  * args: None
  *************************************************************/
 
-//get path
-ipcMain.on('import-path', (event) => {
+ipcMain.on('open-dialog', (event) => {
   dialog.showOpenDialog({properties: [ 'openFile', 'multiSelections' ]}).then((e) => {
     let path = e.filePaths[0];
-    event.reply('import-path-reply', path);
+    event.reply('open-dialog-reply', path);
   }).catch((e) => {
     console.log(e)
   })

@@ -7,20 +7,15 @@
 </template>
 
 <script>
-    import SideBar from '@/components/SideBar';
-    import SelectProject from '@/components/SelectProject';
-    export default {
-      name: 'App',
-
-      components: {
+import SideBar from '@/components/SideBar';
+import SelectProject from '@/components/SelectProject';
+export default {
+    name: 'App',
+    components: {
         SideBar,
         SelectProject,
-      },
-
-      data: () => ({
-        //
-      }),
-    };
+    }
+};
 </script>
 
 <style>

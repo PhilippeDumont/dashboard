@@ -13,15 +13,7 @@ const PY_DIST_FOLDER = 'api/dist'
 const PY_FOLDER = 'api'
 const PY_MODULE = 'api' // without .py suffix
 
-// const guessPackaged = () => {
-//   const fullPath = path.join(__dirname, PY_DIST_FOLDER)
-//   return require('fs').existsSync(fullPath)
-// }
-
 const getScriptPath = () => {
-  // if (!guessPackaged()) {
-  //   return path.join(__dirname, PY_FOLDER, PY_MODULE + '.py')
-  // }
   if (process.platform === 'win32') {
     return path.join(__dirname, PY_FOLDER, PY_MODULE + '.exe')
   }
