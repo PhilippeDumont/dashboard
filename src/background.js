@@ -2,6 +2,7 @@
 
 import { app, protocol, BrowserWindow , ipcMain, dialog } from 'electron'
 import { pythonProcess } from './pythonProcess.js'
+import { pathToStandardFormat } from './utils.js'
 import {
   createProtocol,
   /* installVueDevtools */
@@ -115,6 +116,7 @@ if (isDevelopment) {
  * |                      | with a CSV format in the specified     |                                                 |
  * |                      | project                                |                                                 |
  * -------------------------------------------------------------------------------------------------------------------
+ * | get_projects          |
  * 
  *************************************************************/
 ipcMain.on('api-python', (event, args) => {
@@ -137,8 +139,8 @@ ipcMain.on('api-python', (event, args) => {
 
 ipcMain.on('open-dialog', (event) => {
   dialog.showOpenDialog({properties: [ 'openFile', 'multiSelections' ]}).then((e) => {
-    let path = e.filePaths[0];
-    event.reply('open-dialog-reply', path);
+    let path = e.filePaths[0]
+    event.reply('open-dialog-reply', pathToStandardFormat(path))
   }).catch((e) => {
     console.log(e)
   })

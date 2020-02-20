@@ -9,11 +9,24 @@
 <script>
 import SideBar from '@/components/SideBar';
 import SelectProject from '@/components/SelectProject';
+import { sendRequest } from '@/utils.js';
+
 export default {
     name: 'App',
+    data: () => ({
+        projectsList: null
+    }),
     components: {
         SideBar,
         SelectProject,
+    },
+    created() {
+        sendRequest('api-python', 'get_projects').then((arg) => {
+            console.log("get_projects: "+arg);
+                // this.projectsList = arg;
+        }).catch((e) => {
+            console.log(e);
+        });
     }
 };
 </script>

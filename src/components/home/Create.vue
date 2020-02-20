@@ -37,6 +37,7 @@
                         Import ITEMS file
                     </v-btn>
                     <!--ICONS TO SHOW IF DATA FILE CHOOSEN OR NOT-->
+                    <span v-if="isPathItems">{{ itemsFile }}</span>
                     <v-icon v-if="isPathItems" color="green">mdi-checkbox-marked-circle</v-icon>
                     <v-icon v-if="!isPathItems" color="red">mdi-close-circle</v-icon>
                 </v-col>
@@ -50,6 +51,7 @@
                         Import ACTIVITIES file
                     </v-btn>
                     <!--ICONS TO SHOW IF DATA FILE CHOOSEN OR NOT-->
+                    <span v-if="isPathActivities">{{ activitiesFile }}</span>
                     <v-icon v-if="isPathActivities" color="green">mdi-checkbox-marked-circle</v-icon>
                     <v-icon v-if="!isPathActivities" color="red">mdi-close-circle</v-icon>
                 </v-col>
@@ -68,13 +70,21 @@
                     <v-icon v-if="!isProjectCreated" color="red">mdi-close-circle</v-icon>
                 </v-col>
             </v-row>
+
         </v-form>
+
+        <v-snackbar v-model="isProjectCreated">
+            Project created with success !
+            <v-btn color="pink" text @click="isProjectCreated = false">
+                Close
+            </v-btn>
+        </v-snackbar>
 
     </v-container>
 </template>
 
 <script>
-import { sendRequest } from '@/utils.js';
+import { sendRequest, getFileNameOfPath } from '@/utils.js';
 
 export default {
     name: 'Create',
@@ -96,10 +106,14 @@ export default {
         items: ['Default', 'Edx', 'Slack'],
         //path of the items data file
         pathItems: null,
+        //name of the items data file
+        itemsFile: null,
         //boolean to know if there is a path for items
         isPathItems: null,
         //path of the activities data file
         pathActivities: null,
+        //name of the activities data file
+        activitiesFile: null,
         //boolean to know if there is a path for activities
         isPathActivities: null,
         //boolean to know if project is created
@@ -131,7 +145,7 @@ export default {
         //import the datas in the database
         importDatas() {
             // replace '\' in path by '/'
-            this.pathItems = this.pathItems.replace(/\\/g, '/');      
+            //this.pathItems = this.pathItems.replace(/\\/g, '/'); 
             // import items and then activites
             sendRequest('api-python', 'import_item_file', [this.projectName, this.pathItems]).then((arg) => {
                 console.log("Frontend-arg: "+arg);
@@ -152,11 +166,8 @@ export default {
             sendRequest('open-dialog').then((arg) =>{
                 if (arg) {
                     this.pathItems = arg;
+                    this.itemsFile = getFileNameOfPath(this.pathItems);
                     this.isPathItems = true;
-                }
-                else {
-                    this.pathItems = null;
-                    this.isPathItems = false;
                 }
             }).catch((e) => {
                 console.log(e);
@@ -167,11 +178,8 @@ export default {
             sendRequest('open-dialog').then((arg) =>{
                 if (arg) {
                     this.pathActivities = arg;
+                    this.activitiesFile = getFileNameOfPath(this.pathActivities);
                     this.isPathActivities = true;
-                }
-                else {
-                    this.pathActivities = null;
-                    this.isPathActivities = false;
                 }
             }).catch((e) => {
                 console.log(e);
