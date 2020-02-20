@@ -4,18 +4,19 @@ Import an activity CSV file in the DB
 import logging
 import csv
 import sqlite3
-
 from import_in_database import activity_item_import
+from methods_on_database import get_project_id_with_name
 from typing import List
 
 
 def run(project_name, path):
     try:
-        conn = sqlite3.connect("api/database_files/act_it_db/" + project_name + ".db")
+        project_id = get_project_id_with_name.run(project_name)
+        conn = sqlite3.connect("api/database_files/act_it_db/" + str(project_id) + ".db")
         _import_activity_file(conn, path)
         conn.commit()
     except Exception as err:
-        logging.error("Can't add data to an uncreated project")
+        logging.error(err)
 
 
 def _import_activity_file(conn, path):

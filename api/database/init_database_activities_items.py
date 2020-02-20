@@ -1,6 +1,7 @@
 import sqlite3
 import logging
 import os
+from methods_on_database import get_project_id_with_name
 
 TABLES = {
     'items': (
@@ -36,14 +37,14 @@ TABLES = {
     }
 
 
-
 def run(project_name):
     try:
         if not os.path.exists("api/database_files/act_it_db"):
             os.makedirs("api/database_files/act_it_db")
     except Exception as err:
         logging.error(err)
-    conn = sqlite3.connect("api/database_files/act_it_db/" + project_name + ".db")
+    project_id = get_project_id_with_name.run(project_name)
+    conn = sqlite3.connect("api/database_files/act_it_db/" + str(project_id) + ".db")
     _init_database(conn)
     conn.commit()
     return 'The DB was created'
