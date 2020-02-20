@@ -18,14 +18,14 @@
                 </router-link>
 
                 <!-- LEVEL1 -->
-                <router-link to="/Level1" tag="button" v-bind:disabled="isDisabled" v-bind:class="{disabled: isDisabled}">
+                <router-link to="/Level1" tag="button" v-bind:disabled="isDisabled" v-bind:class="{disabled: isDisabled}" v-on="on">
                 <li class="item">   
                     <!-- CHART ICON -->             
                     <svg viewBox="0 0 24 24">
                         <path fill="currentColor" d="M3,22V8H7V22H3M10,22V2H14V22H10M17,22V14H21V22H17Z" />
                     </svg>
                     <br />
-                    Level 1                 
+                    Level 1
                 </li>
                 </router-link>
 
