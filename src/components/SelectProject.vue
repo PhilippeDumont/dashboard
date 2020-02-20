@@ -7,13 +7,13 @@
        <v-expansion-panel-content>
            <v-row>
             <!-- Project Item -->
-             <v-col md="12"  v-for="(project,index) in projects" :key="index">
+             <v-col cols="12"  v-for="(project,index) in projects" :key="index">
                  <v-row>
-                   <v-col md="8">
-                     <span>{{project.title}}</span>
+                   <v-col cols="8">
+                     <span>{{project.name}}</span>
                    </v-col>
-                   <v-col md="4">
-                     <v-btn text icon>
+                   <v-col cols="4">
+                     <v-btn text icon @click="open_project(project.name)">
                        <v-icon>mdi-open-in-app</v-icon>
                      </v-btn>
                    </v-col>
@@ -35,13 +35,16 @@
             // MOCK FOR PROJECTS
             return {
                 projects : [
-                    { title : "Project 1" },
-                    { title : "Project 2" },
-                    { title : "Project 3" }
+                    { name : "Project 1" },
+                    { name : "Project 2" },
+                    { name : "Project 3" }
                 ] 
             }
         },
         methods:{
+          open_project(project_name) {
+            alert(project_name)
+          }
         }
     }
 </script>
