@@ -125,54 +125,6 @@ ipcMain.on('api-python', (event, args) => {
  * args: None
  *************************************************************/
 
-// ipcMain.on('open-json-file', (event, args) => {
-//   dialog.showOpenDialog({ properties: [ 'openFile', 'multiSelections' ]}).then((e) => {
-//     readFileInJson(e.filePaths[0]).then((data) => {
-//       console.log(data)
-//       event.reply('open-json-file-reply', data )
-//     }).catch()
-//   }).catch((e) => {
-//     console.log(e)
-//   })
-// })
-
-
-ipcMain.on('import-activity-file', (event, args) => {
-  console.log("ipc-import-activity: " + args);
-  dialog.showOpenDialog({ properties: [ 'openFile', 'multiSelections' ]}).then((e) => {
-    let path = e.filePaths[0]
-    let args = ['import_activity_file', path]
-
-    pythonProcess(args).then((value) => {
-      event.reply('import-activity-file-reply', value)
-    }).catch((e) => {
-      console.log('Error in python file')
-      console.log(e)
-    })
-  }).catch((e) => {
-    console.log(e)
-  })
-})
-
-
-ipcMain.on('import-item-file', (event, args) => {
-  console.log("ipc-import-item: " + args);
-  dialog.showOpenDialog({ properties: [ 'openFile', 'multiSelections' ]}).then((e) => {
-    let path = e.filePaths[0];
-    let args = ['import_item_file', path];
-
-    pythonProcess(args).then((value) => {
-      event.reply('import-item-file', value);
-      console.log("ipc: " + value);
-    }).catch((e) => {
-      console.log('Error in python file')
-      console.log(e)
-    })
-  }).catch((e) => {
-    console.log(e)
-  })
-})
-
 //get path
 ipcMain.on('import-path', (event) => {
   dialog.showOpenDialog({properties: [ 'openFile', 'multiSelections' ]}).then((e) => {

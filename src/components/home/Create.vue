@@ -52,7 +52,8 @@
             <v-row>
                 <v-col>
                     <v-btn color="blue-grey" class="ma-2 white--text" width="250"
-                        @click="initDB()">
+                        @click="initDB()"
+                        :disabled="!isPathItems || !isPathActivities">
                         Create
                     </v-btn>
                     <v-icon v-if="isProjectCreated" color="green">mdi-checkbox-marked-circle</v-icon>
@@ -75,7 +76,7 @@ export default {
         projectName: '',
         rules: [
             value => !!value || 'Required.',
-            value => (value && value.length >= 3) || 'Min 3 characters',
+            value => (value && value.length >= 1) || 'Min 3 characters',
             value => (value && value.length <= 40) || 'Max 40 characters'
         ],
         plateform: null,
@@ -90,6 +91,8 @@ export default {
     methods: {
         resetForm() {
             this.$refs.form.reset();
+            this.isPathItems = false;
+            this.isPathActivities = false;
         },
         isFormValid() {
             return this.$refs.form.validate() && this.isPathItems && this.isPathActivities;
@@ -100,16 +103,23 @@ export default {
                 sendRequest('api-python', 'init_db', this.projectName).then((arg) => {
                     console.log(arg);
                     this.importDatas();
-                    this.isProjectCreated = true;
                 }).catch((e) => {
                     console.log(e);
                 })
             }
         },
         importDatas() {
+            this.pathItems = this.pathItems.replace(/\\/g, '/');      
             sendRequest('api-python', 'import_item_file', [this.projectName, this.pathItems]).then((arg) => {
-                console.log(arg);
+                console.log("Frontend-arg: "+arg);
                 
+                sendRequest('api-python', 'import_activity_file', [this.projectName, this.pathActivities]).then((arg) => {
+                    console.log("arg-activities "+arg);
+                }).catch((e) => {
+                    console.log(e);
+                })
+
+                this.isProjectCreated = true;
                 this.resetForm();
             }).catch((e) => {
                 console.log(e);
