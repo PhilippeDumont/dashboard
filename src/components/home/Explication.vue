@@ -1,5 +1,7 @@
 <template>
     <v-container>
+
+        <!--EXPLANATION TO USE THE APP-->
         <v-row>
             <v-col>
                 <h1 class="title">Explication</h1>

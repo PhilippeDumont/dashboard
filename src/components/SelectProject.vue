@@ -1,4 +1,8 @@
 <template>
+
+<!--DROPDOWN WITH ALL THE PROJECT-->
+<!--PROJECT OPEN IS SHOWN-->
+
 <v-row justify="center">
  <div id="selector_projects">
     <v-expansion-panels>
@@ -67,6 +71,7 @@ li a {
 #selector_projects{
   width: 200px;
   position: fixed;
+  /*TO BE BEFORE EVERYTHING*/
   z-index: 1000;
   top: 3px;
 }
