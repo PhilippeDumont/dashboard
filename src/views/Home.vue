@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <!--IMPORT ALL COMPONENTS-->
     <v-container fluid>
       <v-row>
 
