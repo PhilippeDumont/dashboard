@@ -11,10 +11,22 @@ import { ipcRenderer }  from 'electron'
  *************************************************************/
 export async function sendRequest(requestName, ...args) {
     return new Promise((resolve) => {
-        ipcRenderer.send(requestName, args)
-        ipcRenderer.once(requestName + '-reply', (event, arg) => {
-            resolve(arg);
-        })
+        console.log("REQUEST NAME :"+requestName+"ARGS :"+args)
+        try {
+            ipcRenderer.send(requestName, args)
+        } catch(e) {
+            console.log("IPC RENDERER SEND ERROR: "+e)
+        }
+
+        try {
+            ipcRenderer.once(requestName + '-reply', (event, arg) => {
+                resolve(arg);
+            })
+        } catch(e) {
+            console.log("IPC RENDERER ONCE ERROR: "+e)
+        }
+        
+        
 
     })
 }

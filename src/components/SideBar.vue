@@ -89,6 +89,10 @@
 
 <style scoped>
 
+    .sideBar button {
+        cursor: pointer;
+    }
+
     .sideBar button:hover{
         border-left: solid 5px rgba(138, 43, 226, 1);
         transition: border-left 150ms ease-out;
@@ -106,7 +110,6 @@
     .disabled {
         opacity: 0.5;
     }
-
 
     .sideBar {
         background-color: #013F52;
@@ -135,8 +138,6 @@
         width: 50px;
         height: 50px;
     }
-
-    
 
     .v-application button  {
         color: rgba(255, 255, 255, 1);

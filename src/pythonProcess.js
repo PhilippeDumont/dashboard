@@ -18,14 +18,24 @@ const PY_MODULE = 'api' // without .py suffix
 //   return require('fs').existsSync(fullPath)
 // }
 
+const fs = require('fs');
+const { Console } = require('console');
+const output = fs.createWriteStream('./stdout.log');
+const errorOutput = fs.createWriteStream('./stderr.log');
+// Custom simple logger
+const logger = new Console({ stdout: output, stderr: errorOutput });
+
 const getScriptPath = () => {
   // if (!guessPackaged()) {
   //   return path.join(__dirname, PY_FOLDER, PY_MODULE + '.py')
   // }
   if (process.platform === 'win32') {
-    return path.join(__dirname, PY_FOLDER, PY_MODULE + '.exe')
+    let api_path = path.join(__dirname, PY_FOLDER, PY_MODULE + '.exe').replace("\\win-unpacked\\resources\\app.asar", "");
+    logger.log("PATH WIN 32 : "+api_path)
+    return api_path
   }
-  return path.join(__dirname, PY_DIST_FOLDER, PY_MODULE, PY_MODULE)
+  
+  return path.join(__dirname, PY_DIST_FOLDER, PY_MODULE, PY_MODULE) 
 }
 
 
@@ -36,7 +46,7 @@ const getScriptPath = () => {
  *  args: ['name_of_method', 'arguments_method']
  *************************************************************/
 export async function pythonProcess(args) {
-  console.log(getScriptPath())
+  console.log("PATH API :"+getScriptPath())
   console.log("pythonProcess: " + args)
   const { stdout } = await execFile(getScriptPath(), args)
   return stdout

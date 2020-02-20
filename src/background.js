@@ -91,6 +91,7 @@ if (isDevelopment) {
 
 
 
+// In stdout.log: count 5
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
@@ -108,6 +109,7 @@ ipcMain.on('api-python', (event, args) => {
   //   python.stdout.on('data', function (data) {
   //       console.log("data: ", data.toString('utf8'));
   //   });
+  
 
   pythonProcess(args).then((value) => {
      event.reply('api-python-reply', value)
@@ -130,6 +132,7 @@ ipcMain.on('import-path', (event) => {
   dialog.showOpenDialog({properties: [ 'openFile', 'multiSelections' ]}).then((e) => {
     let path = e.filePaths[0];
     event.reply('import-path-reply', path);
+    console.log("IPC MAIN PATH"+path)
   }).catch((e) => {
     console.log(e)
   })

@@ -104,6 +104,7 @@ export default {
                     console.log(arg);
                     this.importDatas();
                 }).catch((e) => {
+                    console.log("ERROR INIT DB")
                     console.log(e);
                 })
             }
@@ -150,7 +151,7 @@ export default {
                     this.isPathActivities = false;
                 }
             }).catch((e) => {
-                console.log(e);
+                console.log(e)
             });
         }
     }
