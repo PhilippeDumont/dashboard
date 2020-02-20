@@ -8,12 +8,11 @@ import sqlite3
 from import_in_database import activity_item_import
 from typing import List
 
-from methods_on_database import get_project_id_with_name
+from methods_on_project_database import get_project_id_with_name
 
 
-def run(project_name, path):
+def run(project_id, path):
     try:
-        project_id = get_project_id_with_name.run(project_name)
         conn = sqlite3.connect("api/database_files/act_it_db/" + str(project_id) + ".db")
         _import_item_file(conn, path)
         conn.commit()

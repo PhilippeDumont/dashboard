@@ -1,7 +1,7 @@
 import sqlite3
 import logging
 import os
-from methods_on_database import get_project_id_with_name
+from methods_on_project_database import get_project_id_with_name
 
 TABLES = {
     'items': (
@@ -47,7 +47,7 @@ def run(project_name):
     conn = sqlite3.connect("api/database_files/act_it_db/" + str(project_id) + ".db")
     _init_database(conn)
     conn.commit()
-    return 'The DB was created'
+    return project_id
 
 
 

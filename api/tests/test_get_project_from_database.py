@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import unittest
 from model.project_model import Project
-from methods_on_database import get_projects
-from methods_on_database import get_project_id_with_name
+from methods_on_project_database import get_projects
+from methods_on_project_database import get_project_id_with_name
 unittest.TestLoader.sortTestMethodsUsing = None
 
 
