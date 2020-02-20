@@ -1,8 +1,7 @@
 <template>
-    <v-container>
         <div class="sideBar">
             <ul>
-                <router-link to="/Home">
+                <router-link to="/Home" tag="button">
                 <li class="item">           
                     <svg viewBox="0 0 24 24">
                         <path fill="currentColor" d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z" />
@@ -12,7 +11,7 @@
                 </li>
                 </router-link>
 
-                <router-link to="/Level1">
+                <router-link to="/Level1" tag="button" v-bind:disabled="isDisabled" v-bind:class="{disabled: isDisabled}">
                 <li class="item">                
                     <svg viewBox="0 0 24 24">
                         <path fill="currentColor" d="M3,22V8H7V22H3M10,22V2H14V22H10M17,22V14H21V22H17Z" />
@@ -22,7 +21,7 @@
                 </li>
                 </router-link>
 
-                <router-link to="/Level2">
+                <router-link to="/Level2" tag="button" v-bind:disabled="isDisabled" v-bind:class="{disabled: isDisabled}">
                 <li class="item">
 
                     <svg viewBox="0 0 24 24">
@@ -34,7 +33,7 @@
                 </li>
                 </router-link>
 
-                <router-link to="/Level3">
+                <router-link to="/Level3" tag="button" v:bind:style="[isDisabled ? {disabled} : ''" v-bind:disabled="isDisabled" v-bind:class="{disabled: isDisabled}">
                 <li class="item">
                     <svg viewBox="0 0 24 24">
                         <path fill="currentColor"
@@ -45,7 +44,7 @@
                 </li>
                 </router-link>
 
-                <router-link to="/Level4">
+                <router-link to="/Level4" tag="button" v-bind:disabled="isDisabled" v-bind:class="{disabled: isDisabled}">
                 <li class="item">
                     <svg viewBox="0 0 24 24">
                         <path fill="currentColor"
@@ -56,17 +55,8 @@
                 </li>
                 </router-link>
 
-                <router-link to="/Edit">
-                <li id="edit" class="item">
-                    <svg viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                            d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
-                    </svg>
-                    <br />
-                    Edit            
-                </li>
-                </router-link>
-                <router-link to="/Settings">
+
+                <router-link to="/Settings" tag="button">
                 <li class="item">
                     <svg viewBox="0 0 24 24">
                         <path fill="currentColor"
@@ -78,16 +68,20 @@
                 </router-link>
             </ul>
         </div>
-    </v-container>
 </template>
 
 
 <script>
     export default {
         data() {
-            return {}
+            return {
+                isDisabled: true,
+            }
         },
         methods:{
+            test(event) {
+                alert(event);
+            }
         }
     }
 </script>
@@ -95,15 +89,24 @@
 
 <style scoped>
 
-    .item:hover{
-        border-left: solid 5px rgba(138, 43, 226, 1) !important;
+    .sideBar button:hover{
+        border-left: solid 5px rgba(138, 43, 226, 1);
         transition: border-left 150ms ease-out;
     }
 
-    .item:active {
+    .sideBar button:active {
         box-shadow: 6px 6px 18px 2px rgba(0, 0, 0, 0.23);
         transform: scale(0.95);
     }
+
+    .router-link-active  {
+        border-left: solid 5px rgba(138, 43, 226, 1) !important;
+    }
+
+    .disabled {
+        opacity: 0.5;
+    }
+
 
     .sideBar {
         background-color: #013F52;
@@ -133,14 +136,14 @@
         height: 50px;
     }
 
-    .router-link-active li{
-        border-left: solid 5px rgba(138, 43, 226, 1) !important;
-    }
+    
 
-    .v-application a  {
+    .v-application button  {
         color: rgba(255, 255, 255, 1);
         text-decoration: none;
         font-size: 13px;
+        display: block;
+        outline:none;
      }
 
     ::-webkit-scrollbar {
