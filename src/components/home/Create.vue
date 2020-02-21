@@ -127,12 +127,19 @@ export default {
                 console.log(this.projectName);
                 sendRequest('api-python', 'init_db', this.projectName).then((arg) => {
                     console.log(arg);
+                    this.create_project();
                     this.importDatas();
                 }).catch((e) => {
-                    console.log("ERROR INIT DB")
                     console.log(e);
                 })
             }
+        },
+        create_project() {
+            sendRequest('api-python', 'create_new_project', this.projectName).then((arg) => {
+                    console.log(arg);
+            }).catch((e) => {
+                    console.log(e);
+            })
         },
         //import the datas in the database
         importDatas() {

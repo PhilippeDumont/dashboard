@@ -19,6 +19,7 @@ from database import init_database_project
 from database import init_database_activities_items
 from methods_on_csv import import_activity_csv
 from methods_on_csv import import_item_csv
+from import_in_database import create_project
 # from methods import activity
 
 conn = sqlite3.connect('example.db')
@@ -42,12 +43,15 @@ list_of_function = [
 
 try:
     if input_method == 'init_db':
+        print(init_database_project.run())
         print(init_database_activities_items.run(input_options[0]))
     elif input_method == 'import_item_file':
         # print(input_options[0] + input_options[1])
         print(import_item_csv.run(input_options[0], input_options[1]))
     elif input_method == 'import_activity_file':
         print(import_activity_csv.run(input_options[0], input_options[1]))
+    elif input_method == 'create_new_project':
+        print(create_project.run(input_options[0]))
     else:
         print('The function ' + input_method + ' doesn\'t exist. The list of functions is: \n' + '\n'.join(list_of_function) )
 except IndexError as e:
