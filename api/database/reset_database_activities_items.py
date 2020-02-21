@@ -1,12 +1,14 @@
 """
 Reset the database by deleting all the data in the tables activities and items
 """
+import sqlite3
 
-
-def run(conn):
+def run(project_id):
+    conn = sqlite3.connect("../database_files/project_db/act_it_db/"+str(project_id)+".db")
     cursor = conn.cursor()
     _reset_database(cursor)
     cursor.close()
+    conn.commit()
 
 
 def _reset_database(cursor):
