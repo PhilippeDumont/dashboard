@@ -201,7 +201,7 @@
     /*MEDIA QUERIES TO MAKE SIDEBAR RESPONSIVE*/
     @media screen and (min-width: 1920px) and (max-width: 3840px) {
         .sideBar{
-            min-width: 100px !important;
+            min-width: 110px !important;
         }
         .sideBar ul li {
             font-size: 30px;
@@ -214,7 +214,7 @@
 
     @media screen and (min-width: 3840px) and (max-width: 7680px) {
         .sideBar{
-            min-width: 160px !important;
+            min-width: 170px !important;
         }
         .sideBar ul li {
             font-size: 50px;
