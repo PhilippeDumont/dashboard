@@ -113,6 +113,7 @@
         cursor: pointer;
         height: 100%;
         left: 0;
+        min-width: 85px;
         overflow: auto;
         position: fixed;
         top: 0;
@@ -199,6 +200,9 @@
 
     /*MEDIA QUERIES TO MAKE SIDEBAR RESPONSIVE*/
     @media screen and (min-width: 1920px) and (max-width: 3840px) {
+        .sideBar{
+            min-width: 100px !important;
+        }
         .sideBar ul li {
             font-size: 30px;
         }
@@ -209,6 +213,9 @@
     }
 
     @media screen and (min-width: 3840px) and (max-width: 7680px) {
+        .sideBar{
+            min-width: 160px !important;
+        }
         .sideBar ul li {
             font-size: 50px;
         }
