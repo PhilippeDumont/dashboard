@@ -10,9 +10,24 @@
 
         <v-row>
             <v-col v-for="project in projects" v-bind:key="project">
-                <v-card class="card" width="150" height="250">
+                <v-card class="card" width="150" height="300">
                     <v-img :src="require('../../assets/graph.svg')" height="150" width="150"></v-img>
-                    <v-card-text>{{project}}</v-card-text>
+                    <v-card-text style="overflow-y: auto; height:100px" >
+                        {{project}}
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn icon>
+                            <v-icon>mdi-folder-open</v-icon>
+                        </v-btn>
+                        <v-btn icon>
+                            <v-icon>mdi-file-import</v-icon>
+                        </v-btn>
+                        <v-btn icon>
+                            <v-icon>mdi-close-circle</v-icon>
+                        </v-btn>
+                        <v-spacer></v-spacer>
+                    </v-card-actions>
                 </v-card>
             </v-col>
         </v-row>
@@ -20,7 +35,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'Open',
   data: () => ({

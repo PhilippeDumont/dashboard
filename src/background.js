@@ -2,6 +2,7 @@
 
 import { app, protocol, BrowserWindow , ipcMain, dialog } from 'electron'
 import { pythonProcess } from './pythonProcess.js'
+import { pathToStandardFormat } from './utils.js'
 import {
   createProtocol,
   /* installVueDevtools */
@@ -100,15 +101,35 @@ if (isDevelopment) {
  * requestName: 'api-python'
  * args: [functionName, {functionArg}]
  * The list of function name is listed in the python API
+ * ***********************************************************
+ * List of requests present in the API :
+ * -------------------------------------------------------------------------------------------------------------------
+ * | Function name        | Description                            | args format to call the function                |
+ * |-----------------------------------------------------------------------------------------------------------------|
+ * | init_db_projects     | Allow to check if the database of the  | init_db_projects                                |
+ * |                      | list of all project exist, otherwise   |                                                 |
+ * |                      | it create it                           |                                                 |
+ * |-----------------------------------------------------------------------------------------------------------------|
+ * | create_new_project   | Allow to create a database for a new   | create_new_project, project_name                |
+ * |                      | project with the name of the project   |                                                 |
+ * |-----------------------------------------------------------------------------------------------------------------|
+ * | import_item_file     | Allow to load items for a specific     | import_item_file, project_id, file_path         |
+ * |                      | project by specifying the project id   |                                                 |
+ * |                      | and the file containing datas with a   |                                                 |
+ * |                      | CSV format                             |                                                 |
+ * |-----------------------------------------------------------------------------------------------------------------|
+ * | import_activity_file | Allow to load activities for a specific| import_activity_file, project_id, file_path     |
+ * |                      | project by specifying the project id   |                                                 |
+ * |                      | and the file containing datas with a   |                                                 |
+ * |                      | CSV format                             |                                                 |
+ * |-----------------------------------------------------------------------------------------------------------------|
+ * | TO DO : Format data  |                                        |                                                 |
+ * | get_projects         | Allow to get the list of projects      | get_projects                                    |
+ * -------------------------------------------------------------------------------------------------------------------
+ * 
  *************************************************************/
-
 ipcMain.on('api-python', (event, args) => {
   console.log("ipc-api-python: " + args);
-  // var python = require('child_process').spawn('python', ['api/']);
-  //   python.stdout.on('data', function (data) {
-  //       console.log("data: ", data.toString('utf8'));
-  //   });
-
   pythonProcess(args).then((value) => {
      event.reply('api-python-reply', value)
    }).catch((e) => {
@@ -125,11 +146,10 @@ ipcMain.on('api-python', (event, args) => {
  * args: None
  *************************************************************/
 
-//get path
-ipcMain.on('import-path', (event) => {
+ipcMain.on('open-dialog', (event) => {
   dialog.showOpenDialog({properties: [ 'openFile', 'multiSelections' ]}).then((e) => {
-    let path = e.filePaths[0];
-    event.reply('import-path-reply', path);
+    let path = e.filePaths[0]
+    event.reply('open-dialog-reply', pathToStandardFormat(path))
   }).catch((e) => {
     console.log(e)
   })
