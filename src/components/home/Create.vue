@@ -36,7 +36,7 @@
                         <v-icon medium dark>mdi-plus</v-icon>
                         Import ITEMS file
                     </v-btn>
-                    <!--ICONS TO SHOW IF DATA FILE CHOOSEN OR NOT-->
+                    <!--ICONS AND FILE TO SHOW IF DATA FILE CHOOSEN OR NOT-->
                     <span v-if="isPathItems">{{ itemsFile }}</span>
                     <v-icon v-if="isPathItems" color="green">mdi-checkbox-marked-circle</v-icon>
                     <v-icon v-if="!isPathItems" color="red">mdi-close-circle</v-icon>
@@ -50,7 +50,7 @@
                         <v-icon medium dark>mdi-plus</v-icon>
                         Import ACTIVITIES file
                     </v-btn>
-                    <!--ICONS TO SHOW IF DATA FILE CHOOSEN OR NOT-->
+                    <!--ICONS AND FILE TO SHOW IF DATA FILE CHOOSEN OR NOT-->
                     <span v-if="isPathActivities">{{ activitiesFile }}</span>
                     <v-icon v-if="isPathActivities" color="green">mdi-checkbox-marked-circle</v-icon>
                     <v-icon v-if="!isPathActivities" color="red">mdi-close-circle</v-icon>
@@ -61,7 +61,7 @@
             <v-row>
                 <v-col>
                     <!--BUTTON DISABLED IF NO DATA ITEMS AND ACTIVITIES-->
-                    <v-btn color="blue-grey" class="ma-2 white--text" width="250" @click="initDB()"
+                    <v-btn color="blue-grey" class="ma-2 white--text" width="250" @click="create_project()"
                         :disabled="!isPathItems || !isPathActivities">
                         Create
                     </v-btn>
@@ -73,6 +73,7 @@
 
         </v-form>
 
+        <!-- SNACKBAR TO SHOW THE SUCCESS OF THE CREATION -->
         <v-snackbar v-model="isProjectCreated">
             Project created with success !
             <v-btn color="pink" text @click="isProjectCreated = false">
@@ -88,9 +89,6 @@ import { sendRequest, getFileNameOfPath } from '@/utils.js';
 
 export default {
     name: 'Create',
-    components: {
-
-    },
     data: () => ({
         //project_name init
         projectName: '',
@@ -122,68 +120,65 @@ export default {
     methods: {
         //reset form elements
         resetForm() {
-            this.$refs.form.reset();
-            this.isPathItems = false;
-            this.isPathActivities = false;
+            this.$refs.form.reset()
+            this.isPathItems = false
+            this.isPathActivities = false
         },
         //verify if form is valid
         isFormValid() {
-            return this.$refs.form.validate() && this.isPathItems && this.isPathActivities;
+            return this.$refs.form.validate() && this.isPathItems && this.isPathActivities
         },
-        //init the database
-        initDB() {
-            if (this.$refs.form.validate()) {
-                console.log(this.projectName);
-                sendRequest('api-python', 'init_db', this.projectName).then((arg) => {
-                    console.log(arg);
-                    this.importDatas();
-                }).catch((e) => {
-                    console.log(e);
-                })
-            }
+        //init database for the project
+        create_project() {
+            sendRequest('api-python', 'create_new_project', this.projectName).then((arg) => {
+                this.$store.commit('SET_ID_CURRENT_PROJECT', parseInt(arg))
+                console.log("id: " + arg)
+                this.importDatas()
+            }).catch((e) => {
+                console.log(e)
+            })
         },
-        //import the datas in the database
+        //import the datas from files in the database
         importDatas() {
-            // replace '\' in path by '/'
-            //this.pathItems = this.pathItems.replace(/\\/g, '/'); 
             // import items and then activites
-            sendRequest('api-python', 'import_item_file', [this.projectName, this.pathItems]).then((arg) => {
-                console.log("Frontend-arg: "+arg);
-                sendRequest('api-python', 'import_activity_file', [this.projectName, this.pathActivities]).then((arg) => {
-                    console.log("arg-activities "+arg);
+            let idProject = this.$store.state.idCurrentProject
+            sendRequest('api-python', 'import_item_file', idProject, this.pathItems).then((arg) => {
+                console.log("items: " + arg)
+                sendRequest('api-python', 'import_activity_file', idProject, this.pathActivities).then((arg) => {
+                    console.log("activities: " + arg)
                 }).catch((e) => {
-                    console.log(e);
+                    console.log(e)
                 })
 
-                this.isProjectCreated = true;
-                this.resetForm();
+                this.isProjectCreated = true
+                this.resetForm()
             }).catch((e) => {
-                console.log(e);
-            });
+                console.log(e)
+            })
         },
         //get the path of the items data file
         getPathItemsFile() {
             sendRequest('open-dialog').then((arg) =>{
                 if (arg) {
-                    this.pathItems = arg;
-                    this.itemsFile = getFileNameOfPath(this.pathItems);
-                    this.isPathItems = true;
+                    this.pathItems = arg
+                    this.itemsFile = getFileNameOfPath(this.pathItems)
+                    this.isPathItems = true
                 }
             }).catch((e) => {
-                console.log(e);
-            });
+                console.log(e)
+            })
         },
         //get the path of the activities data file
         getPathActivitiesFile() {
             sendRequest('open-dialog').then((arg) =>{
                 if (arg) {
-                    this.pathActivities = arg;
-                    this.activitiesFile = getFileNameOfPath(this.pathActivities);
-                    this.isPathActivities = true;
+                    this.pathActivities = arg
+                    this.activitiesFile = getFileNameOfPath(this.pathActivities)
+                    this.isPathActivities = true
                 }
             }).catch((e) => {
-                console.log(e);
-            });
+                console.log(e)
+            })
         }
     }
 }
@@ -202,45 +197,5 @@ export default {
 
 span {
     margin: 10px;
-}
-
-@keyframes loader {
-    from {
-        transform: rotate(0);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@-moz-keyframes loader {
-    from {
-        transform: rotate(0);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@-o-keyframes loader {
-    from {
-        transform: rotate(0);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@-webkit-keyframes loader {
-    from {
-        transform: rotate(0);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
 }
 </style>

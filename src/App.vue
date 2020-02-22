@@ -20,13 +20,23 @@ export default {
         SideBar,
         SelectProject,
     },
+    // check if the database with the list of projects exists, if this is not the case, create it
+    // get the list of projects
     created() {
-        sendRequest('api-python', 'get_projects').then((arg) => {
-            console.log("get_projects: "+arg);
-                // this.projectsList = arg;
+        sendRequest('api-python', 'init_db_projects').then((arg) => {
+            console.log("init_db_projects: "+arg);
+
+            sendRequest('api-python', 'get_projects').then((arg) => {
+                console.log("get_projects: "+arg);
+            }).catch((e) => {
+                console.log(e);
+            });
+
         }).catch((e) => {
             console.log(e);
         });
+
+        
     }
 };
 </script>

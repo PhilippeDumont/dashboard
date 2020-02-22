@@ -38,7 +38,7 @@ export function pathToStandardFormat(path) {
 /**************************************************
  * path: the file path
  * 
- * return the name of the selected file
+ * return the name of the selected file or last folder in path
  **************************************************/
 export function getFileNameOfPath(path) {
     let pathItems = path.split('/')

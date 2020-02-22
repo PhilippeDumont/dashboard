@@ -18,7 +18,7 @@
                 </router-link>
 
                 <!-- LEVEL1 -->
-                <router-link to="/Level1" tag="button" v-bind:disabled="isDisabled" v-bind:class="{disabled: isDisabled}" v-on="on">
+                <router-link to="/Level1" tag="button" v-bind:disabled="isDisabled" v-bind:class="{disabled: isDisabled}">
                 <li class="item">   
                     <!-- CHART ICON -->             
                     <svg viewBox="0 0 24 24">

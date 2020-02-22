@@ -104,19 +104,28 @@ if (isDevelopment) {
  * ***********************************************************
  * List of requests present in the API :
  * -------------------------------------------------------------------------------------------------------------------
- * | Function name        | Description                            | Function args model                             |
+ * | Function name        | Description                            | args format to call the function                |
  * |-----------------------------------------------------------------------------------------------------------------|
- * | init_db              | Allow to create a database with the    | init_db, project_name                           |
- * |                      | name of the project                    |                                                 |
+ * | init_db_projects     | Allow to check if the database of the  | init_db_projects                                |
+ * |                      | list of all project exist, otherwise   |                                                 |
+ * |                      | it create it                           |                                                 |
  * |-----------------------------------------------------------------------------------------------------------------|
- * | import_item_file     | Allow to load items by a file with a   | import_item_file, [project_name, file_path]     |
- * |                      | CSV format in the specified project    |                                                 |
+ * | create_new_project   | Allow to create a database for a new   | create_new_project, project_name                |
+ * |                      | project with the name of the project   |                                                 |
  * |-----------------------------------------------------------------------------------------------------------------|
- * | import_activity_file | Allow to load activities by a file     | import_activity_file, [project_name, file_path] |
- * |                      | with a CSV format in the specified     |                                                 |
- * |                      | project                                |                                                 |
+ * | import_item_file     | Allow to load items for a specific     | import_item_file, project_id, file_path         |
+ * |                      | project by specifying the project id   |                                                 |
+ * |                      | and the file containing datas with a   |                                                 |
+ * |                      | CSV format                             |                                                 |
+ * |-----------------------------------------------------------------------------------------------------------------|
+ * | import_activity_file | Allow to load activities for a specific| import_activity_file, project_id, file_path     |
+ * |                      | project by specifying the project id   |                                                 |
+ * |                      | and the file containing datas with a   |                                                 |
+ * |                      | CSV format                             |                                                 |
+ * |-----------------------------------------------------------------------------------------------------------------|
+ * | TO DO : Format data  |                                        |                                                 |
+ * | get_projects         | Allow to get the list of projects      | get_projects                                    |
  * -------------------------------------------------------------------------------------------------------------------
- * | get_projects          |
  * 
  *************************************************************/
 ipcMain.on('api-python', (event, args) => {
