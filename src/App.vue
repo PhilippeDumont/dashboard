@@ -1,8 +1,10 @@
 <template>
   <v-app>
+      <v-container>
           <SideBar />
           <SelectProject></SelectProject>
           <router-view></router-view>
+      </v-container>
   </v-app>
 </template>
 

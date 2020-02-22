@@ -18,7 +18,7 @@
                 </router-link>
 
                 <!-- LEVEL1 -->
-                <router-link to="/Level1" tag="button" v-bind:disabled="isDisabled" v-bind:class="{disabled: isDisabled}">
+                <router-link to="/Level1" tag="button" v-bind:class="{disabled: isDisabled}">
                 <li class="item">   
                     <!-- CHART ICON -->             
                     <svg viewBox="0 0 24 24">
@@ -30,7 +30,7 @@
                 </router-link>
 
                 <!-- LEVEL2 -->
-                <router-link to="/Level2" tag="button" v-bind:disabled="isDisabled" v-bind:class="{disabled: isDisabled}">
+                <router-link to="/Level2" tag="button" v-bind:class="{disabled: isDisabled}">
                 <li class="item">
                     <!-- CUBE ICON -->
                     <svg viewBox="0 0 24 24">
@@ -43,7 +43,7 @@
                 </router-link>
 
                 <!-- LEVEL3 -->
-                <router-link to="/Level3" tag="button" v:bind:style="[isDisabled ? {disabled} : ''" v-bind:disabled="isDisabled" v-bind:class="{disabled: isDisabled}">
+                <router-link to="/Level3" tag="button" v:bind:style="[isDisabled ? {disabled} : ''" v-bind:class="{disabled: isDisabled}">
                 <li class="item">
                     <!-- USER ICON -->
                     <svg viewBox="0 0 24 24">
@@ -56,7 +56,7 @@
                 </router-link>
 
                 <!-- LEVEL4 -->
-                <router-link to="/Level4" tag="button" v-bind:disabled="isDisabled" v-bind:class="{disabled: isDisabled}">
+                <router-link to="/Level4" tag="button" v-bind:class="{disabled: isDisabled}">
                 <li class="item">
                     <!-- QUESTIONMARK ICON -->
                     <svg viewBox="0 0 24 24">
@@ -113,6 +113,7 @@
         cursor: pointer;
         height: 100%;
         left: 0;
+        min-width: 85px;
         overflow: auto;
         position: fixed;
         top: 0;
@@ -199,6 +200,9 @@
 
     /*MEDIA QUERIES TO MAKE SIDEBAR RESPONSIVE*/
     @media screen and (min-width: 1920px) and (max-width: 3840px) {
+        .sideBar{
+            min-width: 110px !important;
+        }
         .sideBar ul li {
             font-size: 30px;
         }
@@ -209,6 +213,9 @@
     }
 
     @media screen and (min-width: 3840px) and (max-width: 7680px) {
+        .sideBar{
+            min-width: 170px !important;
+        }
         .sideBar ul li {
             font-size: 50px;
         }

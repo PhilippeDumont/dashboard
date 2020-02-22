@@ -11,7 +11,7 @@ db_act_it_name = "project1"
 
 class TestInitDB(unittest.TestCase):
 
-    def test_is_database_project(self):
+    def test_init_database_project(self):
         # init the database to the connected file
         init_database_project.run()
         # connect to database
@@ -31,7 +31,7 @@ class TestInitDB(unittest.TestCase):
         # init the database to the connected file
         init_database_activities_items.run(db_act_it_name)
         # connect to database
-        conn = sqlite3.connect("../database_files/act_it_db/project1.db")
+        conn = sqlite3.connect("../database_files/act_it_db/test.db")
         # create the cursor
         cursor = conn.cursor()
         # get the count of tables with the name

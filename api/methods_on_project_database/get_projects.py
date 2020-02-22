@@ -3,6 +3,7 @@ return the list of project in database
 '''
 import sqlite3
 import logging
+
 from model.project_model import Project
 
 

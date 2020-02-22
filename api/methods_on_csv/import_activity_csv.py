@@ -5,7 +5,6 @@ import logging
 import csv
 import sqlite3
 from import_in_database import activity_item_import
-from typing import List
 
 
 def run(project_id, path):

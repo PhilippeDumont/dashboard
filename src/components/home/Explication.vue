@@ -1,6 +1,5 @@
 <template>
-    <v-container>
-
+    <v-container style="border-left: solid 1px darkgray; padding: 0 0 0 20px; height: 100%;">
         <!--EXPLANATION TO USE THE APP-->
         <v-row>
             <v-col>
@@ -24,3 +23,6 @@ export default {
   name: 'Explication'
 }
 </script>
+
+<style scoped>
+</style>
