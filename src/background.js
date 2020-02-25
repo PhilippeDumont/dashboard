@@ -92,6 +92,7 @@ if (isDevelopment) {
 
 
 
+// In stdout.log: count 5
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
@@ -130,6 +131,7 @@ if (isDevelopment) {
  *************************************************************/
 ipcMain.on('api-python', (event, args) => {
   console.log("ipc-api-python: " + args);
+
   pythonProcess(args).then((value) => {
      event.reply('api-python-reply', value)
    }).catch((e) => {

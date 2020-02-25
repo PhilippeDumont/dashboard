@@ -28,6 +28,7 @@ args = my_parser.parse_args()
 input_method = args.method
 input_options = args.options
 
+
 list_of_function = [
     'init_db_projects',
     'create_new_project',
@@ -38,6 +39,7 @@ list_of_function = [
 
 
 try:
+
     if input_method == 'init_db_projects':
         print(init_database_project.run())
     elif input_method == 'create_new_project':

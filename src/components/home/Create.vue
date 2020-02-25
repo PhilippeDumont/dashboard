@@ -61,6 +61,7 @@
             <v-row>
                 <v-col>
                     <!--BUTTON DISABLED IF NO DATA ITEMS AND ACTIVITIES-->
+
                     <v-btn color="blue-grey" class="ma-2 white--text" width="250" @click="create_project()"
                         :disabled="!isPathItems || !isPathActivities">
                         Create
@@ -128,7 +129,7 @@ export default {
         isFormValid() {
             return this.$refs.form.validate() && this.isPathItems && this.isPathActivities
         },
-        //init database for the project
+        //create new project
         create_project() {
             sendRequest('api-python', 'create_new_project', this.projectName).then((arg) => {
                 this.$store.commit('SET_ID_CURRENT_PROJECT', parseInt(arg))

@@ -98,8 +98,18 @@
 
 <style scoped>
 
-    .disabled {
-        opacity: 0.5;
+    .sideBar button {
+        cursor: pointer;
+    }
+
+    .sideBar button:hover{
+        border-left: solid 5px rgba(138, 43, 226, 1);
+        transition: border-left 150ms ease-out;
+    }
+
+    .sideBar button:active {
+        box-shadow: 6px 6px 18px 2px rgba(0, 0, 0, 0.23);
+        transform: scale(0.95);
     }
 
     /*left border in blueviolet to show which routerlink is active*/

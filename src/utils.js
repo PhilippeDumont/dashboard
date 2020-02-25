@@ -15,7 +15,6 @@ export async function sendRequest(requestName, ...args) {
         ipcRenderer.once(requestName + '-reply', (event, arg) => {
             resolve(arg)
         })
-
     })
 }
 
