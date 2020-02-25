@@ -65,7 +65,7 @@
                 <v-col>
                     <!--BUTTON DISABLED IF NO DATA ITEMS AND ACTIVITIES-->
                     <v-btn color="blue-grey" class="ma-2 white--text" width="250"
-                        @click="initDB()"
+                        @click="create_project()"
                         :disabled="!isPathItems || !isPathActivities">
                         Create
                     </v-btn>
@@ -110,6 +110,10 @@ export default {
         //boolean to know if project is created
         isProjectCreated: false,
     }),
+    mounted() {
+        console.log("test")
+       this.initDB();
+    },
     methods: {
         //reset form elements
         resetForm() {
@@ -121,33 +125,28 @@ export default {
         isFormValid() {
             return this.$refs.form.validate() && this.isPathItems && this.isPathActivities;
         },
-        //init the database
         initDB() {
+            sendRequest('api-python', 'init_db').then((arg) => {
+                console.log(arg)
+            }).catch((e) => {
+                    console.log(e);
+            })   
+        },
+        //Create a project
+        create_project() {
             if (this.$refs.form.validate()) {
-                console.log(this.projectName);
-                sendRequest('api-python', 'init_db', this.projectName).then((arg) => {
-                    console.log(arg);
-                    this.create_project();
-                    this.importDatas();
+                sendRequest('api-python', 'create_new_project', this.projectName).then((project_id) => {
+                    this.importDatas(project_id);
                 }).catch((e) => {
                     console.log(e);
                 })
             }
         },
-        create_project() {
-            sendRequest('api-python', 'create_new_project', this.projectName).then((arg) => {
-                    console.log(arg);
-            }).catch((e) => {
-                    console.log(e);
-            })
-        },
         //import the datas in the database
-        importDatas() {
+        importDatas(project_id) {
             this.pathItems = this.pathItems.replace(/\\/g, '/');      
-            sendRequest('api-python', 'import_item_file', [this.projectName, this.pathItems]).then((arg) => {
-                console.log("Frontend-arg: "+arg);
-                
-                sendRequest('api-python', 'import_activity_file', [this.projectName, this.pathActivities]).then((arg) => {
+            sendRequest('api-python', 'import_item_file', project_id, this.pathItems).then(() => {
+                sendRequest('api-python', 'import_activity_file', project_id, this.pathActivities).then((arg) => {
                     console.log("arg-activities "+arg);
                 }).catch((e) => {
                     console.log(e);

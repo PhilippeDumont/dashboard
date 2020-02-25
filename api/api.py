@@ -28,11 +28,19 @@ my_parser = argparse.ArgumentParser(description='Call the python API')
 my_parser.add_argument('method', type=str, help='The method to call')
 my_parser.add_argument('options', nargs='*', type=str, help='The options of the method called')
 args = my_parser.parse_args()
-print("args: ", args)
-
+args.options
 input_method = args.method
-input_options = args.options[0].split(',')
-print("options: ", input_options)
+input_options = None
+
+try:
+    input_options = args.options[0].split(',')
+    print("INPUT OPTIONS TRY :"+input_options)
+except:
+    pass
+
+
+
+
 
 
 list_of_function = [
@@ -44,7 +52,6 @@ list_of_function = [
 try:
     if input_method == 'init_db':
         print(init_database_project.run())
-        print(init_database_activities_items.run(input_options[0]))
     elif input_method == 'import_item_file':
         # print(input_options[0] + input_options[1])
         print(import_item_csv.run(input_options[0], input_options[1]))

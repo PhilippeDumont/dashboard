@@ -17,7 +17,7 @@ def run(project_id, path):
         _import_item_file(conn, path)
         conn.commit()
     except Exception as err:
-        logging.error("Can't add data to an uncreated project")
+        logging.error(err)
 
 
 def _import_item_file(conn, path):

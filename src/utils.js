@@ -11,7 +11,6 @@ import { ipcRenderer }  from 'electron'
  *************************************************************/
 export async function sendRequest(requestName, ...args) {
     return new Promise((resolve) => {
-        console.log("REQUEST NAME :"+requestName+"ARGS :"+args)
         try {
             ipcRenderer.send(requestName, args)
         } catch(e) {
