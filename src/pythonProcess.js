@@ -30,11 +30,6 @@ const isProduction = process.env.NODE_ENV == 'production'
 // API PATH
 let api_path = "";
 
-const getScriptPath = () => {
-  // if (!guessPackaged()) {
-  //   return path.join(__dirname, PY_FOLDER, PY_MODULE + '.py')
-  // }
-
   /*
   *  |---------------------------------------------------------------------|
   *  |  Platform              |     Name           |      API PATH         |
@@ -46,6 +41,7 @@ const getScriptPath = () => {
   */
   
   /* ********************************* WINDOWS *********************************** */
+const getScriptPath = () => {
   if (process.platform === 'win32') {
     if(isDevelopment) {
       api_path = path.join(__dirname, PY_FOLDER, PY_MODULE + '.exe')
@@ -94,4 +90,3 @@ export async function pythonProcess(args) {
   const { stdout } = await execFile(getScriptPath(), args)
   return stdout
 }
-

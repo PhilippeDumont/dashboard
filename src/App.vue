@@ -9,20 +9,38 @@
 </template>
 
 <script>
-    import SideBar from '@/components/SideBar';
-    import SelectProject from '@/components/SelectProject';
-    export default {
-      name: 'App',
+import SideBar from '@/components/SideBar';
+import SelectProject from '@/components/SelectProject';
+import { sendRequest } from '@/utils.js';
 
-      components: {
+export default {
+    name: 'App',
+    data: () => ({
+        projectsList: null
+    }),
+    components: {
         SideBar,
         SelectProject,
-      },
+    },
+    // check if the database with the list of projects exists, if this is not the case, create it
+    // get the list of projects
+    created() {
+        sendRequest('api-python', 'init_db_projects').then((arg) => {
+            console.log("init_db_projects: "+arg);
 
-      data: () => ({
-        //
-      }),
-    };
+            sendRequest('api-python', 'get_projects').then((arg) => {
+                console.log("get_projects: "+arg);
+            }).catch((e) => {
+                console.log(e);
+            });
+
+        }).catch((e) => {
+            console.log(e);
+        });
+
+        
+    }
+};
 </script>
 
 <style>

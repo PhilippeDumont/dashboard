@@ -1,5 +1,4 @@
 import sqlite3
-from model.project_model import Project
 
 
 def run(project_name):

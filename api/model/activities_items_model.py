@@ -1,7 +1,7 @@
 from model.activity_model import Activity
 
 
-class ActivitiesItem:
+class ActivitiesItems:
     activities: list
     items: list
     project_id: int

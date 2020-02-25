@@ -14,9 +14,7 @@
             <!--INPUT FOR PROJECT_NAME-->
             <v-row>
                 <v-col cols="6">
-                    <v-text-field label="Name Project" v-model="projectName"
-                        :rules="rules" 
-                        required></v-text-field>
+                    <v-text-field label="Name Project" v-model="projectName" :rules="rules" required></v-text-field>
                 </v-col>
             </v-row>
 
@@ -24,12 +22,9 @@
             <v-row align="center" class="row-select">
                 <span>What kind of plateform do you use ?</span>
                 <span>
-                    <v-select label="Plateform" v-model="plateform" :items="items" 
-                        :rules="[v => !!v || 'Item is required']"
-                        outlined
-                        dense
-                        hide-details="auto"
-                        required></v-select>
+                    <v-select label="Plateform" v-model="plateform" :items="items"
+                        :rules="[v => !!v || 'Item is required']" outlined dense hide-details="auto" required>
+                    </v-select>
                 </span>
             </v-row>
 
@@ -41,7 +36,8 @@
                         <v-icon medium dark>mdi-plus</v-icon>
                         Import ITEMS file
                     </v-btn>
-                    <!--ICONS TO SHOW IF DATA FILE CHOOSEN OR NOT-->
+                    <!--ICONS AND FILE TO SHOW IF DATA FILE CHOOSEN OR NOT-->
+                    <span v-if="isPathItems">{{ itemsFile }}</span>
                     <v-icon v-if="isPathItems" color="green">mdi-checkbox-marked-circle</v-icon>
                     <v-icon v-if="!isPathItems" color="red">mdi-close-circle</v-icon>
                 </v-col>
@@ -54,7 +50,8 @@
                         <v-icon medium dark>mdi-plus</v-icon>
                         Import ACTIVITIES file
                     </v-btn>
-                    <!--ICONS TO SHOW IF DATA FILE CHOOSEN OR NOT-->
+                    <!--ICONS AND FILE TO SHOW IF DATA FILE CHOOSEN OR NOT-->
+                    <span v-if="isPathActivities">{{ activitiesFile }}</span>
                     <v-icon v-if="isPathActivities" color="green">mdi-checkbox-marked-circle</v-icon>
                     <v-icon v-if="!isPathActivities" color="red">mdi-close-circle</v-icon>
                 </v-col>
@@ -64,8 +61,8 @@
             <v-row>
                 <v-col>
                     <!--BUTTON DISABLED IF NO DATA ITEMS AND ACTIVITIES-->
-                    <v-btn color="blue-grey" class="ma-2 white--text" width="250"
-                        @click="create_project()"
+
+                    <v-btn color="blue-grey" class="ma-2 white--text" width="250" @click="create_project()"
                         :disabled="!isPathItems || !isPathActivities">
                         Create
                     </v-btn>
@@ -74,25 +71,32 @@
                     <v-icon v-if="!isProjectCreated" color="red">mdi-close-circle</v-icon>
                 </v-col>
             </v-row>
+
         </v-form>
+
+        <!-- SNACKBAR TO SHOW THE SUCCESS OF THE CREATION -->
+        <v-snackbar v-model="isProjectCreated">
+            Project created with success !
+            <v-btn color="pink" text @click="isProjectCreated = false">
+                Close
+            </v-btn>
+        </v-snackbar>
 
     </v-container>
 </template>
 
 <script>
-import { sendRequest } from '@/utils.js';
+import { sendRequest, getFileNameOfPath } from '@/utils.js';
+
 export default {
     name: 'Create',
-    components: {
-
-    },
     data: () => ({
         //project_name init
         projectName: '',
         //constraints for form elements
         rules: [
             value => !!value || 'Required.',
-            value => (value && value.length >= 1) || 'Min 3 characters',
+            value => (value && value.length >= 3) || 'Min 3 characters',
             value => (value && value.length <= 40) || 'Max 40 characters'
         ],
         //plateform init
@@ -101,10 +105,14 @@ export default {
         items: ['Default', 'Edx', 'Slack'],
         //path of the items data file
         pathItems: null,
+        //name of the items data file
+        itemsFile: null,
         //boolean to know if there is a path for items
         isPathItems: null,
         //path of the activities data file
         pathActivities: null,
+        //name of the activities data file
+        activitiesFile: null,
         //boolean to know if there is a path for activities
         isPathActivities: null,
         //boolean to know if project is created
@@ -117,76 +125,65 @@ export default {
     methods: {
         //reset form elements
         resetForm() {
-            this.$refs.form.reset();
-            this.isPathItems = false;
-            this.isPathActivities = false;
+            this.$refs.form.reset()
+            this.isPathItems = false
+            this.isPathActivities = false
         },
         //verify if form is valid
         isFormValid() {
-            return this.$refs.form.validate() && this.isPathItems && this.isPathActivities;
+            return this.$refs.form.validate() && this.isPathItems && this.isPathActivities
         },
-        initDB() {
-            sendRequest('api-python', 'init_db').then((arg) => {
-                console.log(arg)
-            }).catch((e) => {
-                    console.log(e);
-            })   
-        },
-        //Create a project
+        //init database for the project
         create_project() {
-            if (this.$refs.form.validate()) {
-                sendRequest('api-python', 'create_new_project', this.projectName).then((project_id) => {
-                    this.importDatas(project_id);
-                }).catch((e) => {
-                    console.log(e);
-                })
-            }
+            sendRequest('api-python', 'create_new_project', this.projectName).then((arg) => {
+                this.$store.commit('SET_ID_CURRENT_PROJECT', parseInt(arg))
+                console.log("id: " + arg)
+                this.importDatas()
+            }).catch((e) => {
+                console.log(e)
+            })
         },
-        //import the datas in the database
-        importDatas(project_id) {
-            this.pathItems = this.pathItems.replace(/\\/g, '/');      
-            sendRequest('api-python', 'import_item_file', project_id, this.pathItems).then(() => {
-                sendRequest('api-python', 'import_activity_file', project_id, this.pathActivities).then((arg) => {
-                    console.log("arg-activities "+arg);
+        //import the datas from files in the database
+        importDatas() {
+            // import items and then activites
+            let idProject = this.$store.state.idCurrentProject
+            sendRequest('api-python', 'import_item_file', idProject, this.pathItems).then((arg) => {
+                console.log("items: " + arg)
+                sendRequest('api-python', 'import_activity_file', idProject, this.pathActivities).then((arg) => {
+                    console.log("activities: " + arg)
                 }).catch((e) => {
-                    console.log(e);
+                    console.log(e)
                 })
 
-                this.isProjectCreated = true;
-                this.resetForm();
+                this.isProjectCreated = true
+                this.resetForm()
             }).catch((e) => {
-                console.log(e);
-            });
+                console.log(e)
+            })
         },
         //get the path of the items data file
         getPathItemsFile() {
-            sendRequest('import-path').then((arg) =>{
+            sendRequest('open-dialog').then((arg) =>{
                 if (arg) {
-                    this.pathItems = arg;
-                    this.isPathItems = true;
-                }
-                else {
-                    this.pathItems = null;
-                    this.isPathItems = false;
-                }
-            }).catch((e) => {
-                console.log(e);
-            });
-        },
-        //get the path of the activities data file
-        getPathActivitiesFile() {
-            sendRequest('import-path').then((arg) =>{
-                if (arg) {
-                    this.pathActivities = arg;
-                    this.isPathActivities = true;
-                }
-                else {
-                    this.pathActivities = null;
-                    this.isPathActivities = false;
+                    this.pathItems = arg
+                    this.itemsFile = getFileNameOfPath(this.pathItems)
+                    this.isPathItems = true
                 }
             }).catch((e) => {
                 console.log(e)
-            });
+            })
+        },
+        //get the path of the activities data file
+        getPathActivitiesFile() {
+            sendRequest('open-dialog').then((arg) =>{
+                if (arg) {
+                    this.pathActivities = arg
+                    this.activitiesFile = getFileNameOfPath(this.pathActivities)
+                    this.isPathActivities = true
+                }
+            }).catch((e) => {
+                console.log(e)
+            })
         }
     }
 }
@@ -200,50 +197,10 @@ export default {
 }
 
 .row-select {
-    height: 100px;
+    height: 94px;
 }
 
 span {
     margin: 10px;
-}
-
-@keyframes loader {
-    from {
-        transform: rotate(0);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@-moz-keyframes loader {
-    from {
-        transform: rotate(0);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@-o-keyframes loader {
-    from {
-        transform: rotate(0);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@-webkit-keyframes loader {
-    from {
-        transform: rotate(0);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
 }
 </style>

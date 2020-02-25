@@ -11,21 +11,35 @@ import { ipcRenderer }  from 'electron'
  *************************************************************/
 export async function sendRequest(requestName, ...args) {
     return new Promise((resolve) => {
-        try {
-            ipcRenderer.send(requestName, args)
-        } catch(e) {
-            console.log("IPC RENDERER SEND ERROR: "+e)
-        }
-
-        try {
-            ipcRenderer.once(requestName + '-reply', (event, arg) => {
-                resolve(arg);
-            })
-        } catch(e) {
-            console.log("IPC RENDERER ONCE ERROR: "+e)
-        }
-        
-        
-
+        ipcRenderer.send(requestName, args)
+        ipcRenderer.once(requestName + '-reply', (event, arg) => {
+            resolve(arg)
+        })
     })
+}
+
+
+/*************************************************************
+ * These functions are use to manipulate path
+ * **********************************************************/
+
+/* ************************************************
+ * path: the file path
+ *
+ * return the path with '/' for path separators
+ **************************************************/
+export function pathToStandardFormat(path) {
+    if (process.platform === 'win32') {
+        return path.replace(/\\/g, '/')
+    }
+}
+
+/**************************************************
+ * path: the file path
+ * 
+ * return the name of the selected file or last folder in path
+ **************************************************/
+export function getFileNameOfPath(path) {
+    let pathItems = path.split('/')
+    return pathItems[pathItems.length - 1]
 }
