@@ -24,10 +24,9 @@ my_parser = argparse.ArgumentParser(description='Call the python API')
 my_parser.add_argument('method', type=str, help='The method to call')
 my_parser.add_argument('options', nargs='*', type=str, help='The options of the method called')
 args = my_parser.parse_args()
-args.options
 
 input_method = args.method
-input_options = None
+input_options = args.options
 
 
 list_of_function = [

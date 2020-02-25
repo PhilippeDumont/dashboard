@@ -118,10 +118,6 @@ export default {
         //boolean to know if project is created
         isProjectCreated: false,
     }),
-    mounted() {
-        console.log("test")
-       this.initDB();
-    },
     methods: {
         //reset form elements
         resetForm() {
@@ -133,7 +129,7 @@ export default {
         isFormValid() {
             return this.$refs.form.validate() && this.isPathItems && this.isPathActivities
         },
-        //init database for the project
+        //create new project
         create_project() {
             sendRequest('api-python', 'create_new_project', this.projectName).then((arg) => {
                 this.$store.commit('SET_ID_CURRENT_PROJECT', parseInt(arg))
