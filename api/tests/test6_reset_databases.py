@@ -12,20 +12,24 @@ class TestResetDB(unittest.TestCase):
 
     # test of database activity and item reset
     def test_reset_database_activity_item(self):
+        # reset database activities and items
         reset_database_activities_items.run(project_id)
-        conn = sqlite3.connect("../database_files/act_it_db/" + project_id + ".db")
+        conn = sqlite3.connect("../database_files/act_it_db/" + str(project_id) + ".db")
         cursor = conn.cursor()
-        cursor.execute('''SELECT * FROM activities UNION SELECT * FROM items''')
-        self.assertEqual(cursor.fetchone(), 0)
+        cursor.execute('''SELECT count(*) FROM activities''')
+        self.assertEqual(cursor.fetchone()[0], 0)
+        cursor.execute('''SELECT count(*) FROM items''')
+        self.assertEqual(cursor.fetchone()[0], 0)
         cursor.close()
         conn.commit()
 
     # test of database project reset
     def test_reset_database_project(self):
-        reset_database_projects.run()
         conn = sqlite3.connect("../database_files/project_db/all_project.db")
+        # reset database project as all_project.db
+        reset_database_projects.run(conn)
         cursor = conn.cursor()
-        cursor.execute('''SELECT * FROM projects''')
-        self.assertEqual(cursor.fetchone(), 0)
+        cursor.execute('''SELECT count(*) FROM projects''')
+        self.assertEqual(cursor.fetchone()[0], 0)
         cursor.close()
         conn.commit()
