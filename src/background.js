@@ -3,11 +3,17 @@
 import { app, protocol, BrowserWindow , ipcMain, dialog } from 'electron'
 import { pythonProcess } from './pythonProcess.js'
 import { pathToStandardFormat } from './utils.js'
+import { autoUpdater } from "electron-updater"
 import {
   createProtocol,
   /* installVueDevtools */
 } from 'vue-cli-plugin-electron-builder/lib'
 const isDevelopment = process.env.NODE_ENV !== 'production'
+
+    const log = require("electron-log")
+    log.transports.file.level = "debug"
+    autoUpdater.logger = log
+    autoUpdater.checkForUpdatesAndNotify()
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -35,6 +41,10 @@ function createWindow () {
   win.on('closed', () => {
     win = null
   })
+
+  win.once('ready-to-show', () => {
+    autoUpdater.checkForUpdatesAndNotify();
+  });
 }
 
 // Quit when all windows are closed.
@@ -90,6 +100,18 @@ if (isDevelopment) {
   }
 }
 
+
+
+autoUpdater.on('update-available', () => {
+  win.webContents.send('update_available');
+});autoUpdater.on('update-downloaded', () => {
+  win.webContents.send('update_downloaded');
+});
+
+
+ipcMain.on('restart_app', () => {
+  autoUpdater.quitAndInstall();
+});
 
 
 // In stdout.log: count 5
