@@ -5,6 +5,7 @@ node_modules
 dist_electron
 api/venv
 /dist
+electron-builder.yml
 
 # local env files
 .env.local
