@@ -13,7 +13,7 @@ from methods_on_project_database import get_project_id_with_name
 
 def run(project_id, path):
     try:
-        conn = sqlite3.connect("api/database_files/act_it_db/" + str(project_id) + ".db")
+        conn = sqlite3.connect("../database_files/act_it_db/" + str(project_id) + ".db")
         _import_item_file(conn, path)
         conn.commit()
     except Exception as err:

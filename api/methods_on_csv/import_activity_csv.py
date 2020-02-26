@@ -9,7 +9,7 @@ from import_in_database import activity_item_import
 
 def run(project_id, path):
     try:
-        conn = sqlite3.connect("api/database_files/act_it_db/" + str(project_id) + ".db")
+        conn = sqlite3.connect("../database_files/act_it_db/" + str(project_id) + ".db")
         _import_activity_file(conn, path)
         conn.commit()
     except Exception as err:
