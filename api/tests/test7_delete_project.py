@@ -12,6 +12,7 @@ class TestDeleteProject(unittest.TestCase):
 
     # test of delete a project
     def test_delete_project(self):
+        # delete database file for activities and items
         delete_project.run(project_id)
         conn = sqlite3.connect("../database_files/project_db/all_project.db")
         cursor = conn.cursor()
