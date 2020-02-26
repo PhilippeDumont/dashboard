@@ -41,6 +41,10 @@ function createWindow () {
   win.on('closed', () => {
     win = null
   })
+
+  win.once('ready-to-show', () => {
+    autoUpdater.checkForUpdatesAndNotify();
+  });
 }
 
 // Quit when all windows are closed.
@@ -96,9 +100,7 @@ if (isDevelopment) {
   }
 }
 
-win.once('ready-to-show', () => {
-  autoUpdater.checkForUpdatesAndNotify();
-});
+
 
 autoUpdater.on('update-available', () => {
   win.webContents.send('update_available');
