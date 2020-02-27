@@ -2,10 +2,7 @@
 import os
 import unittest
 import sqlite3
-from database import init_database_activities_items
 from database import init_database_project
-unittest.TestLoader.sortTestMethodsUsing = None
-
 db_act_it_name = "project1"
 
 

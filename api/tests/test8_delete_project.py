@@ -1,8 +1,6 @@
 import os
 import unittest
 import sqlite3
-
-from methods_on_activities_item_database import delete_activities_item_database
 from methods_on_project_database import delete_project
 
 project_id = 1
