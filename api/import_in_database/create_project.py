@@ -25,7 +25,7 @@ def _create_new_project(project_name):
     """
     Create a new project
     """
-    conn = sqlite3.connect("../database_files/project_db/all_project.db")
+    conn = sqlite3.connect("api/database_files/project_db/all_project.db")
     cursor = conn.cursor()
     date_today = date.today().isoformat()
     query = '''INSERT INTO projects (name,creation_date,last_opening_date,nb_activities,nb_items) VALUES(?,?,?,?,?);'''

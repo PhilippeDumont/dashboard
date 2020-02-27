@@ -9,11 +9,11 @@ from import_in_database import activity_item_import
 
 def run(project_id, path):
     try:
-        conn = sqlite3.connect("../database_files/act_it_db/" + str(project_id) + ".db")
+        conn = sqlite3.connect("api/database_files/act_it_db/" + str(project_id) + ".db")
         nb_act = _import_activity_file(conn, path)
         conn.commit()
         # Modify the number : "nb_activities" in the project database
-        conn = sqlite3.connect("../database_files/project_db/all_project.db")
+        conn = sqlite3.connect("api/database_files/project_db/all_project.db")
         cursor = conn.cursor()
         query = """UPDATE projects SET nb_activities = ? WHERE id = ?"""
         cursor.execute(query, [str(nb_act), str(project_id)])

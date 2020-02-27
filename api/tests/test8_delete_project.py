@@ -3,7 +3,7 @@ import unittest
 import sqlite3
 from methods_on_project_database import delete_project
 
-project_id = 1
+project_id = '1'
 
 
 class TestDeleteProject(unittest.TestCase):
@@ -14,7 +14,7 @@ class TestDeleteProject(unittest.TestCase):
         delete_project.run(project_id)
         conn = sqlite3.connect("../database_files/project_db/all_project.db")
         cursor = conn.cursor()
-        cursor.execute('''SELECT count(*) FROM projects WHERE id = ?''', str(project_id))
+        cursor.execute('''SELECT count(*) FROM projects WHERE id = ?''', [project_id])
         self.assertEqual(cursor.fetchone()[0], 0)
         cursor.close()
         conn.commit()

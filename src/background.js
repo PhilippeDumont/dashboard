@@ -152,10 +152,14 @@ ipcMain.on('check_for_update', () => {
  * |                      | and the file containing datas with a   |                                                 |
  * |                      | CSV format                             |                                                 |
  * |-----------------------------------------------------------------------------------------------------------------|
- * | TO DO : Format data  |                                        |                                                 |
  * | get_projects         | Allow to get the list of projects      | get_projects                                    |
  * -------------------------------------------------------------------------------------------------------------------
- * 
+ * | get_project_by_id    | Allow to get a project by specifying   | get_project_by_id, project_id                   |
+ * |                      | the id                                 |                                                 |
+ * -------------------------------------------------------------------------------------------------------------------
+ * | delete_project_by_id | Allow to delete a project by           | delete_project_by_id, project_id                |
+ * |                      | specifying the id                      |                                                 |
+ * -------------------------------------------------------------------------------------------------------------------
  *************************************************************/
 ipcMain.on('api-python', (event, args) => {
   console.log("ipc-api-python: " + args);

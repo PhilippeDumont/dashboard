@@ -20,7 +20,8 @@ export class Project {
 
     //Constructor with only not null emlements
     //id is creating itself at the row creation
-    constructor(name, creation_date, last_opening_date, nb_activities, nb_items) {
+    constructor(id, name, creation_date, last_opening_date, nb_activities, nb_items) {
+        this.id = id;
         this.name = name;
         this.creation_date = creation_date;
         this.last_opening_date = last_opening_date;
@@ -29,6 +30,14 @@ export class Project {
     }
 
     //GETTERS AND SETTERS
+
+    getId() {
+        return this.id;
+    }
+
+    setId(new_id) {
+        this.id = new_id;
+    }
 
     getName() {
         return this.name;
