@@ -124,10 +124,11 @@ if (isDevelopment) {
  * |                      | and the file containing datas with a   |                                                 |
  * |                      | CSV format                             |                                                 |
  * |-----------------------------------------------------------------------------------------------------------------|
- * | TO DO : Format data  |                                        |                                                 |
  * | get_projects         | Allow to get the list of projects      | get_projects                                    |
  * -------------------------------------------------------------------------------------------------------------------
- * 
+ * | get_project_by_id    | Allow to get a project by specifying   |  get_project_by_id, project_id                  |
+ * |                      | the id                                 |                                                 |
+ * -------------------------------------------------------------------------------------------------------------------
  *************************************************************/
 ipcMain.on('api-python', (event, args) => {
   console.log("ipc-api-python: " + args);

@@ -9,11 +9,11 @@
         </v-row>
 
         <v-row>
-            <v-col v-for="project in projects" v-bind:key="project">
+            <v-col v-for="project in getListProjects" v-bind:key="project.id">
                 <v-card class="card" width="150" height="300">
-                    <v-img :src="require('../../assets/graph.svg')" height="150" width="150"></v-img>
+                    <v-img :src="require('@/assets/graph.svg')" height="150" width="150"></v-img>
                     <v-card-text style="overflow-y: auto; height:100px" >
-                        {{project}}
+                        {{project.name}}
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -35,18 +35,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'Open',
-  data: () => ({
-      //projects examples to test the projects cards
-      projects: ['Projet Slack 2018, un texte un peu trop long', 'Projet Elium 2019', 'Project 2', 'Project'],
-      cards: [
-        { title: 'Projet Slack 2018', src: require('../../assets/graph.svg'), flex: 6 },
-        { title: 'Projet Elium 2019', src: '../../assets/logo.png', flex: 6 },
-        { title: 'Project 2', src: '../../assets/logo.png', flex: 6 },
-        { title: 'Project', src: '../../assets/logo.png', flex: 6 }
-      ]
-  })
+  computed: {
+      ...mapGetters([
+          'getListProjects'
+      ])
+  }
 }
 </script>
 

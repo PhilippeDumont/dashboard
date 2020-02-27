@@ -24,6 +24,6 @@ def _get_all_projects(conn):
     list_projects = list()
     for row in cursor:
         project_temp = Project(row[0], row[1], row[2], row[3], row[4], row[5])
-        list_projects.append(project_temp)
+        list_projects.append(project_temp.__dict__)
     cursor.close()
     return list_projects

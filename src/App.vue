@@ -12,6 +12,7 @@
 import SideBar from '@/components/SideBar';
 import SelectProject from '@/components/SelectProject';
 import { sendRequest } from '@/utils.js';
+import { Project } from '@/model/Project.js'
 
 export default {
     name: 'App',
@@ -29,7 +30,17 @@ export default {
             console.log("init_db_projects: "+arg);
 
             sendRequest('api-python', 'get_projects').then((arg) => {
-                console.log("get_projects: "+arg);
+
+                let listProjects = []
+
+                const obj = JSON.parse(arg)
+                obj.forEach(element => {
+                    listProjects.push(new Project(element.id, element.name, element.creation_date, element.last_opening_date, element.nb_activities, element.nb_items))
+                });
+                console.log(listProjects)
+
+                this.$store.commit('SET_LIST_PROJECTS', listProjects)
+
             }).catch((e) => {
                 console.log(e);
             });

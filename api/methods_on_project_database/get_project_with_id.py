@@ -9,7 +9,7 @@ def run(project_id):
         project = _get_project(conn, project_id)
         conn.commit()
         conn.close()
-        return project
+        return project.__dict__
     except Exception as err:
         logging.error(err)
 
@@ -17,7 +17,7 @@ def run(project_id):
 def _get_project(conn, project_id):
     cursor = conn.cursor()
     query = "SELECT * FROM projects WHERE id = ?"
-    cursor.execute(query, project_id)
+    cursor.execute(query, [project_id])
     row = cursor.fetchone()
     project = Project(row[0], row[1], row[2], row[3], row[4], row[5])
     return project

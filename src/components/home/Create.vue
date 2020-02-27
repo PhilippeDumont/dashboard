@@ -62,7 +62,7 @@
                 <v-col>
                     <!--BUTTON DISABLED IF NO DATA ITEMS AND ACTIVITIES-->
 
-                    <v-btn color="blue-grey" class="ma-2 white--text" width="250" @click="create_project()"
+                    <v-btn color="blue-grey" class="ma-2 white--text" width="250" @click="createProject()"
                         :disabled="!isPathItems || !isPathActivities">
                         Create
                     </v-btn>
@@ -87,6 +87,8 @@
 
 <script>
 import { sendRequest, getFileNameOfPath } from '@/utils.js';
+import { mapActions } from 'vuex';
+import { Project } from '@/model/Project.js'
 
 export default {
     name: 'Create',
@@ -119,6 +121,9 @@ export default {
         isProjectCreated: false,
     }),
     methods: {
+        ...mapActions([
+            'addProject'
+        ]),
         //reset form elements
         resetForm() {
             this.$refs.form.reset()
@@ -130,32 +135,37 @@ export default {
             return this.$refs.form.validate() && this.isPathItems && this.isPathActivities
         },
         //create new project
-        create_project() {
-            sendRequest('api-python', 'create_new_project', this.projectName).then((arg) => {
-                this.$store.commit('SET_ID_CURRENT_PROJECT', parseInt(arg))
-                console.log("id: " + arg)
-                this.importDatas()
-            }).catch((e) => {
-                console.log(e)
-            })
-        },
-        //import the datas from files in the database
-        importDatas() {
-            // import items and then activites
-            let idProject = this.$store.state.idCurrentProject
-            sendRequest('api-python', 'import_item_file', idProject, this.pathItems).then((arg) => {
-                console.log("items: " + arg)
-                sendRequest('api-python', 'import_activity_file', idProject, this.pathActivities).then((arg) => {
-                    console.log("activities: " + arg)
-                }).catch((e) => {
-                    console.log(e)
-                })
+        async createProject() {
+            try {
+                let idProject = parseInt(await sendRequest('api-python', 'create_new_project', this.projectName))
+                await this.importItems(idProject)
+                await this.importActivities(idProject)
+                await this.addCurrentProjectInStore(idProject)
 
                 this.isProjectCreated = true
                 this.resetForm()
-            }).catch((e) => {
-                console.log(e)
-            })
+            }
+            catch(error) {
+                console.log(error)
+            }
+        },
+        // import items from a CSV file for the project with the specified id
+        async importItems(idProject) {
+            await sendRequest('api-python', 'import_item_file', idProject, this.pathItems)
+        },
+        // import activities from a CSV file for the project with the specified id
+        async importActivities(idProject) {
+            await sendRequest('api-python', 'import_activity_file', idProject, this.pathActivities)
+        },
+        // add the new project to the store by getting the datas after his creation
+        async addCurrentProjectInStore(idProject) {
+            // get the project's datas
+            let p = await sendRequest('api-python', 'get_project_by_id', idProject)
+
+            // add the project into the store
+            p = JSON.parse(p)
+            let newProject = new Project(p.id, p.name, p.creation_date, p.last_opening_date, p.nb_activities, p.nb_items)
+            this.addProject(newProject)
         },
         //get the path of the items data file
         getPathItemsFile() {

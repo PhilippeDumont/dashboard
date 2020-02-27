@@ -5,14 +5,27 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    idCurrentProject: null
+    currentProject: null,
+    listProjects: []
+  },
+  getters: {
+    getListProjects: state => state.listProjects
   },
   mutations: {
-    SET_ID_CURRENT_PROJECT(state, id) {
-      state.idCurrentProject = id
+    ADD_PROJECT(state, newProject) {
+      state.listProjects.push(newProject)
+    },
+    SET_CURRENT_PROJECT(state, currentProject) {
+      state.currentProject = currentProject
+    },
+    SET_LIST_PROJECTS(state, list) {
+      state.listProjects = list
     }
   },
   actions: {
+    addProject({ commit }, project) {
+      commit('ADD_PROJECT', project)
+    }
   },
   modules: {
   }
