@@ -1,16 +1,17 @@
 {
   "name": "dashboard",
-  "version": "0.1.0",
+  "version": "4.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "electron:build": "vue-cli-service electron:build",
+    "electron:build": "vue-cli-service electron:build --publish always",
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
-    "postuninstall": "electron-builder install-app-deps"
+    "postuninstall": "electron-builder install-app-deps",
+    "deploy": "vue-cli-service electron:build"
   },
   "main": "background.js",
   "dependencies": {
@@ -64,6 +65,10 @@
         }
       }
     ]
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/MaxenceGorbitz/dashboard.git"
   },
   "browserslist": [
     "> 1%",

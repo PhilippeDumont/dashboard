@@ -5,7 +5,7 @@ from model.project_model import Project
 
 def run(project_id):
     try:
-        conn = sqlite3.connect('api/database_files/project_db/all_project.db')
+        conn = sqlite3.connect('../database_files/project_db/all_project.db')
         project = _get_project(conn, project_id)
         conn.commit()
         conn.close()
