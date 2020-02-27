@@ -11,7 +11,7 @@
                   <v-btn :rounded="true" color="#013F52" :disabled="loadingUpdate" :loading="loadingUpdate" @click="checkForUpdate()">Download Update</v-btn>
               </v-col>
               <v-col cols="4">
-                  <p id="update_message">Update status : {{update_message}}</p>            
+                  <p id="update_message">Update status : {{updateMessage}}</p>            
               </v-col>
                <v-col cols="4">
                   <v-btn v-if="updateAvailable" color="#013F52" :rounded="true"  @click="restartApp()">Restart App for update</v-btn>  
