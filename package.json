@@ -8,7 +8,7 @@
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "electron:build": "pyinstaller api/api.py -y --distpath api_compiled && vue-cli-service electron:build",
-    "electron:serve": "pyinstaller api/api.py -y --distpath api_compiled && vue-cli-service electron:serve",
+    "electron:serve": "pyinstaller api/api.py -y --distpath dist_electron && vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
     "release": "pyinstaller api/api.py -y --distpath api_compiled && vue-cli-service electron:build --publish always"
