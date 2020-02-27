@@ -9,53 +9,22 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
     <style>
-      #notification {
-        position: fixed;
-        z-index: 10000;
-        bottom: 20px;
-        left: 20px;
-        width: 200px;
-        padding: 20px;
-        border-radius: 5px;
-        background-color: white;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-      }
-      .hidden {
-        display: none;
-      }
-      #version {
-        position: absolute;
-        top: 50px;
-        left: 400px;
-      }
+     
     </style>
   </head>
   <body>
-    <h1 id="version"></h1>
-    
-/
-    <div id="notification" class="hidden">
-      <p id="message"></p>
-      <button id="close-button" onClick="closeNotification()">
-        Close
-      </button>
-      <button id="restart-button" onClick="restartApp()" class="hidden">
-        Restart
-      </button>
-    </div>
-
     <script>
+      /*
       const { ipcRenderer } = require('electron');
       const version = document.getElementById('version');
  
-   
+    
       ipcRenderer.send('app_version');
 
       ipcRenderer.on('app_version', (event, arg) => {
        ipcRenderer.removeAllListeners('app_version');
        version.innerText = 'Version ' + arg.version;
       });
-
 
       const notification = document.getElementById('notification');
       const message = document.getElementById('message');
@@ -81,7 +50,7 @@
       function restartApp() {
         ipcRenderer.send('restart_app');
       }
-
+*/
     </script>
 
     <div id="app"></div>
