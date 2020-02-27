@@ -12,18 +12,18 @@
             <v-col v-for="project in getListProjects" v-bind:key="project.id">
                 <v-card class="card" width="150" height="300">
                     <v-img :src="require('@/assets/graph.svg')" height="150" width="150"></v-img>
-                    <v-card-text style="overflow-y: auto; height:100px" >
+                    <v-card-text style="overflow-y: auto; height:100px">
                         {{project.name}}
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn icon>
+                        <v-btn icon @click="choseAndOpenProject(project)">
                             <v-icon>mdi-folder-open</v-icon>
                         </v-btn>
                         <v-btn icon>
                             <v-icon>mdi-file-import</v-icon>
                         </v-btn>
-                        <v-btn icon>
+                        <v-btn icon @click="deleteProject(project)">
                             <v-icon>mdi-close-circle</v-icon>
                         </v-btn>
                         <v-spacer></v-spacer>
@@ -35,15 +35,34 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+import { sendRequest } from '@/utils.js';
 
 export default {
-  name: 'Open',
-  computed: {
-      ...mapGetters([
-          'getListProjects'
-      ])
-  }
+    name: 'Open',
+    computed: {
+        ...mapGetters([
+            'getListProjects'
+        ])
+    },
+    methods: {
+        ...mapActions({
+            s_setCurrentProject: 'setCurrentProject',
+            s_deleteProject: 'deleteProject'
+        }),
+        choseAndOpenProject(project) {
+            this.s_setCurrentProject(project)
+            this.$router.push('/Level1')
+        },
+        deleteProject(project) {
+            sendRequest('api-python', 'delete_project_by_id', project.id).then((arg) =>{
+                console.log(arg)
+                this.s_deleteProject(project)
+            }).catch((e) => {
+                console.log(e)
+            })
+        }
+    }
 }
 </script>
 

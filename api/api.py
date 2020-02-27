@@ -22,6 +22,7 @@ from methods_on_csv import import_item_csv
 from methods_on_project_database import get_projects
 from methods_on_project_database import get_project_with_id
 from import_in_database import create_project
+from methods_on_project_database import delete_project
 
 my_parser = argparse.ArgumentParser(description='Call the python API')
 my_parser.add_argument('method', type=str, help='The method to call')
@@ -55,6 +56,8 @@ try:
         print(to_json(get_projects.run()))
     elif input_method == 'get_project_by_id':
         print(to_json(get_project_with_id.run(input_options[0])))
+    elif input_method == 'delete_project_by_id':
+        print(delete_project.run(input_options[0]))
     else:
         print('The function ' + input_method + ' doesn\'t exist. The list of functions is: \n' + '\n'.join(list_of_function) )
 except IndexError as e:

@@ -3,7 +3,7 @@ from model.activity_model import Activity
 
 
 def run(project_id):
-    conn = sqlite3.connect("../database_files/act_it_db/" + str(project_id) + ".db")
+    conn = sqlite3.connect("api/database_files/act_it_db/" + str(project_id) + ".db")
     cursor = conn.cursor()
     query = ("SELECT * FROM activities")
     cursor.execute(query)

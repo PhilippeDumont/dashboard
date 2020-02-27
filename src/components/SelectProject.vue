@@ -7,7 +7,8 @@
  <div id="selector_projects">
     <v-expansion-panels>
      <v-expansion-panel>    
-       <v-expansion-panel-header>Choose a project</v-expansion-panel-header>
+       <v-expansion-panel-header v-if="currentProject">{{ currentProject.name }}</v-expansion-panel-header>
+       <v-expansion-panel-header v-else>Choose a project</v-expansion-panel-header>
        <v-expansion-panel-content>
            <v-row>
             <!-- Project Item -->
@@ -17,7 +18,7 @@
                      <span>{{project.name}}</span>
                    </v-col>
                    <v-col cols="4">
-                     <v-btn text icon @click="open_project(project.name)">
+                     <v-btn text icon @click="setCurrentProject(project)">
                        <v-icon>mdi-open-in-app</v-icon>
                      </v-btn>
                    </v-col>
@@ -34,25 +35,17 @@
 
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
+
 export default {
-  data() {
-    // MOCK FOR PROJECTS
-    return {
-      projects: [
-        {name: "Project 1"},
-        {name: "Project 2"},
-        {name: "Project 3"}
-      ]
-    }
-  },
   computed: mapState({
-    listProjects: 'listProjects'
+    listProjects: 'listProjects',
+    currentProject: 'currentProject'
   }),
   methods: {
-    open_project(project_name) {
-      alert(project_name)
-    }
+      ...mapActions([
+          'setCurrentProject'
+      ])
   }
 }
 </script>

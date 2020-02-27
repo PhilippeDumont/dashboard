@@ -9,7 +9,7 @@
             </v-col>
         </v-row>
 
-        <v-form ref="form">
+        <v-form ref="form" v-model="valid">
 
             <!--INPUT FOR PROJECT_NAME-->
             <v-row>
@@ -39,7 +39,7 @@
                     <!--ICONS AND FILE TO SHOW IF DATA FILE CHOOSEN OR NOT-->
                     <span v-if="isPathItems">{{ itemsFile }}</span>
                     <v-icon v-if="isPathItems" color="green">mdi-checkbox-marked-circle</v-icon>
-                    <v-icon v-if="!isPathItems" color="red">mdi-close-circle</v-icon>
+                    <v-icon v-else color="red">mdi-close-circle</v-icon>
                 </v-col>
             </v-row>
 
@@ -53,7 +53,7 @@
                     <!--ICONS AND FILE TO SHOW IF DATA FILE CHOOSEN OR NOT-->
                     <span v-if="isPathActivities">{{ activitiesFile }}</span>
                     <v-icon v-if="isPathActivities" color="green">mdi-checkbox-marked-circle</v-icon>
-                    <v-icon v-if="!isPathActivities" color="red">mdi-close-circle</v-icon>
+                    <v-icon v-else color="red">mdi-close-circle</v-icon>
                 </v-col>
             </v-row>
 
@@ -63,12 +63,12 @@
                     <!--BUTTON DISABLED IF NO DATA ITEMS AND ACTIVITIES-->
 
                     <v-btn color="blue-grey" class="ma-2 white--text" width="250" @click="createProject()"
-                        :disabled="!isPathItems || !isPathActivities">
+                        :disabled="!isPathItems || !isPathActivities || !valid">
                         Create
                     </v-btn>
                     <!--ICONS TO SHOW IF PROJECT IS CREATED OR NOT-->
                     <v-icon v-if="isProjectCreated" color="green">mdi-checkbox-marked-circle</v-icon>
-                    <v-icon v-if="!isProjectCreated" color="red">mdi-close-circle</v-icon>
+                    <v-icon v-else color="red">mdi-close-circle</v-icon>
                 </v-col>
             </v-row>
 
@@ -93,6 +93,7 @@ import { Project } from '@/model/Project.js'
 export default {
     name: 'Create',
     data: () => ({
+        valid: true,
         //project_name init
         projectName: '',
         //constraints for form elements
@@ -138,12 +139,15 @@ export default {
         async createProject() {
             try {
                 let idProject = parseInt(await sendRequest('api-python', 'create_new_project', this.projectName))
+                console.log('id: ' + idProject)
                 await this.importItems(idProject)
                 await this.importActivities(idProject)
                 await this.addCurrentProjectInStore(idProject)
 
                 this.isProjectCreated = true
                 this.resetForm()
+
+                this.$router.push('/Level1')
             }
             catch(error) {
                 console.log(error)
@@ -164,6 +168,7 @@ export default {
 
             // add the project into the store
             p = JSON.parse(p)
+            console.log(p)
             let newProject = new Project(p.id, p.name, p.creation_date, p.last_opening_date, p.nb_activities, p.nb_items)
             this.addProject(newProject)
         },

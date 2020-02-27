@@ -37,7 +37,6 @@ export default {
                 obj.forEach(element => {
                     listProjects.push(new Project(element.id, element.name, element.creation_date, element.last_opening_date, element.nb_activities, element.nb_items))
                 });
-                console.log(listProjects)
 
                 this.$store.commit('SET_LIST_PROJECTS', listProjects)
 

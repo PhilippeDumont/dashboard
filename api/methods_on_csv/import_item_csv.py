@@ -13,10 +13,10 @@ from methods_on_project_database import get_project_id_with_name
 
 def run(project_id, path):
     try:
-        conn = sqlite3.connect("../database_files/act_it_db/" + str(project_id) + ".db")
+        conn = sqlite3.connect("api/database_files/act_it_db/" + str(project_id) + ".db")
         nb_items = _import_item_file(conn, path)
         conn.commit()
-        conn = sqlite3.connect("../database_files/project_db/all_project.db")
+        conn = sqlite3.connect("api/database_files/project_db/all_project.db")
         cursor = conn.cursor()
         query = """UPDATE projects SET nb_items = ? WHERE id = ?"""
         cursor.execute(query, [str(nb_items), str(project_id)])
