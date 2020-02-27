@@ -7,6 +7,8 @@ project_id = 1
 
 
 class TestUpdateDatabaseProject(unittest.TestCase):
+
+    # test if the last_opening_date of the project is updated
     def test_update_last_opening_date_project(self):
         update_project_last_opening_date.run(project_id)
         conn = sqlite3.connect('../database_files/project_db/all_project.db')
