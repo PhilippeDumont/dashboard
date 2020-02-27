@@ -1,77 +1,74 @@
 <template>
-<div id="settings">
+ <div id="settings">
   <v-container fluid>
      <v-row>
       <v-col cols="12">
-          <h3 id="version"></h3>
+          <h3 id="version">Version : <span>{{versionApp}}</span> </h3>
       </v-col>
       <v-col cols="12">
           <v-row>
               <v-col cols="4">
-                  <v-btn :rounded="true" color="primary" :loading="loadingUpdate" @click="checkForUpdate()">Check for update</v-btn>
+                  <v-btn :rounded="true" color="#013F52" :disabled="loadingUpdate" :loading="loadingUpdate" @click="checkForUpdate()">Download Update</v-btn>
               </v-col>
               <v-col cols="4">
-                  <v-btn color="primary" v-if="updateAvailable" @click="restartApp()">Restart App</v-btn>
+                  <p id="update_message">Update status : {{update_message}}</p>            
               </v-col>
                <v-col cols="4">
-                    <p id="message"></p>
+                  <v-btn v-if="updateAvailable" color="#013F52" :rounded="true"  @click="restartApp()">Restart App for update</v-btn>  
               </v-col>
           </v-row>
       </v-col>
      </v-row>
   </v-container>
-</div>
+ </div>
 </template>
 
 <script>
-
 import { ipcRenderer } from 'electron'
 export default {
     data: () => ({
         loadingUpdate: false,
         updateAvailable: false,
-        version: null,
-        message: null,
+        versionApp: "",
+        updateMessage: "",
     }),
     mounted: function() {
-     this.version = document.getElementById("version");
-     this.message = document.getElementById("message");
-      ipcRenderer.send('app_version');
-
-      ipcRenderer.on('app_version', (event, arg) => {
-       ipcRenderer.removeAllListeners('app_version');
-       this.version.innerText = 'Version ' + arg.version;
-      });
+     //GET VERSION APP
+        // Ask version application
+        ipcRenderer.send('app_version')
+        // Reply on event listener
+        ipcRenderer.on('app_version', (event, arg) => {
+            ipcRenderer.removeAllListeners('app_version')
+            this.versionApp =  arg.version
+        });  
     },
     methods: {
         checkForUpdate() {
             ipcRenderer.send('check_for_update');
             this.loadingUpdate = true;
-             // Start Download
+             // Update available
              ipcRenderer.on('update_available', () => {
                  ipcRenderer.removeAllListeners('update_available');
-                 this.message.innerText = 'A new update is available. Downloading now...';
                  this.updateAvailable = true;
-                 console.log("update_available")
+                 this.updateMessage = "Update update_available ! , Download now..."
              });
 
-             // Stop Download
+             // Update not available
              ipcRenderer.on('update_not_available', () => {
-                 ipcRenderer.removeAllListeners('update_not_available');
-                 this.message.innerText = 'Not update.';
+                 ipcRenderer.removeAllListeners('update_not_available');  
                  this.updateAvailable = false;
                  this.loadingUpdate = false;
-                 console.log("update_not_available")
+                 this.updateMessage = "Not update available"
              });
-             // Finish download
+             // Finish download update
              ipcRenderer.on('update_downloaded', () => {
               ipcRenderer.removeAllListeners('update_downloaded');
               this.loadingUpdate = false;
-              this.message.innerText = 'Update Downloaded. It will be installed on restart. Restart now?';
+              this.updateAvailable = false;
+              this.updateMessage = 'Update Downloaded. It will be installed on restart. Click on restart app to install update direcly';
              });
         },
         restartApp() {
-            this.updateAvailable = false;
             ipcRenderer.send('restart_app');
         }
     }
@@ -85,6 +82,9 @@ export default {
   }
   #version {
     margin-top: 50px;
+    font-family: 'Roboto','sans-serif'
   }
-
+  .v-btn {
+      color: white;
+  }
 </style>

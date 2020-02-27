@@ -92,10 +92,31 @@ if (isDevelopment) {
   }
 }
 
+// GET VERSION APP
 ipcMain.on('app_version', (event) => {
   event.sender.send('app_version', { version: app.getVersion() });
 });
 
+// AUTOUPDATER
+autoUpdater.on('update-available', () => {
+  win.webContents.send('update_available');
+});
+
+autoUpdater.on('update-not-available', () => {
+  win.webContents.send('update_not_available');
+});
+
+autoUpdater.on('update-downloaded', () => {
+  win.webContents.send('update_downloaded');
+});
+
+ipcMain.on('restart_app', () => {
+  autoUpdater.quitAndInstall();
+});
+
+ipcMain.on('check_for_update', () => {
+  autoUpdater.checkForUpdatesAndNotify();
+});
 
 
 
@@ -163,23 +184,3 @@ ipcMain.on('open-dialog', (event) => {
     console.log(e)
   })
 })
-
-autoUpdater.on('update-available', () => {
-  win.webContents.send('update_available');
-});
-
-autoUpdater.on('update-not-available', () => {
-  win.webContents.send('update_not_available');
-});
-
-autoUpdater.on('update-downloaded', () => {
-  win.webContents.send('update_downloaded');
-});
-
-ipcMain.on('restart_app', () => {
-  autoUpdater.quitAndInstall();
-});
-
-ipcMain.on('check_for_update', () => {
-  autoUpdater.checkForUpdatesAndNotify();
-});

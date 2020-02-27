@@ -1,17 +1,17 @@
 {
   "name": "dashboard",
-  "version": "7.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "electron:build": "vue-cli-service electron:build --publish always",
+    "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
-    "deploy": "vue-cli-service electron:build"
+    "release": "vue-cli-service electron:build --publish always"
   },
   "main": "background.js",
   "dependencies": {
