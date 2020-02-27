@@ -45,6 +45,7 @@ function createWindow () {
   win.once('ready-to-show', () => {
     autoUpdater.checkForUpdatesAndNotify();
   });
+
 }
 
 // Quit when all windows are closed.
@@ -100,18 +101,11 @@ if (isDevelopment) {
   }
 }
 
-
-
-autoUpdater.on('update-available', () => {
-  win.webContents.send('update_available');
-});autoUpdater.on('update-downloaded', () => {
-  win.webContents.send('update_downloaded');
+ipcMain.on('app_version', (event) => {
+  event.sender.send('app_version', { version: app.getVersion() });
 });
 
 
-ipcMain.on('restart_app', () => {
-  autoUpdater.quitAndInstall();
-});
 
 
 // In stdout.log: count 5
@@ -178,3 +172,17 @@ ipcMain.on('open-dialog', (event) => {
     console.log(e)
   })
 })
+
+
+
+autoUpdater.on('update-available', () => {
+  mainWindow.webContents.send('update_available');
+});
+
+autoUpdater.on('update-downloaded', () => {
+  mainWindow.webContents.send('update_downloaded');
+});
+
+ipcMain.on('restart_app', () => {
+  autoUpdater.quitAndInstall();
+});
