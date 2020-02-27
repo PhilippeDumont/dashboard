@@ -1,3 +1,6 @@
+"""
+Search the database for the project IF it exist
+"""
 import sqlite3
 
 

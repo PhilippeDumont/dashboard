@@ -2,9 +2,8 @@ import datetime
 import sqlite3
 import unittest
 from datetime import datetime
-import logging
-
 from methods_on_project_database import update_project_last_opening_date
+
 project_id = 1
 
 

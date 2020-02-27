@@ -9,6 +9,7 @@ def run(project_id):
     cursor.execute(query)
     list_items = list()
     for row in cursor:
+        # Get all the Items linked to a project and put it into an Item object
         item_temp = Item(row[0], row[1], row[2], row[3], row[4])
         list_items.append(item_temp)
     cursor.close()

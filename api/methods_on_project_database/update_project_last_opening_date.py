@@ -1,3 +1,6 @@
+"""
+Update the "last_opening_date" of the project
+"""
 import sqlite3
 from datetime import datetime
 
