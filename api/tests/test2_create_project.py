@@ -1,6 +1,5 @@
 import unittest
 import sqlite3
-
 from import_in_database import create_project
 
 project_name = "project1"

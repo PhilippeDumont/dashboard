@@ -3,6 +3,7 @@ import logging
 import os
 from methods_on_project_database import get_project_id_with_name
 
+# Is the String that makes the tables
 TABLES = {
     'items': (
         "CREATE TABLE  IF NOT EXISTS `items` ("
@@ -43,10 +44,13 @@ def run(project_name):
             os.makedirs("api/database_files/act_it_db")
     except Exception as err:
         logging.error(err)
+    # Get the id by the name of the project
     project_id = get_project_id_with_name.run(project_name)
     conn = sqlite3.connect("api/database_files/act_it_db/" + str(project_id) + ".db")
+    # Create the database with the connection
     _init_database(conn)
     conn.commit()
+    # Return the project id to the front end
     return project_id
 
 
@@ -57,6 +61,7 @@ def _init_database(conn):
     cursor.close()
 
 
+# Create the database with the tables information
 def _create_tables(cursor):
     for name in TABLES:
         query = TABLES[name]
@@ -66,15 +71,3 @@ def _create_tables(cursor):
         except sqlite3.Error as err:
             logging.error('Error: %s', err.args[0])
         logging.info("Table %s successfully created", name)
-
-
-"""def _test_if_exist(conn):
-    cursor = conn.cursor()
-    # get the count of tables with the name
-    cursor.execute('''SELECT count(name) FROM sqlite_master WHERE type='table' AND name='activities' ''')
-    # if the count is 1, then table exists
-    if cursor.fetchone()[0] == 1:
-        reset_database_activities_items.run(conn)
-    # commit the changes to db
-=======
-    conn.commit()"""

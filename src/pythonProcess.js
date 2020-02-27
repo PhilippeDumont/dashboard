@@ -47,7 +47,7 @@ const getScriptPath = () => {
       api_path = path.join(__dirname, PY_FOLDER, PY_MODULE + '.exe')
     }
     else if(isProduction) {
-      api_path = path.join(__dirname, PY_FOLDER, PY_MODULE + '.exe').replace("\\resources\\app.asar","");
+      api_path = path.join(__dirname, PY_FOLDER, PY_MODULE + '.exe').replace("\\app.asar","");
     } else {
       api_path = path.join(__dirname, PY_DIST_FOLDER, PY_MODULE, PY_MODULE); 
     }

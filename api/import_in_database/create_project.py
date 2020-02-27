@@ -8,8 +8,11 @@ from methods_on_project_database import project_not_exist
 def run(project_name):
     project_id = None
     try:
+        # Test if the project already exist
         if project_not_exist.run(project_name):
+            # Create a new project thanks to his name
             _create_new_project(project_name)
+            # Create the database file for activities and items from the name of the project
             project_id = init_database_activities_items.run(project_name)
         else:
             return None
@@ -19,10 +22,13 @@ def run(project_name):
 
 
 def _create_new_project(project_name):
+    """
+    Create a new project
+    """
     conn = sqlite3.connect("api/database_files/project_db/all_project.db")
     cursor = conn.cursor()
     date_today = date.today().isoformat()
-    query = '''INSERT INTO projects (name, creation_date, last_opening_date, nb_activities, nb_items) VALUES(?,?,?,?,?);'''
+    query = '''INSERT INTO projects (name,creation_date,last_opening_date,nb_activities,nb_items) VALUES(?,?,?,?,?);'''
     query_data = (project_name, date_today, date_today, 0, 0)
     try:
         cursor.execute(query, query_data)

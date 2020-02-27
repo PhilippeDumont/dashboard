@@ -10,11 +10,6 @@ import {
 } from 'vue-cli-plugin-electron-builder/lib'
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
-    const log = require("electron-log")
-    log.transports.file.level = "debug"
-    autoUpdater.logger = log
-    autoUpdater.checkForUpdatesAndNotify()
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
@@ -41,10 +36,6 @@ function createWindow () {
   win.on('closed', () => {
     win = null
   })
-
-  win.once('ready-to-show', () => {
-    autoUpdater.checkForUpdatesAndNotify();
-  });
 
 }
 
@@ -101,10 +92,31 @@ if (isDevelopment) {
   }
 }
 
+// GET VERSION APP
 ipcMain.on('app_version', (event) => {
   event.sender.send('app_version', { version: app.getVersion() });
 });
 
+// AUTOUPDATER
+autoUpdater.on('update-available', () => {
+  win.webContents.send('update_available');
+});
+
+autoUpdater.on('update-not-available', () => {
+  win.webContents.send('update_not_available');
+});
+
+autoUpdater.on('update-downloaded', () => {
+  win.webContents.send('update_downloaded');
+});
+
+ipcMain.on('restart_app', () => {
+  autoUpdater.quitAndInstall();
+});
+
+ipcMain.on('check_for_update', () => {
+  autoUpdater.checkForUpdatesAndNotify();
+});
 
 
 
@@ -173,17 +185,3 @@ ipcMain.on('open-dialog', (event) => {
     console.log(e)
   })
 })
-
-
-
-autoUpdater.on('update-available', () => {
-  win.webContents.send('update_available');
-});
-
-autoUpdater.on('update-downloaded', () => {
-  win.webContents.send('update_downloaded');
-});
-
-ipcMain.on('restart_app', () => {
-  autoUpdater.quitAndInstall();
-});

@@ -1,5 +1,5 @@
 '''
-return the list of project in database
+Return the list of project in database
 '''
 import sqlite3
 import logging

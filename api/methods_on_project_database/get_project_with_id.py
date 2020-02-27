@@ -1,3 +1,6 @@
+"""
+Get the project back to the front-end into a project object
+"""
 import sqlite3
 import logging
 from model.project_model import Project

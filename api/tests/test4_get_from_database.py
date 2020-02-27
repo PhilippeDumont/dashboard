@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import unittest
-from model.project_model import Project
 from methods_on_project_database import get_projects, get_project_with_id, project_not_exist
 from methods_on_project_database import get_project_id_with_name
 from methods_on_activities_item_database import get_activities_with_project_id, \

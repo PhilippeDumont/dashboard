@@ -1,5 +1,4 @@
 import os
-import sqlite3
 
 
 def run(project_id):

@@ -6,6 +6,8 @@ dist_electron
 api/venv
 /dist
 electron-builder.yml
+api_compiled
+build
 
 # local env files
 .env.local
