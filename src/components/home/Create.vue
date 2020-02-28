@@ -61,7 +61,6 @@
             <v-row>
                 <v-col>
                     <!--BUTTON DISABLED IF NO DATA ITEMS AND ACTIVITIES-->
-
                     <v-btn color="blue-grey" class="ma-2 white--text" width="250" @click="createProject()"
                         :disabled="!isPathItems || !isPathActivities || !valid">
                         Create
