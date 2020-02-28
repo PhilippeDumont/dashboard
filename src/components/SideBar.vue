@@ -216,24 +216,24 @@
             min-width: 150px !important;
         }
         .sideBar ul li {
-            font-size: 30px;
+            font-size: 20px;
         }
         svg {
-            height: 70px;
-            width: 70px;
+            height: 50px;
+            width: 50px;
         }
     }
 
     @media screen and (min-width: 3840px) and (max-width: 7680px) {
         .sideBar{
-            min-width: 170px !important;
+            min-width: 120px !important;
         }
         .sideBar ul li {
-            font-size: 50px;
+            font-size: 40px;
         }
         svg {
-            height: 130px;
-            width: 130px;
+            height: 70px;
+            width: 70px;
         }
     }
 </style>
