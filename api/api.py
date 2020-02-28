@@ -23,6 +23,7 @@ from methods_on_project_database import get_projects
 from methods_on_project_database import get_project_with_id
 from import_in_database import create_project
 from methods_on_project_database import delete_project
+from import_in_database import update_activity_item
 
 my_parser = argparse.ArgumentParser(description='Call the python API')
 my_parser.add_argument('method', type=str, help='The method to call')
@@ -58,8 +59,10 @@ try:
         print(to_json(get_project_with_id.run(input_options[0])))
     elif input_method == 'delete_project_by_id':
         print(delete_project.run(input_options[0]))
+    elif input_method == 'update_project_by_id':
+        print(update_activity_item.run(input_options[0], input_options[1], input_options[2]))
     else:
-        print('The function ' + input_method + ' doesn\'t exist. The list of functions is: \n' + '\n'.join(list_of_function) )
+        print('The function ' + input_method + ' doesn\'t exist. The list of functions is: \n' + '\n'.join(list_of_function))
 except IndexError as e:
     print('Add argument in the command line')
     sys.exit()

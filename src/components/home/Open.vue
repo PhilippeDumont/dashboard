@@ -20,32 +20,39 @@
                         <v-btn icon @click="choseAndOpenProject(project)">
                             <v-icon>mdi-folder-open</v-icon>
                         </v-btn>
-                        <v-btn icon>
+                        <v-btn icon @click="openDialogUpdate(project.id)">
                             <v-icon>mdi-file-import</v-icon>
                         </v-btn>
-                        <v-btn icon @click="openDialog(project)">
+                        <v-btn icon @click="openDialogDelete(project)">
                             <v-icon>mdi-close-circle</v-icon>
                         </v-btn>
                         <v-spacer></v-spacer>
                     </v-card-actions>
                 </v-card>
+
             </v-col>
         </v-row>
-            <v-dialog v-model="confirmDelete" max-width="600px" persistent>
-                <v-card>
-                    <v-card-title class="justify-center">
-                        <svg style="width:45px; height:45px; color: red;" viewBox="0 0 24 24">
-                            <path fill="currentColor" d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z" />
-                        </svg>
-                        <br/>
-                        <h5>If you delete the project, you will not be able to recover your datas ?</h5>
-                    </v-card-title>
-                    <v-card-actions style="font-size: 18px;" class="justify-end">
-                        <v-btn @click="closeDialog" class="mx-2 mt-4" :disabled="loadingDelete">Cancel</v-btn>
-                        <v-btn class="error mx-2 mt-4" @click="deleteProject()" :disabled="loadingDelete" :loading="loadingDelete">Agree</v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-dialog>
+
+        <!-- modal update -->
+        <modal :isOpen="dialog" :idProject="idProject" @update="update"></modal>
+
+        <v-dialog v-model="confirmDelete" max-width="600px" persistent>
+            <v-card>
+                <v-card-title class="justify-center">
+                    <svg style="width:45px; height:45px; color: red;" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z" />
+                    </svg>
+                    <br />
+                    <h5>If you delete the project, you will not be able to recover your datas ?</h5>
+                </v-card-title>
+                <v-card-actions style="font-size: 18px;" class="justify-end">
+                    <v-btn @click="closeDialog" class="mx-2 mt-4" :disabled="loadingDelete">Cancel</v-btn>
+                    <v-btn class="error mx-2 mt-4" @click="deleteProject()" :disabled="loadingDelete"
+                        :loading="loadingDelete">Agree</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
     </v-container>
 </template>
 
@@ -53,27 +60,32 @@
 import { mapGetters, mapActions } from 'vuex'
 import { sendRequest } from '@/utils.js';
 
+import Modal from '@/components/home/update/Modal.vue';
+
 export default {
     name: 'Open',
-    data() {
-        return{
-           confirmDelete: false,
-           loadingDelete: false,
-           project: null
-        }
+    components: {
+        Modal
     },
+    data: () => ({
+        dialog: false,
+        idProject: null,
+        confirmDelete: false,
+        loadingDelete: false,
+        project: null
+    }),
     computed: {
         ...mapGetters([
             'getListProjects'
         ])
     },
     methods: {
-        ...mapActions({
-            s_setCurrentProject: 'setCurrentProject',
-            s_deleteProject: 'deleteProject'
-        }),
+        ...mapActions([
+            'setCurrentProject',
+            'deleteProject'
+        ]),
         choseAndOpenProject(project) {
-            this.s_setCurrentProject(project)
+            this.setCurrentProject(project)
             this.$router.push('/Level1')
         },
         deleteProject() {
@@ -87,7 +99,16 @@ export default {
                 console.log(e)
             })
         },
-        openDialog(project){
+
+        openDialogUpdate(idProject) {
+            this.idProject = idProject
+            this.dialog = true
+        },
+        update(bool) {
+            this.dialog = bool
+        },
+                    
+        openDialogDelete(project){
             this.project = project;
             this.confirmDelete = true;
         },

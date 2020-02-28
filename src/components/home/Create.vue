@@ -118,7 +118,7 @@ export default {
         //boolean to know if there is a path for activities
         isPathActivities: null,
         //boolean to know if project is created
-        isProjectCreated: false,
+        isProjectCreated: false
     }),
     methods: {
         ...mapActions([
@@ -145,8 +145,6 @@ export default {
 
                 this.isProjectCreated = true
                 this.resetForm()
-
-                this.$router.push('/Level1')
             }
             catch(error) {
                 console.log(error)

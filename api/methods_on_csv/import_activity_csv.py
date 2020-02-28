@@ -25,7 +25,9 @@ def run(project_id, path):
 
 def _import_activity_file(conn, path):
     cursor = conn.cursor()
-    return _open_csv_file(cursor, path)
+    cpt = _open_csv_file(cursor, path)
+    cursor.close()
+    return cpt
 
 
 def _open_csv_file(cursor, path):

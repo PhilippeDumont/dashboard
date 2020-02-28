@@ -1,6 +1,6 @@
 import sqlite3
 import logging
-from datetime import date
+from datetime import date, datetime
 from database import init_database_activities_items
 from methods_on_project_database import project_not_exist
 
@@ -27,7 +27,7 @@ def _create_new_project(project_name):
     """
     conn = sqlite3.connect("api/database_files/project_db/all_project.db")
     cursor = conn.cursor()
-    date_today = date.today().isoformat()
+    date_today = datetime.now()
     query = '''INSERT INTO projects (name,creation_date,last_opening_date,nb_activities,nb_items) VALUES(?,?,?,?,?);'''
     query_data = (project_name, date_today, date_today, 0, 0)
     try:
