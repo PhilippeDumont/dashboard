@@ -142,13 +142,21 @@
 
     .sideBar ul {
         padding: 0;
+        
+    }
+
+    .sideBar ul button  {
+        color: rgba(255, 255, 255, 1);
+        text-decoration: none;
+        font-size: 13px;
+        display: block;
+        outline:none;
+        width: 150px;
+        height: 150px;
     }
 
     .sideBar ul li {
         list-style: none;
-        margin: 15px 0;
-        padding: 0 10px;
-        text-align: center;
     }
 
     svg {
@@ -156,13 +164,7 @@
         height: 50px;
     }
 
-    .v-application button  {
-        color: rgba(255, 255, 255, 1);
-        text-decoration: none;
-        font-size: 13px;
-        display: block;
-        outline:none;
-     }
+   
 
     /*CUSTOMISE SCROLLBAR*/
     ::-webkit-scrollbar {
@@ -211,7 +213,7 @@
     /*MEDIA QUERIES TO MAKE SIDEBAR RESPONSIVE*/
     @media screen and (min-width: 1920px) and (max-width: 3840px) {
         .sideBar{
-            min-width: 110px !important;
+            min-width: 150px !important;
         }
         .sideBar ul li {
             font-size: 30px;
