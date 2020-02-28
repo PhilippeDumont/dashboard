@@ -44,10 +44,10 @@ export default {
   }),
   methods: {
       ...mapActions([
-          'setCurrentProject'
+       'setCurrentProject'
       ])
   }
-}
+}  
 </script>
 
 <style scoped>
@@ -69,7 +69,7 @@ li a {
   width: 200px;
   position: fixed;
   /*TO BE BEFORE EVERYTHING*/
-  z-index: 1000;
+  z-index: 3;
   top: 3px;
 }
 </style>

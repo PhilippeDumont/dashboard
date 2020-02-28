@@ -94,6 +94,4 @@ export default {
     ::-webkit-scrollbar-track:active {
         background: #013F52;
     }
-
-    
 </style>
