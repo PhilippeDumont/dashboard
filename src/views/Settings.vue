@@ -7,9 +7,25 @@
       </v-col>
       <v-col cols="12">
           <v-row>
-              <v-col cols="4">
-                  <v-btn :rounded="true" color="#013F52" :disabled="loadingUpdate" :loading="loadingUpdate" @click="checkForUpdate()">Download Update</v-btn>
-              </v-col>
+               <v-col cols="4">
+                  <v-btn id="btn_download" :rounded="true" color="#013F52" :disabled="loadingUpdate" :loading="loadingUpdate" @click="openDialog()">Download Update</v-btn>
+               </v-col>
+
+             <v-dialog v-model="modalDialog" max-width="500px" persistent> 
+               <v-card>
+                    <v-card-title class="justify-center">
+                      <svg style="width:45px;height:45px;color:red;" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z" />
+                      </svg>
+                      <h4>Are you sure you want update your application ?</h4>
+                    </v-card-title>
+                    <v-card-actions class="justify-center">
+                       <v-btn  @click="closeDialog()" >CANCEL</v-btn> 
+                       <v-btn  class="error" @click="checkForUpdate()">UPDATE</v-btn> 
+                    </v-card-actions>
+               </v-card>
+              </v-dialog>
+
               <v-col cols="4">
                   <p id="update_message">Update status : {{updateMessage}}</p>            
               </v-col>
@@ -31,6 +47,7 @@ export default {
         updateAvailable: false,
         versionApp: "",
         updateMessage: "",
+        modalDialog: false,
     }),
     mounted: function() {
      //GET VERSION APP
@@ -43,7 +60,14 @@ export default {
         });  
     },
     methods: {
+        openDialog() {
+            this.modalDialog = true
+        },
+        closeDialog() {
+            this.modalDialog = false
+        },
         checkForUpdate() {
+            this.closeDialog()
             ipcRenderer.send('check_for_update');
             this.loadingUpdate = true;
              // Update available
@@ -84,7 +108,8 @@ export default {
     margin-top: 50px;
     font-family: 'Roboto','sans-serif'
   }
-  .v-btn {
-      color: white;
+  #btn_download {
+    color: white;
   }
+
 </style>
