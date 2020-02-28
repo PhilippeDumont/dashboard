@@ -160,6 +160,10 @@ ipcMain.on('check_for_update', () => {
  * | delete_project_by_id | Allow to delete a project by           | delete_project_by_id, project_id                |
  * |                      | specifying the id                      |                                                 |
  * -------------------------------------------------------------------------------------------------------------------
+ * | update_project_by_id | Allow to update the data of a project  | update_project_by_id, project_id, path_act,     |
+ * |                      | by specifying the id and path of CSV   | path_item                                       |
+ * |                      | file                                   |                                                 |
+ * -------------------------------------------------------------------------------------------------------------------
  *************************************************************/
 ipcMain.on('api-python', (event, args) => {
   console.log("ipc-api-python: " + args);

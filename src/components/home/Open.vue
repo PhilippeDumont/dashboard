@@ -20,17 +20,22 @@
                         <v-btn icon @click="choseAndOpenProject(project)">
                             <v-icon>mdi-folder-open</v-icon>
                         </v-btn>
-                        <v-btn icon>
+                        <v-btn icon @click="openDialog(project.id)">
                             <v-icon>mdi-file-import</v-icon>
                         </v-btn>
-                        <v-btn icon @click="deleteProject(project)">
+                        <v-btn icon @click="clickDeleteProject(project)">
                             <v-icon>mdi-close-circle</v-icon>
                         </v-btn>
                         <v-spacer></v-spacer>
                     </v-card-actions>
                 </v-card>
+
             </v-col>
         </v-row>
+
+        
+        <modal :isOpen="dialog" :idProject="idProject" @update="update"></modal>
+
     </v-container>
 </template>
 
@@ -38,29 +43,45 @@
 import { mapGetters, mapActions } from 'vuex'
 import { sendRequest } from '@/utils.js';
 
+import Modal from '@/components/home/update/Modal.vue';
+
 export default {
     name: 'Open',
+    components: {
+        Modal
+    },
+    data: () => ({
+        dialog: false,
+        idProject: null
+    }),
     computed: {
         ...mapGetters([
             'getListProjects'
         ])
     },
     methods: {
-        ...mapActions({
-            s_setCurrentProject: 'setCurrentProject',
-            s_deleteProject: 'deleteProject'
-        }),
+        ...mapActions([
+            'setCurrentProject',
+            'deleteProject'
+        ]),
         choseAndOpenProject(project) {
-            this.s_setCurrentProject(project)
+            this.setCurrentProject(project)
             this.$router.push('/Level1')
         },
-        deleteProject(project) {
+        clickDeleteProject(project) {
             sendRequest('api-python', 'delete_project_by_id', project.id).then((arg) =>{
                 console.log(arg)
-                this.s_deleteProject(project)
+                this.deleteProject(project)
             }).catch((e) => {
                 console.log(e)
             })
+        },
+        openDialog(idProject) {
+            this.idProject = idProject
+            this.dialog = true
+        },
+        update(bool) {
+            this.dialog = bool
         }
     }
 }
