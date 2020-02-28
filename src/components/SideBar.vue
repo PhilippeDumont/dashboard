@@ -97,7 +97,6 @@
 </script>
 
 <style scoped>
-
     .sideBar button {
         cursor: pointer;
     }
@@ -123,7 +122,6 @@
         cursor: pointer;
         height: 100%;
         left: 0;
-        min-width: 85px;
         overflow: auto;
         position: fixed;
         top: 0;
@@ -141,8 +139,7 @@
     }
 
     .sideBar ul {
-        padding: 0;
-        
+        padding: 0; 
     }
 
     .sideBar ul button  {
@@ -151,8 +148,9 @@
         font-size: 13px;
         display: block;
         outline:none;
-        width: 150px;
-        height: 150px;
+        width: 100px;
+        height: 100px;
+        margin: 15px  0;
     }
 
     .sideBar ul li {
@@ -160,8 +158,8 @@
     }
 
     svg {
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
     }
 
    
@@ -211,29 +209,46 @@
     }
 
     /*MEDIA QUERIES TO MAKE SIDEBAR RESPONSIVE*/
+    /* HD- */
+    @media screen and (min-width: 1024px) and (max-width: 1920px) {
+        .sideBar ul button {
+            width: 100px;
+            height: 100px;
+        }
+        .sideBar ul li {
+            font-size: 16px;
+        }
+        svg {
+            height: 40px;
+            width: 40px;
+        }
+    }
+    /* HD+ */
     @media screen and (min-width: 1920px) and (max-width: 3840px) {
-        .sideBar{
-            min-width: 150px !important;
+        .sideBar ul button {
+            width: 120px;
+            height: 120px;
         }
         .sideBar ul li {
             font-size: 20px;
         }
         svg {
-            height: 50px;
-            width: 50px;
+            height: 60px;
+            width: 60px;
         }
     }
-
+    /* 4K */
     @media screen and (min-width: 3840px) and (max-width: 7680px) {
-        .sideBar{
-            min-width: 120px !important;
+        .sideBar ul button {
+            width: 240px;
+            height: 240px;
         }
         .sideBar ul li {
             font-size: 40px;
         }
         svg {
-            height: 70px;
-            width: 70px;
+            height: 120px;
+            width: 120px;
         }
     }
 </style>
