@@ -20,10 +20,10 @@
                         <v-btn icon @click="choseAndOpenProject(project)">
                             <v-icon>mdi-folder-open</v-icon>
                         </v-btn>
-                        <v-btn icon @click="openDialog(project.id)">
+                        <v-btn icon @click="openDialogUpdate(project.id)">
                             <v-icon>mdi-file-import</v-icon>
                         </v-btn>
-                        <v-btn icon @click="clickDeleteProject(project)">
+                        <v-btn icon @click="openDialogDelete(project)">
                             <v-icon>mdi-close-circle</v-icon>
                         </v-btn>
                         <v-spacer></v-spacer>
@@ -33,8 +33,25 @@
             </v-col>
         </v-row>
 
-        
+        <!-- modal update -->
         <modal :isOpen="dialog" :idProject="idProject" @update="update"></modal>
+
+        <v-dialog v-model="confirmDelete" max-width="600px" persistent>
+            <v-card>
+                <v-card-title class="justify-center">
+                    <svg style="width:45px; height:45px; color: red;" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z" />
+                    </svg>
+                    <br />
+                    <h5>If you delete the project, you will not be able to recover your datas ?</h5>
+                </v-card-title>
+                <v-card-actions style="font-size: 18px;" class="justify-end">
+                    <v-btn @click="closeDialog" class="mx-2 mt-4" :disabled="loadingDelete">Cancel</v-btn>
+                    <v-btn class="error mx-2 mt-4" @click="deleteProject()" :disabled="loadingDelete"
+                        :loading="loadingDelete">Agree</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
 
     </v-container>
 </template>
@@ -52,7 +69,10 @@ export default {
     },
     data: () => ({
         dialog: false,
-        idProject: null
+        idProject: null,
+        confirmDelete: false,
+        loadingDelete: false,
+        project: null
     }),
     computed: {
         ...mapGetters([
@@ -68,20 +88,32 @@ export default {
             this.setCurrentProject(project)
             this.$router.push('/Level1')
         },
-        clickDeleteProject(project) {
-            sendRequest('api-python', 'delete_project_by_id', project.id).then((arg) =>{
+        deleteProject() {
+            this.loadingDelete = true;
+            sendRequest('api-python', 'delete_project_by_id', this.project.id).then((arg) =>{
                 console.log(arg)
-                this.deleteProject(project)
+                this.s_deleteProject(this.project)
+                this.loadingDelete = false;
+                this.confirmDelete = false;
             }).catch((e) => {
                 console.log(e)
             })
         },
-        openDialog(idProject) {
+
+        openDialogUpdate(idProject) {
             this.idProject = idProject
             this.dialog = true
         },
         update(bool) {
             this.dialog = bool
+        },
+                    
+        openDialogDelete(project){
+            this.project = project;
+            this.confirmDelete = true;
+        },
+        closeDialog(){
+            this.confirmDelete = false;
         }
     }
 }
@@ -95,11 +127,6 @@ export default {
 }
 .card:hover{
     box-shadow: 6px 6px 25px 4px rgba(0, 0, 0, 0.18);
-    transform: scale(1.05);
-}
-
-.card:active{
-    box-shadow: 6px 6px 18px 2px rgba(0, 0, 0, 0.23);
-    transform: scale(0.97);
+    transform: scale(1.02);
 }
 </style>

@@ -97,7 +97,6 @@
 </script>
 
 <style scoped>
-
     .sideBar button {
         cursor: pointer;
     }
@@ -123,7 +122,6 @@
         cursor: pointer;
         height: 100%;
         left: 0;
-        min-width: 85px;
         overflow: auto;
         position: fixed;
         top: 0;
@@ -141,28 +139,30 @@
     }
 
     .sideBar ul {
-        padding: 0;
+        padding: 0; 
     }
 
-    .sideBar ul li {
-        list-style: none;
-        margin: 15px 0;
-        padding: 0 10px;
-        text-align: center;
-    }
-
-    svg {
-        width: 50px;
-        height: 50px;
-    }
-
-    .v-application button  {
+    .sideBar ul button  {
         color: rgba(255, 255, 255, 1);
         text-decoration: none;
         font-size: 13px;
         display: block;
         outline:none;
-     }
+        width: 100px;
+        height: 100px;
+        margin: 15px  0;
+    }
+
+    .sideBar ul li {
+        list-style: none;
+    }
+
+    svg {
+        width: 40px;
+        height: 40px;
+    }
+
+   
 
     /*CUSTOMISE SCROLLBAR*/
     ::-webkit-scrollbar {
@@ -209,29 +209,46 @@
     }
 
     /*MEDIA QUERIES TO MAKE SIDEBAR RESPONSIVE*/
-    @media screen and (min-width: 1920px) and (max-width: 3840px) {
-        .sideBar{
-            min-width: 110px !important;
+    /* HD- */
+    @media screen and (min-width: 1024px) and (max-width: 1920px) {
+        .sideBar ul button {
+            width: 100px;
+            height: 100px;
         }
         .sideBar ul li {
-            font-size: 30px;
+            font-size: 16px;
         }
         svg {
-            height: 70px;
-            width: 70px;
+            height: 40px;
+            width: 40px;
         }
     }
-
-    @media screen and (min-width: 3840px) and (max-width: 7680px) {
-        .sideBar{
-            min-width: 170px !important;
+    /* HD+ */
+    @media screen and (min-width: 1920px) and (max-width: 3840px) {
+        .sideBar ul button {
+            width: 120px;
+            height: 120px;
         }
         .sideBar ul li {
-            font-size: 50px;
+            font-size: 20px;
         }
         svg {
-            height: 130px;
-            width: 130px;
+            height: 60px;
+            width: 60px;
+        }
+    }
+    /* 4K */
+    @media screen and (min-width: 3840px) and (max-width: 7680px) {
+        .sideBar ul button {
+            width: 240px;
+            height: 240px;
+        }
+        .sideBar ul li {
+            font-size: 40px;
+        }
+        svg {
+            height: 120px;
+            width: 120px;
         }
     }
 </style>
