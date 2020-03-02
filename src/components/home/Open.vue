@@ -35,7 +35,7 @@
                         </v-tooltip>
                         <v-tooltip top>
                             <template v-slot:activator="{ on }">
-                                <v-btn icon @click="openDialogDelete(project)" v-on="on">
+                                <v-btn icon @click="openDialogDelete(project.id)" v-on="on">
                                     <v-icon>mdi-close-circle</v-icon>
                                 </v-btn>
                             </template>
@@ -49,9 +49,11 @@
         </v-row>
 
         <!-- modal update -->
-        <modal-update :isOpen="dialog" :idProject="idProject" @update="update"></modal-update>
+        <modal-update :isOpen="isDialogUpdate" :idProject="idProject" @closeUpdateDialog="closeUpdateDialog()"></modal-update>
 
-        <v-dialog v-model="confirmDelete" max-width="600px" persistent>
+        <modal-delete :isOpen="isDialogDelete" :idProject="idProject" @closeDeleteDialog="closeDeleteDialog()"></modal-delete>
+
+        <!-- <v-dialog v-model="confirmDelete" max-width="600px" persistent>
             <v-card>
                 <v-card-title class="justify-center">
                     <svg style="width:45px; height:45px; color: red;" viewBox="0 0 24 24">
@@ -66,7 +68,7 @@
                         :loading="loadingDelete">Agree</v-btn>
                 </v-card-actions>
             </v-card>
-        </v-dialog>
+        </v-dialog> -->
 
 
         <!-- SNACKBAR TO SHOW THE SUCCESS OF THE DELETE -->
@@ -92,21 +94,22 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import { sendRequest } from '@/utils.js';
+// import { sendRequest } from '@/utils.js';
 
+import ModalDelete from '@/components/home/modals/ModalDelete.vue';
 import ModalUpdate from '@/components/home/modals/ModalUpdate.vue';
 
 export default {
     name: 'Open',
     components: {
+        ModalDelete,
         ModalUpdate
     },
     data: () => ({
-        dialog: false,
         idProject: null,
-        confirmDelete: false,
-        loadingDelete: false,
         project: null,
+        isDialogUpdate: false,
+        isDialogDelete: false,
         isProjectDeleted: false,
         isProjectUpdated: false,
         color: "green"
@@ -125,35 +128,37 @@ export default {
             this.setCurrentProject(project)
             this.$router.push('/Level1')
         },
-        clickDeleteProject() {
-            this.loadingDelete = true;
-            sendRequest('api-python', 'delete_project_by_id', this.project.id).then((arg) =>{
-                console.log(arg)
-                this.deleteProject(this.project)
-                this.loadingDelete = false;
-                this.confirmDelete = false;
-                this.isProjectDeleted = true;
-            }).catch((e) => {
-                console.log(e)
-            })
-        },
+        // clickDeleteProject() {
+        //     this.loadingDelete = true;
+        //     sendRequest('api-python', 'delete_project_by_id', this.project.id).then((arg) =>{
+        //         console.log(arg)
+        //         this.deleteProject(this.project)
+        //         this.loadingDelete = false;
+        //         this.isDialogDelete = false;
+        //         this.isProjectDeleted = true;
+        //     }).catch((e) => {
+        //         console.log(e)
+        //     })
+        // },
 
 
         openDialogUpdate(idProject) {
             this.idProject = idProject
-            this.dialog = true
+            this.isDialogUpdate = true
         },
-        update(bool) {
-            this.dialog = bool
+        closeUpdateDialog() {
+            this.isDialogUpdate = false
+            this.isProjectUpdated = true
         },
         
         
-        openDialogDelete(project){
-            this.project = project;
-            this.confirmDelete = true;
+        openDialogDelete(idProject){
+            this.idProject = idProject
+            this.isDialogDelete = true
         },
-        closeDialog(){
-            this.confirmDelete = false;
+        closeDeleteDialog(){
+            this.isDialogDelete = false
+            this.isProjectDeleted = true
         }
     }
 }

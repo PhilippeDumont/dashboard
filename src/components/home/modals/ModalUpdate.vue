@@ -1,7 +1,7 @@
 <template>
     <v-container>
 
-        <v-dialog v-model="isOpen" persistent width="500">
+        <v-dialog v-model="isOpenInterne" persistent width="500">
             <v-card>
                 <v-card-title>
                     Update project
@@ -47,7 +47,7 @@
                         <v-row>
                             <!--BUTTON DISABLED IF NO DATA ITEMS AND ACTIVITIES-->
 
-                            <v-btn color="blue-grey" class="ma-2 white--text" width="250" @click="updateProject()"
+                            <v-btn color="blue-grey" class="ma-2 white--text" width="250" @click="clickUpdateProject()"
                                 :disabled="!isPathItems || !isPathActivities">
                                 Update
                             </v-btn>
@@ -65,8 +65,17 @@ import { mapGetters } from 'vuex'
 import { sendRequest, getFileNameOfPath } from '@/utils.js';
 
 export default {
-    name: 'Open',
-    props: ['isOpen', 'idProject'],
+    name: 'ModalUpdate',
+    //props: ['isOpen', 'idProject'],
+    props: {
+        isOpen: {
+            type: Boolean,
+            default: false
+        },
+        idProject: {
+            type: Number
+        }
+    },
     data: () => ({
         //path of the items data file
         pathItems: null,
@@ -81,8 +90,12 @@ export default {
         //boolean to know if there is a path for activities
         isPathActivities: null,
         //boolean to know if project is updated
-        isProjectUpdated: false
+        isProjectUpdated: false,
+        isOpenInterne: false
     }),
+    // created() {
+    //     this.isOpenInterne = this.isOpen
+    // },
     computed: {
         ...mapGetters([
             'getListProjects'
@@ -113,7 +126,7 @@ export default {
                 console.log(e)
             })
         },
-        updateProject() {
+        clickUpdateProject() {
             sendRequest('api-python', 'update_project_by_id', this.idProject, this.pathActivities, this.pathItems).then(() =>{
                 this.close()
             }).catch((e) => {
@@ -127,7 +140,12 @@ export default {
             this.pathItems = null
             this.itemsFile = null
             this.isPathItems = false
-            this.$emit('update', false)
+            this.$emit('closeUpdateDialog', false)
+        }
+    },
+    watch: {
+        isOpen: function(val) {
+            this.isOpenInterne = val
         }
     }
 }
