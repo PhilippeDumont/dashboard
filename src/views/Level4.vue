@@ -1,31 +1,28 @@
 <template>
-<div>
+    <div>
+        <v-container fluid>
+            <div v-if="currentProject">
+                {{ currentProject.name }}
+            </div>
+            <div v-else>
+                <AlertNoProject/>
+            </div>
 
-<v-container fluid>
-    
-    <div v-if="isDisabled">
-        <v-alert type="info" class="alert">
-            <router-link to="/Home" tag="button">
-                Are you lost ?<br/>
-                You didn't choose a project
-            </router-link>
-        </v-alert>
-        <h3>If you want to create a project: Go to Home !</h3>
+        </v-container>
     </div>
-
-</v-container>
-
-</div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+
+import AlertNoProject from '@/components/utils/AlertNoProject.vue'
+import { mapState, mapActions } from 'vuex'
 export default {
-    data(){
-        return{
-            isDisabled: true
-        }
+    components: {
+      AlertNoProject
     },
+    computed: mapState({
+      currentProject: 'currentProject'
+    }),
     created() {
       this.setExpansionBarVisibility(true)
     },
@@ -38,23 +35,5 @@ export default {
 </script>
 
 <style scoped>
-
-    .alert{
-        margin-top: 25%;
-        text-align: center;
-        margin-left: auto;
-        margin-right: auto;
-        width: 350px;
-        font-size: 20px;
-    }
-
-    h3{
-        text-align: center;
-        color: #2196f3;
-    }
-
-    h3:hover{
-        text-decoration: underline;
-    }
 
 </style>

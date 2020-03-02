@@ -17,15 +17,30 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn icon @click="choseAndOpenProject(project)">
-                            <v-icon>mdi-folder-open</v-icon>
-                        </v-btn>
-                        <v-btn icon @click="openDialogUpdate(project.id)">
-                            <v-icon>mdi-file-import</v-icon>
-                        </v-btn>
-                        <v-btn icon @click="openDialogDelete(project)">
-                            <v-icon>mdi-close-circle</v-icon>
-                        </v-btn>
+                        <v-tooltip top>
+                            <template v-slot:activator="{ on }">
+                                <v-btn icon @click="choseAndOpenProject(project)" v-on="on">
+                                    <v-icon>mdi-folder-open</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>Open project</span>
+                        </v-tooltip>
+                        <v-tooltip top>
+                            <template v-slot:activator="{ on }">
+                                <v-btn icon @click="openDialogUpdate(project.id)" v-on="on">
+                                    <v-icon>mdi-file-import</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>Reimport data</span>
+                        </v-tooltip>
+                        <v-tooltip top>
+                            <template v-slot:activator="{ on }">
+                                <v-btn icon @click="openDialogDelete(project)" v-on="on">
+                                    <v-icon>mdi-close-circle</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>Delete project</span>
+                        </v-tooltip>
                         <v-spacer></v-spacer>
                     </v-card-actions>
                 </v-card>
