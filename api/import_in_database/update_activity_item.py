@@ -5,7 +5,7 @@ from methods_on_csv import import_activity_csv
 
 
 def run(project_id, path_act, path_item):
-    conn = sqlite3.connect("api/database_files/act_it_db/" + str(project_id) + ".db")
+    conn = sqlite3.connect("api/databases_files/activities_items_db/" + str(project_id) + ".db")
     reset_database_activities_items.run(project_id)
     conn.commit()
     conn.close()

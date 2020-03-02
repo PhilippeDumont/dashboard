@@ -8,7 +8,7 @@
     <v-expansion-panels>
      <v-expansion-panel>    
        <v-expansion-panel-header v-if="currentProject">{{ currentProject.name }}</v-expansion-panel-header>
-       <v-expansion-panel-header v-else>Choose a project</v-expansion-panel-header>
+       <v-expansion-panel-header v-else>None current project</v-expansion-panel-header>
        <v-expansion-panel-content>
            <v-row>
             <!-- Project Item -->
@@ -71,7 +71,7 @@ li a {
 }
 
 #selector_projects{
-  width: 200px;
+  width: 220px;
   position: fixed;
   /*TO BE BEFORE EVERYTHING*/
   z-index: 3;

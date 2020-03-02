@@ -28,7 +28,7 @@
                         <v-tooltip top>
                             <template v-slot:activator="{ on }">
                                 <v-btn icon @click="openDialogUpdate(project.id)" v-on="on">
-                                    <v-icon>mdi-file-import</v-icon>
+                                    <v-icon>mdi-publish</v-icon>
                                 </v-btn>
                             </template>
                             <span>Reimport data</span>
@@ -36,7 +36,7 @@
                         <v-tooltip top>
                             <template v-slot:activator="{ on }">
                                 <v-btn icon @click="openDialogDelete(project)" v-on="on">
-                                    <v-icon>mdi-close-circle</v-icon>
+                                    <v-icon>mdi-delete</v-icon>
                                 </v-btn>
                             </template>
                             <span>Delete project</span>

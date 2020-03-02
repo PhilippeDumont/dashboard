@@ -3,19 +3,18 @@ import os
 import unittest
 import sqlite3
 from database import init_database_project
-db_act_it_name = "project1"
 
 
 class TestInitDB(unittest.TestCase):
 
     def test_init_database_project(self):
         # test if database exist
-        exist = os.path.exists("../database_files/act_it_db/all_project.db")
+        exist = os.path.exists("../databases_files/activities_items_db/all_project.db")
         self.assertFalse(exist)
         # init the database to the connected file
         init_database_project.run()
         # connect to database
-        conn = sqlite3.connect("../database_files/project_db/all_project.db")
+        conn = sqlite3.connect("../databases_files/projects_db/all_project.db")
         # create the cursor
         cursor = conn.cursor()
         # get the count of tables with the name
