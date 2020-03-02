@@ -68,6 +68,25 @@
             </v-card>
         </v-dialog>
 
+
+        <!-- SNACKBAR TO SHOW THE SUCCESS OF THE DELETE -->
+        <v-snackbar v-model="isProjectDeleted" :color="color"> 
+            Project deleted with success !
+            <v-btn color="white" text @click="isProjectDeleted = false">
+                Close
+            </v-btn>
+        </v-snackbar>
+
+        <!-- SNACKBAR TO SHOW THE SUCCESS OF THE UPDATE -->
+        <v-snackbar v-model="isProjectUpdated" :color="color"> 
+            Reimport of datas done with success !
+            <v-btn color="white" text @click="isProjectUpdated = false">
+                Close
+            </v-btn>
+        </v-snackbar>
+
+
+
     </v-container>
 </template>
 
@@ -87,7 +106,10 @@ export default {
         idProject: null,
         confirmDelete: false,
         loadingDelete: false,
-        project: null
+        project: null,
+        isProjectDeleted: false,
+        isProjectUpdated: false,
+        color: "green"
     }),
     computed: {
         ...mapGetters([
@@ -110,6 +132,7 @@ export default {
                 this.s_deleteProject(this.project)
                 this.loadingDelete = false;
                 this.confirmDelete = false;
+                this.isProjectDeleted = true;
             }).catch((e) => {
                 console.log(e)
             })
