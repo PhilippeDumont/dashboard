@@ -2,10 +2,23 @@
     <v-container>
 
         <!--SHOW CARDS FOR EVERY PROJECT CREATED-->
-        <v-row>
-            <v-col>
-                <h1 class="title">Open a project</h1>
-            </v-col>
+        <v-row align="center" class="row-select">
+            <span><h1 class="title">Open a project</h1></span>
+            <span style="margin-left: 255px">
+                <v-text-field
+                    label="Search a project"
+                ></v-text-field>
+            </span>
+            <span>
+                <v-tooltip right>
+                    <template v-slot:activator="{ on }">
+                        <v-btn icon id="sortProj" v-on="on">
+                            <v-icon>mdi-swap-vertical-bold</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Sort projects</span>
+                </v-tooltip>
+            </span>
         </v-row>
 
         <v-row>
@@ -171,5 +184,27 @@ export default {
 .card:hover{
     box-shadow: 6px 6px 25px 4px rgba(0, 0, 0, 0.18);
     transform: scale(1.02);
+}
+
+.row-select {
+    height: 94px;
+}
+
+#sortProj{
+     transition: transform 0.5s;
+     transform: rotate(360deg)
+}
+
+#sortProj:active{
+    transform: rotate(0deg);
+    transition: 0s;
+}
+
+span {
+    margin: 10px;
+}
+
+.v-text-field{
+    width: 230px;
 }
 </style>
