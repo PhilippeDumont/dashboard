@@ -19,11 +19,20 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
     data(){
         return{
             isDisabled: true
         }
+    },
+    created() {
+      this.setExpansionBarVisibility(true)
+    },
+    methods: {
+     ...mapActions([
+       'setExpansionBarVisibility',
+      ]),
     }
 }
 </script>

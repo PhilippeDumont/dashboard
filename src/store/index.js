@@ -6,12 +6,15 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     currentProject: null,
-    listProjects: []
+    listProjects: [],
+    expansionBarVisibility: true
   },
   getters: {
-    getListProjects: state => state.listProjects
+    getListProjects: state => state.listProjects,
+    getExpansionBarVisibility: state => state.expansionBarVisibility
   },
   mutations: {
+    /* Project */
     ADD_PROJECT(state, newProject) {
       state.listProjects.push(newProject)
       state.listProjects.sort((a, b) => (a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : -1)
@@ -26,6 +29,9 @@ export default new Vuex.Store({
     SET_LIST_PROJECTS(state, list) {
       state.listProjects = list
       state.listProjects.sort((a, b) => (a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : -1)
+    },
+    SET_EXPANSION_BAR_VISIBILITY(state, visibility) {
+       state.expansionBarVisibility = visibility
     }
   },
   actions: {
@@ -37,6 +43,9 @@ export default new Vuex.Store({
     },
     setCurrentProject({ commit }, project) {
       commit('SET_CURRENT_PROJECT', project)
+    },
+    setExpansionBarVisibility({ commit }, visibility) {
+      commit('SET_EXPANSION_BAR_VISIBILITY', visibility)
     }
   },
   modules: {

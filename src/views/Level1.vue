@@ -20,12 +20,20 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState,mapActions } from 'vuex'
 
 export default {
     computed: mapState({
         currentProject: 'currentProject'
     }),
+    created() {
+      this.setExpansionBarVisibility(true)
+    },
+    methods: {
+     ...mapActions([
+       'setExpansionBarVisibility',
+      ]),
+    }
 }
 </script>
 

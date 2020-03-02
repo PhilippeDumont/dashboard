@@ -27,6 +27,7 @@
 import Create from '@/components/home/Create.vue'
 import Open from '@/components/home/Open.vue'
 import Explication from '@/components/home/Explication.vue'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Home',
@@ -34,6 +35,14 @@ export default {
     Create,
     Open,
     Explication
+  },
+  created() {
+     this.setExpansionBarVisibility(false)
+  },
+  methods: {
+    ...mapActions([
+       'setExpansionBarVisibility',
+     ]),
   }
 }
 </script>
