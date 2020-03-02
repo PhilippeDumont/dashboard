@@ -10,7 +10,9 @@ export default new Vuex.Store({
     expansionBarVisibility: true
   },
   getters: {
-    getListProjects: state => state.listProjects,
+    getListProjects: state => state.listProjects.sort(function (a, b) {
+      return new Date(b.last_opening_date) - new Date(a.last_opening_date);
+    }),
     getExpansionBarVisibility: state => state.expansionBarVisibility
   },
   mutations: {
@@ -31,26 +33,35 @@ export default new Vuex.Store({
       state.listProjects.sort((a, b) => (a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : -1)
     },
     SET_EXPANSION_BAR_VISIBILITY(state, visibility) {
-       state.expansionBarVisibility = visibility
+      state.expansionBarVisibility = visibility
     }
   },
   actions: {
-    addProject({ commit }, project) {
+    addProject({
+      commit
+    }, project) {
       commit('ADD_PROJECT', project)
     },
-    deleteProject({ commit }, project) {
+    deleteProject({
+      commit
+    }, project) {
       commit('DELETE_PROJECT', project)
     },
-    setCurrentProject({ commit }, project) {
+    setCurrentProject({
+      commit
+    }, project) {
       commit('SET_CURRENT_PROJECT', project)
     },
-    setListProjects({ commit }, list) {
+    setListProjects({
+      commit
+    }, list) {
       commit('SET_LIST_PROJECTS', list)
     },
-    setExpansionBarVisibility({ commit }, visibility) {
+    setExpansionBarVisibility({
+      commit
+    }, visibility) {
       commit('SET_EXPANSION_BAR_VISIBILITY', visibility)
     }
   },
-  modules: {
-  }
+  modules: {}
 })

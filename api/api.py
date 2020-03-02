@@ -24,6 +24,7 @@ from methods_on_project_database import get_project_with_id
 from import_in_database import create_project
 from methods_on_project_database import delete_project
 from import_in_database import update_activity_item
+from methods_on_project_database import update_project_last_opening_date
 
 my_parser = argparse.ArgumentParser(description='Call the python API')
 my_parser.add_argument('method', type=str, help='The method to call')
@@ -61,6 +62,8 @@ try:
         print(delete_project.run(input_options[0]))
     elif input_method == 'update_project_by_id':
         print(update_activity_item.run(input_options[0], input_options[1], input_options[2]))
+    elif input_method == 'update_last_opening_date_project':
+        print(update_project_last_opening_date.run(input_options[0]))
     else:
         print('The function ' + input_method + ' doesn\'t exist. The list of functions is: \n' + '\n'.join(list_of_function))
 except IndexError as e:
