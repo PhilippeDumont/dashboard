@@ -4,7 +4,8 @@
         <!--SHOW CARDS FOR EVERY PROJECT CREATED-->
         <v-row align="center" class="row-select">
             <span><h1 class="title">Open a project</h1></span>
-            <span style="margin-left: 255px">
+            <v-spacer></v-spacer>
+            <span>
                 <v-text-field
                     label="Search a project"
                 ></v-text-field>
@@ -13,7 +14,8 @@
                 <v-tooltip right>
                     <template v-slot:activator="{ on }">
                         <v-btn icon id="sortProj" v-on="on">
-                            <v-icon>mdi-swap-vertical-bold</v-icon>
+                            <v-icon v-if="ascending">mdi-sort-ascending</v-icon>
+                            <v-icon v-else>mdi-sort-descending</v-icon>
                         </v-btn>
                     </template>
                     <span>Sort projects</span>
@@ -125,7 +127,9 @@ export default {
         isDialogDelete: false,
         isProjectDeleted: false,
         isProjectUpdated: false,
-        color: "green"
+        color: "green",
+        ascending: false
+
     }),
     computed: {
         ...mapGetters([
@@ -194,7 +198,8 @@ export default {
 }
 
 .row-select {
-    height: 94px;
+    height: auto;
+    width: auto;
 }
 
 #sortProj{
@@ -207,11 +212,11 @@ export default {
     transition: 0s;
 }
 
-span {
-    margin: 10px;
+span{
+margin: 10px;
 }
 
 .v-text-field{
-    width: 230px;
+    right: 0;
 }
 </style>
