@@ -13,7 +13,7 @@ class TestCreateProject(unittest.TestCase):
         response = create_project.run(project_name)
         self.assertEqual(response, 1)
         # connect to database
-        conn = sqlite3.connect("../database_files/act_it_db/1.db")
+        conn = sqlite3.connect("../databases_files/activities_items_db/1.db")
         # create the cursor
         cursor = conn.cursor()
         # get the count of tables with the name

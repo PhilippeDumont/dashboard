@@ -16,7 +16,7 @@ class TestUpdateDB(unittest.TestCase):
         # update data from database
         update_activity_item.run(project_id, linkCSV + "/activity_data-test.csv", linkCSV + "/item_data-test.csv")
         # connect to database
-        conn = sqlite3.connect("../database_files/act_it_db/" + str(project_id) + ".db")
+        conn = sqlite3.connect("../databases_files/activities_items_db/" + str(project_id) + ".db")
         # create the cursor
         cursor = conn.cursor()
         # get the count of activities

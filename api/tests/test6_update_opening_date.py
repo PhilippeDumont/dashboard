@@ -14,7 +14,7 @@ class TestUpdateDatabaseProject(unittest.TestCase):
         # Update the project
         update_project_last_opening_date.run(project_id)
         # Get the date back from the database
-        conn = sqlite3.connect('../database_files/project_db/all_project.db')
+        conn = sqlite3.connect('../databases_files/projects_db/all_project.db')
         cursor = conn.cursor()
         query = """SELECT last_opening_date from projects WHERE id = ?"""
         cursor.execute(query, str(project_id))
