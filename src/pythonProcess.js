@@ -51,7 +51,7 @@ const getScriptPath = () => {
     } else {
       api_path = path.join(__dirname, PY_DIST_FOLDER, PY_MODULE, PY_MODULE); 
     }
-    logger.log("API PATH : WIN 32 : "+api_path) 
+    logger.log("API PATH : WIN 32 : " + api_path) 
   } 
   /* ********************************** LINUX *********************************** */
   else if (process.platform === 'linux') {
@@ -63,7 +63,7 @@ const getScriptPath = () => {
     } else {
       api_path = "";
     }
-    logger.log("API PATH : LINUX : "+api_path)
+    logger.log("API PATH : LINUX : " + api_path)
   } 
   /* ********************************* MACOS *********************************** */
   else if (process.platform === 'darwin') {
@@ -75,7 +75,7 @@ const getScriptPath = () => {
     } else {
       api_path = "";
     } 
-    logger.log("API PATH : MACOS : "+api_path)
+    logger.log("API PATH : MACOS : " + api_path)
   }
   return api_path;
 }
