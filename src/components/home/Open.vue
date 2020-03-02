@@ -34,7 +34,7 @@
         </v-row>
 
         <!-- modal update -->
-        <modal :isOpen="dialog" :idProject="idProject" @update="update"></modal>
+        <modal-update :isOpen="dialog" :idProject="idProject" @update="update"></modal-update>
 
         <v-dialog v-model="confirmDelete" max-width="600px" persistent>
             <v-card>
@@ -47,7 +47,7 @@
                 </v-card-title>
                 <v-card-actions style="font-size: 18px;" class="justify-end">
                     <v-btn @click="closeDialog" class="mx-2 mt-4" :disabled="loadingDelete">Cancel</v-btn>
-                    <v-btn class="error mx-2 mt-4" @click="deleteProject()" :disabled="loadingDelete"
+                    <v-btn class="error mx-2 mt-4" @click="clickDeleteProject()" :disabled="loadingDelete"
                         :loading="loadingDelete">Agree</v-btn>
                 </v-card-actions>
             </v-card>
@@ -60,12 +60,12 @@
 import { mapGetters, mapActions } from 'vuex'
 import { sendRequest } from '@/utils.js';
 
-import Modal from '@/components/home/update/Modal.vue';
+import ModalUpdate from '@/components/home/modals/ModalUpdate.vue';
 
 export default {
     name: 'Open',
     components: {
-        Modal
+        ModalUpdate
     },
     data: () => ({
         dialog: false,
@@ -88,17 +88,18 @@ export default {
             this.setCurrentProject(project)
             this.$router.push('/Level1')
         },
-        deleteProject() {
+        clickDeleteProject() {
             this.loadingDelete = true;
             sendRequest('api-python', 'delete_project_by_id', this.project.id).then((arg) =>{
                 console.log(arg)
-                this.s_deleteProject(this.project)
+                this.deleteProject(this.project)
                 this.loadingDelete = false;
                 this.confirmDelete = false;
             }).catch((e) => {
                 console.log(e)
             })
         },
+
 
         openDialogUpdate(idProject) {
             this.idProject = idProject
@@ -107,7 +108,8 @@ export default {
         update(bool) {
             this.dialog = bool
         },
-                    
+        
+        
         openDialogDelete(project){
             this.project = project;
             this.confirmDelete = true;

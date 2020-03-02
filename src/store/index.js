@@ -37,6 +37,9 @@ export default new Vuex.Store({
     },
     setCurrentProject({ commit }, project) {
       commit('SET_CURRENT_PROJECT', project)
+    },
+    setListProjects({ commit }, list) {
+      commit('SET_LIST_PROJECTS', list)
     }
   },
   modules: {
