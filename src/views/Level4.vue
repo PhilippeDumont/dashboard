@@ -13,16 +13,24 @@
 </template>
 
 <script>
-import AlertNoProject from '@/components/utils/AlertNoProject.vue'
-import { mapState } from 'vuex'
 
+import AlertNoProject from '@/components/utils/AlertNoProject.vue'
+import { mapState, mapActions } from 'vuex'
 export default {
     components: {
-    AlertNoProject
-  },
+      AlertNoProject
+    },
     computed: mapState({
-        currentProject: 'currentProject'
+      currentProject: 'currentProject'
     }),
+    created() {
+      this.setExpansionBarVisibility(true)
+    },
+    methods: {
+     ...mapActions([
+       'setExpansionBarVisibility',
+      ]),
+    }
 }
 </script>
 
