@@ -41,6 +41,7 @@
 
 <script>
 import { ipcRenderer } from 'electron'
+import { mapActions } from 'vuex'
 export default {
     data: () => ({
         loadingUpdate: false,
@@ -49,6 +50,9 @@ export default {
         updateMessage: "",
         modalDialog: false,
     }),
+    created() {
+      this.setExpansionBarVisibility(false)
+    },
     mounted: function() {
      //GET VERSION APP
         // Ask version application
@@ -94,7 +98,11 @@ export default {
         },
         restartApp() {
             ipcRenderer.send('restart_app');
-        }
+        },
+        ...mapActions([
+         'setExpansionBarVisibility',
+        ]),
+        
     }
 }
 </script>
