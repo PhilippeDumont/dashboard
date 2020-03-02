@@ -2,7 +2,7 @@
   <v-app>
       <v-container>
           <SideBar />
-          <SelectProject></SelectProject>
+          <SelectProject v-if="getExpansionBarVisibility"></SelectProject>
           <router-view></router-view>
       </v-container>
   </v-app>
@@ -13,7 +13,7 @@ import SideBar from '@/components/SideBar';
 import SelectProject from '@/components/SelectProject';
 import { sendRequest } from '@/utils.js';
 import { Project } from '@/model/Project.js'
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'App',
@@ -31,6 +31,11 @@ export default {
     },
     // check if the database with the list of projects exists, if this is not the case, create it
     // get the list of projects
+    computed: {
+       ...mapGetters([
+            'getExpansionBarVisibility'
+        ])
+    },
     created() {
         sendRequest('api-python', 'init_db_projects').then((arg) => {
             console.log("init_db_projects: "+arg)

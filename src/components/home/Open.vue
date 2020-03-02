@@ -17,15 +17,30 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn icon @click="choseAndOpenProject(project)">
-                            <v-icon>mdi-folder-open</v-icon>
-                        </v-btn>
-                        <v-btn icon @click="openDialogUpdate(project.id)">
-                            <v-icon>mdi-file-import</v-icon>
-                        </v-btn>
-                        <v-btn icon @click="openDialogDelete(project)">
-                            <v-icon>mdi-close-circle</v-icon>
-                        </v-btn>
+                        <v-tooltip top>
+                            <template v-slot:activator="{ on }">
+                                <v-btn icon @click="choseAndOpenProject(project)" v-on="on">
+                                    <v-icon>mdi-folder-open</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>Open project</span>
+                        </v-tooltip>
+                        <v-tooltip top>
+                            <template v-slot:activator="{ on }">
+                                <v-btn icon @click="openDialogUpdate(project.id)" v-on="on">
+                                    <v-icon>mdi-file-import</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>Reimport data</span>
+                        </v-tooltip>
+                        <v-tooltip top>
+                            <template v-slot:activator="{ on }">
+                                <v-btn icon @click="openDialogDelete(project)" v-on="on">
+                                    <v-icon>mdi-close-circle</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>Delete project</span>
+                        </v-tooltip>
                         <v-spacer></v-spacer>
                     </v-card-actions>
                 </v-card>
@@ -53,6 +68,25 @@
             </v-card>
         </v-dialog>
 
+
+        <!-- SNACKBAR TO SHOW THE SUCCESS OF THE DELETE -->
+        <v-snackbar v-model="isProjectDeleted" :color="color"> 
+            Project deleted with success !
+            <v-btn color="white" text @click="isProjectDeleted = false">
+                Close
+            </v-btn>
+        </v-snackbar>
+
+        <!-- SNACKBAR TO SHOW THE SUCCESS OF THE UPDATE -->
+        <v-snackbar v-model="isProjectUpdated" :color="color"> 
+            Reimport of datas done with success !
+            <v-btn color="white" text @click="isProjectUpdated = false">
+                Close
+            </v-btn>
+        </v-snackbar>
+
+
+
     </v-container>
 </template>
 
@@ -72,7 +106,10 @@ export default {
         idProject: null,
         confirmDelete: false,
         loadingDelete: false,
-        project: null
+        project: null,
+        isProjectDeleted: false,
+        isProjectUpdated: false,
+        color: "green"
     }),
     computed: {
         ...mapGetters([
@@ -95,6 +132,7 @@ export default {
                 this.deleteProject(this.project)
                 this.loadingDelete = false;
                 this.confirmDelete = false;
+                this.isProjectDeleted = true;
             }).catch((e) => {
                 console.log(e)
             })

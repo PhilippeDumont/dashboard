@@ -18,9 +18,14 @@
                      <span>{{project.name}}</span>
                    </v-col>
                    <v-col cols="4">
-                     <v-btn text icon @click="setCurrentProject(project)">
-                       <v-icon>mdi-open-in-app</v-icon>
-                     </v-btn>
+                     <v-tooltip right>
+                            <template v-slot:activator="{ on }">
+                                <v-btn text icon @click="setCurrentProject(project)" v-on="on">
+                                  <v-icon>mdi-folder-open</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>Open project</span>
+                        </v-tooltip>
                    </v-col>
                  </v-row>
             </v-col>
