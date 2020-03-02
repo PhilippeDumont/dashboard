@@ -16,7 +16,7 @@
 <script>
 
 import AlertNoProject from '@/components/utils/AlertNoProject.vue'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
     components: {
