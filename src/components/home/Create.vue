@@ -66,8 +66,8 @@
                         Create
                     </v-btn>
                     <!--ICONS TO SHOW IF PROJECT IS CREATED OR NOT-->
-                    <v-icon v-if="isProjectCreated" color="green">mdi-checkbox-marked-circle</v-icon>
-                    <v-icon v-else color="red">mdi-close-circle</v-icon>
+                    <!-- <v-icon v-if="isProjectCreated" color="green">mdi-checkbox-marked-circle</v-icon> -->
+                    <v-icon v-if="!isProjectCreated" color="red">mdi-close-circle</v-icon>
                 </v-col>
             </v-row>
 
