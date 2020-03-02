@@ -123,6 +123,11 @@ export default {
         ]),
         choseAndOpenProject(project) {
             this.setCurrentProject(project)
+            sendRequest('api-python', 'update_last_opening_date_project', project.id).then((arg) =>{
+                console.log(arg)
+            }).catch((e) =>{
+                console.log(e)
+            })
             this.$router.push('/Level1')
         },
         deleteProject() {
