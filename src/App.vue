@@ -1,13 +1,12 @@
 <template>
   <v-app>
-      <v-container>
+      <v-container id="app-container" fluid>
           <SideBar />
           <SelectProject v-if="getExpansionBarVisibility"></SelectProject>
           <router-view></router-view>
       </v-container>
   </v-app>
 </template>
-
 <script>
 import SideBar from '@/components/SideBar';
 import SelectProject from '@/components/SelectProject';
@@ -23,14 +22,14 @@ export default {
     components: {
         SideBar,
         SelectProject,
-    },
-    // check if the database with the list of projects exists, if this is not the case, create it
-    // get the list of projects
+    }, 
     computed: {
        ...mapGetters([
             'getExpansionBarVisibility'
         ])
     },
+    // check if the database with the list of projects exists, if this is not the case, create it
+    // get the list of projects
     created() {
         sendRequest('api-python', 'init_db_projects').then((arg) => {
             console.log("init_db_projects: "+arg);
@@ -52,14 +51,19 @@ export default {
 
         }).catch((e) => {
             console.log(e);
-        });
-
-        
+        });  
     }
 };
 </script>
 
 <style>
+    #app-container {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+    }
+
     ::-webkit-scrollbar {
         height: 10px;
         width: 10px;
@@ -75,17 +79,17 @@ export default {
     }
 
     ::-webkit-scrollbar-thumb {
-        background: blueviolet;
-        border: 0px none blueviolet;
+        background: #2196f3;
+        border: 0px none #2196f3;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-        background: blueviolet;
+        background: #2196f3;
         filter: grayscale(50%);
     }
 
     ::-webkit-scrollbar-thumb:active {
-        background: blueviolet;
+        background: #2196f3;
     }
 
     ::-webkit-scrollbar-track {

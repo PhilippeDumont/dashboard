@@ -4,7 +4,7 @@
             <router-link to="/Home" tag="button">
                 Are you lost ?<br />
                 You didn't choose a project
-            </router-link>
+            </router-link>    
         </v-alert>
         <h3>If you want to create a project: Go to Home !</h3>
     </div>
@@ -18,16 +18,20 @@ export default {
 
 <style scoped>
     .alert{
-        margin-top: 25%;
-        text-align: center;
-        margin-left: auto;
-        margin-right: auto;
         width: 350px;
         font-size: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);     
     }
 
     h3{
-        text-align: center;
         color: #2196f3;
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
     }
 </style>

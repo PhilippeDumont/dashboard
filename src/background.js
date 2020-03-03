@@ -22,9 +22,10 @@ function createWindow () {
   win = new BrowserWindow({ width: 800, height: 600, 
    webPreferences: {
     nodeIntegration: true
-   } 
+   },
+   frame: false
   })
-
+ 
   win.setMenuBarVisibility(false)
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
@@ -42,6 +43,7 @@ function createWindow () {
   })
 
 }
+
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {

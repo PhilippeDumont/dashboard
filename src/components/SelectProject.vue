@@ -72,9 +72,9 @@ li a {
 
 #selector_projects{
   width: 200px;
-  position: fixed;
+  position: relative;
   /*TO BE BEFORE EVERYTHING*/
   z-index: 3;
-  top: 3px;
+  top: 20px;
 }
 </style>
