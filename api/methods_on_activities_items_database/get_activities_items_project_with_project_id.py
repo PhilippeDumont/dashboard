@@ -1,4 +1,4 @@
-from methods_on_activities_item_database import get_activities_with_project_id, get_items_with_project_id
+from methods_on_activities_items_database import get_activities_with_project_id, get_items_with_project_id
 from methods_on_project_database import get_project_with_id
 from model.activities_items_project_model import ActivitiesItemsProject
 
