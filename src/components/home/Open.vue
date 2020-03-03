@@ -39,7 +39,13 @@
                 <v-card class="card" width="150" height="300">
                     <v-img :src="require('@/assets/graph.svg')" height="150" width="150"></v-img>
                     <v-card-text style="overflow-y: auto; height:100px">
-                        {{project.name}}
+                        <span v-if="!project.isRename">{{project.name}}</span>
+                        <v-text-field
+                            v-else
+                            v-model="newProjectName"
+                            label="New name"
+                            v-on:keyup.enter="updateProjectName(project)"
+                        ></v-text-field>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -50,6 +56,14 @@
                                 </v-btn>
                             </template>
                             <span>Open project</span>
+                        </v-tooltip>
+                        <v-tooltip top>
+                            <template v-slot:activator="{ on }">
+                                <v-btn icon @click="activeTextFieldToRename(project)" v-on="on">
+                                    <v-icon>mdi-pencil</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>Rename project</span>
                         </v-tooltip>
                         <v-tooltip top>
                             <template v-slot:activator="{ on }">
@@ -77,9 +91,6 @@
         <modal-update :isOpen="isDialogUpdate" :idProject="idProject" @close-update-dialog="closeUpdateDialog"></modal-update>
 
         <modal-delete :isOpen="isDialogDelete" :project="project" @close-delete-dialog="closeDeleteDialog"></modal-delete>
-        
-
-
 
     </v-container>
 </template>
@@ -104,12 +115,14 @@ export default {
         isDialogDelete: false,
         isProjectDeleted: false,
         isProjectUpdated: false,
-        color: "green",
         sortType: "date-open",
         isAscending: true,
         search: "",
         colorAlpha: null,
-        colorDate: "blue"
+        colorDate: "blue",
+        ascending: false,
+        wantToRename: false,
+        newProjectName: ""
     }),
     computed: {
         ...mapGetters([
@@ -129,6 +142,23 @@ export default {
                 console.log(e)
             })
             this.$router.push('/Level1')
+        },
+
+        activeTextFieldToRename(project){
+            project.setIsRename(true)
+            this.newProjectName = project.name
+        },
+        updateProjectName(project){
+            console.log(this.newProjectName)
+            console.log(project.id)
+            sendRequest('api-python', 'rename_project', project.id, this.newProjectName).then((arg) =>{
+                console.log(arg)
+                console.log("pass")
+                this.newProjectName = ""
+            }).catch((e) =>{
+                console.log(e)
+            })
+            project.setIsRename(false)
         },
 
         changeSortType(sortType) {
@@ -173,7 +203,6 @@ export default {
 <style scoped>
 .card {
     box-shadow: 6px 6px 20px 4px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
     transition:0.2s;
 }
 .card:hover{
