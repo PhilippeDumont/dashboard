@@ -2,8 +2,8 @@
 import unittest
 from methods_on_project_database import get_projects, get_project_with_id, project_not_exist
 from methods_on_project_database import get_project_id_with_name
-from methods_on_activities_item_database import get_activities_with_project_id, \
-    get_activity_item_project_with_project_id, get_items_with_project_id, get_activity_item_with_project_id
+from methods_on_activities_items_database import get_activities_with_project_id, \
+    get_activities_items_project_with_project_id, get_items_with_project_id, get_activities_items_with_project_id
 
 unittest.TestLoader.sortTestMethodsUsing = None
 
@@ -45,14 +45,14 @@ class TestGetFromDB(unittest.TestCase):
 
     # test query activities, items and project by project_id
     def test_get_activity_item_project_with_project_id(self):
-        object_temp = get_activity_item_project_with_project_id.run(project_id_to_search)
+        object_temp = get_activities_items_project_with_project_id.run(project_id_to_search)
         self.assertEqual(len(object_temp.activities), 1)
         self.assertEqual(len(object_temp.items), 1)
         self.assertEqual(object_temp.project.id, 1)
 
     # test query activities, items and project
     def test_get_activity_item_with_project_id(self):
-        object_temp = get_activity_item_with_project_id.run(project_id_to_search)
+        object_temp = get_activities_items_with_project_id.run(project_id_to_search)
         self.assertEqual(len(object_temp.activities), 1)
         self.assertEqual(len(object_temp.items), 1)
         self.assertEqual(object_temp.project_id, 1)
