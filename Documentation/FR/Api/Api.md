@@ -1,66 +1,66 @@
-# Documentation de l'API
+# API's documentation
 
-## Technologies de l'API
+## Tech used in the API
 
-L'API à été réalisée sous *Python 3.8.1* avec une base de données *SQLite*.
+The API has been done under *Python 3.8.1* with a *SQLite* database 
 
-## L'arborescence de l'API
+## Hierarchy of the project
 
-L'API est divisée en plusieurs dossiers contenant méthodes, modèles objets, tests, fichiers de base de données et coverage.
+The API was divided into folders containing methods, models, tests, databases files and the coverage files
 
-### Liste des dossiers et ce qu'ils contiennent.
+### List of the folders and what's inside of them
 
-- **csv_test** : contient les fichiers CSV nécessaires pour les tests.
-- **database** : contient les méthodes de création et de remise à 0 de base de données.
-- **databases_files** : contient les dossiers contenant les fichiers de base de données.
-  - *activities_items_db* : contient les fichiers de base de données des bases contenant les activités et objets.
-  - *projects_db* : contient le fichier de base de données contenant les projets.
-- **htmlcov** : contient les fichiers de nécessaire au lancement du coverage.
-- **import_in_database** : contient méthodes d'import de donnée en base de données.
-- **methods_on_activities_item_database** : contient les methodes de récuperation ainsi que de supression sur la base de données d'activités et d'objets.
-- **methods_on_csv** : contient les methodes de transformation de CSV.
-- **methods_on_project_database** : contient les méthodes de récuperation ainsi que de supression sur la base de données des projets.
-- **model** : contient les modèles objets de l'application
-- **tests** : contient les fichiers permettant de lancer les tests
+- **csv_test** : contain the CSV files necessary for the tests.
+- **database** : contain the methods that create and reset the database.
+- **databases_files** : contain the files that contain the database files.
+  - *activities_items_db* : contain the database files containing the activities and items.
+  - *projects_db* : contain the database file containing the project.
+- **htmlcov** : contain the necessary file to launch the coverage.
+- **import_in_database** : contain the methods that import in the databases.
+- **methods_on_activities_item_database** : contain the methods that delete and get data back from the activities and items database.
+- **methods_on_csv** : contain the methods that transform the CSV files.
+- **methods_on_project_database** : contain the methods that delete and get data back from the project database.
+- **model** : contain the models of the items.
+- **tests** : contain the file used to launch the tests.
 
-## Description des méthodes.
+## Description of  the methods.
 
-- **database** : les méthodes dans database sont :
-  - *init_database_activities_items* : méthode appelée pour créer la base de données des activités et des objets.
-  - *init_databse_project* : méthode appelée pour créer la base de données des projets.
-  - *reset_database_activities_items* : méthode appelée pour remettre à 0 les données de la base de données d'activités et d'objets.
-  - *reset_database_project* : méthode appelée pour remettre à 0 les données de la base de données de projets.
+- **database** : the methods in database are :
+  - *init_database_activities_items* : methods called to create the activities and items databases.
+  - *init_databse_project* : methods called to create the projects database.
+  - *reset_database_activities_items* : methods called to reset the activities and items databases.
+  - *reset_database_project* : methods called to reset the projects database.
   
   
-- **import_in_database** : les méthodes dans import_in_database sont :
-  - *activity_item_import* : méthode permettant, avec une ligne de CSV envoyée par une méthodes de methods_on_csv.
-  - *create_project* : méthode permettant de créer un projet ainsi que la base de données d'activités et d'objets qui lui est lié.
-  - *update_activity_item* : méthode permettant d'appeler reset_database_activities_items et d'ensuite réimporter des données.
+- **import_in_database** : the methods in import_in_database are :
+  - *activity_item_import* : methods that, with a CSV row, import and item or an activity in the database.
+  - *create_project* : methods that create a project  and the activities and items database linked to this project.
+  - *update_activity_item* : methods that call reset_database_activities_items and then reimport the new data.
   
   
-- **methods_on activities_items_database** : les méthodes dans methods_on activities_items_database sont :
-  - *delete_activities_items_database* : méthode permettant de supprimer la base de donnée des activités liée à un projet.
-  - *get_activities_with_project_id* : méthode récuperant les activités liée à un projet en base de données.
-  - *get_activities_items_project_with_project_id* : méthode récuperant les activités, objets et données du projet auquels les activités et objets sont liés. 
-  - *get_activities_items_with_project_id* : méthode récuperant les activités, objets et id du projet auquels activité et objets sont liés.
-  - *get_items_with_project_id* : méthode récuperant les objets lié à un projet.
+- **methods_on activities_items_database** : methods in methods_on_activities_items_database are :
+  - *delete_activities_items_database* : methods that delete the activities items database linked to the project.
+  - *get_activities_with_project_id* : methods that get back the activities linked to a project.
+  - *get_activities_items_project_with_project_id* : methods that get back the activities, items and project data. 
+  - *get_activities_items_with_project_id* : methods that get back the activities, items and project id.
+  - *get_items_with_project_id* : methods that get back the items linked to a project.
   
   
-- **methods_on_csv** : les méthodes dans methods_on_csv sont : 
-  - *import_activity_csv* : méthode permettant d'importer un fichier CSV contenant les activités dans un format spécifique.
-  - *import_item_csv* : méthode permettant d'importer un fichier CSV contenant les objets dans un format spécifique.
+- **methods_on_csv** : methods in methods_on_csv are : 
+  - *import_activity_csv* : methods that import a CSV with a specific format to turn the row into activities to put in database.
+  - *import_item_csv* : methods that import a CSV with a specific format to turn the row into items to put in database.
   
   
-- **methods_on_project_database** : les méthodes dans méthods_on_project_database : 
-  - *delete_project* : méthode permettant de supprimer un projet et de supprimer la base de données d'activités et d'objets lié à ce projet.
-  - *get_project_id_with_name* :  méthode qui, grace au nom du projet, permet de récuperer l'ID de celui-ci.
-  - *get_project_with_id* : méthode qui, grace à l'ID du projet, permet de récuperer le projet en entier (sans les activités et objets).
-  - *get_projects* : méthode qui renvoie une liste de tout les projets existant (sans les activités et objets).
-  - *project_not_exist* : méthode qui, grace au nom du projet, permet de savoir si un projet du même nom existe déja.
-  - *rename_project* : méthode qui, grace à l'id du projet, permet de renommer un projet.
-  - *update_project_last_opening_date* : méthode qui permet grace à l'id d'un projet, de changer la date de dernière ouverture.
+- **methods_on_project_database** : methods on methods_on_project_database are : 
+  - *delete_project* : methods that delete a project and delete the activities and items database linked to it.
+  - *get_project_id_with_name* :  methods that get the project id thanks to is name.
+  - *get_project_with_id* : methods that get back the project in itself (without the activities and items) thanks to the id.
+  - *get_projects* : methods that get back a list of projects (without the activities and items).
+  - *project_not_exist* : methods that check if a project exist or not thanks to is name.
+  - *rename_project* : methods that rename a project thanks to is id.
+  - *update_project_last_opening_date* : methods that update the last opening date of a project.
  
 
-## Les Tests
-Les tests ont tous un numéro (test1_******* par exemple) ils doivent être lancer dans cette ordre sinon ils buggeront.
-Le test "all_tests" lance tout les autres fichiers de test dans l'ordre, permettant une création et reinitialisation de base de données
+## Tests
+The tests all have a number (test1_******* par exemple) They must be launch in order or they'll bug.
+The "all_test" file can launch all test at the same time.
