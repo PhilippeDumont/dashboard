@@ -74,8 +74,6 @@
 
         </v-form>
 
-        <SnackBar></SnackBar>
-
     </v-container>
 </template>
 
@@ -83,13 +81,9 @@
 import { sendRequest, getFileNameOfPath } from '@/utils.js';
 import { mapActions } from 'vuex';
 import { Project } from '@/model/Project.js'
-import SnackBar from '@/components/utils/SnackBar.vue'
 
 export default {
     name: 'Create',
-    components: {
-        SnackBar
-    },
     data: () => ({
         valid: true,
         //project_name init

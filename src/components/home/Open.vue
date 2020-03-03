@@ -77,12 +77,7 @@
         <modal-update :isOpen="isDialogUpdate" :idProject="idProject" @close-update-dialog="closeUpdateDialog"></modal-update>
 
         <modal-delete :isOpen="isDialogDelete" :project="project" @close-delete-dialog="closeDeleteDialog"></modal-delete>
-
-        <!-- SNACKBAR TO SHOW THE SUCCESS OF THE DELETE -->
-        <SnackBar></SnackBar>
-
-        <!-- SNACKBAR TO SHOW THE SUCCESS OF THE UPDATE -->
-        <SnackBar></SnackBar>
+        
 
 
 
@@ -95,14 +90,12 @@ import { sendRequest } from '@/utils.js';
 
 import ModalDelete from '@/components/home/modals/ModalDelete.vue';
 import ModalUpdate from '@/components/home/modals/ModalUpdate.vue';
-import SnackBar from '@/components/utils/SnackBar.vue';
 
 export default {
     name: 'Open',
     components: {
         ModalDelete,
-        ModalUpdate,
-        SnackBar
+        ModalUpdate
     },
     data: () => ({
         idProject: null,

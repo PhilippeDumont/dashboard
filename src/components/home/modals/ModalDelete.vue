@@ -60,6 +60,9 @@ export default {
                 this.deleteProject(this.project)
                 this.loadingDelete = false
                 this.close(true)
+                this.setSnackBarToShow(true)
+                this.setMsgSnackBar("Project deleted with success")
+                this.setColorSnackBar("green")
             }).catch((e) => {
                 console.log(e)
                 this.setSnackBarToShow(true)
