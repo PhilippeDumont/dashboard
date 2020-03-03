@@ -51,7 +51,7 @@
                         <v-tooltip top>
                             <template v-slot:activator="{ on }">
                                 <v-btn icon @click="openDialogDelete(project.id)" v-on="on">
-                                    <v-icon>mdi-close-circle</v-icon>
+                                    <v-icon>mdi-delete</v-icon>
                                 </v-btn>
                             </template>
                             <span>Delete project</span>
@@ -68,39 +68,11 @@
 
         <modal-delete :isOpen="isDialogDelete" :idProject="idProject" @closeDeleteDialog="closeDeleteDialog()"></modal-delete>
 
-        <!-- <v-dialog v-model="confirmDelete" max-width="600px" persistent>
-            <v-card>
-                <v-card-title class="justify-center">
-                    <svg style="width:45px; height:45px; color: red;" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z" />
-                    </svg>
-                    <br />
-                    <h5>If you delete the project, you will not be able to recover your datas ?</h5>
-                </v-card-title>
-                <v-card-actions style="font-size: 18px;" class="justify-end">
-                    <v-btn @click="closeDialog" class="mx-2 mt-4" :disabled="loadingDelete">Cancel</v-btn>
-                    <v-btn class="error mx-2 mt-4" @click="clickDeleteProject()" :disabled="loadingDelete"
-                        :loading="loadingDelete">Agree</v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog> -->
-
-
         <!-- SNACKBAR TO SHOW THE SUCCESS OF THE DELETE -->
-        <v-snackbar v-model="isProjectDeleted" :color="color"> 
-            Project deleted with success !
-            <v-btn color="white" text @click="isProjectDeleted = false">
-                Close
-            </v-btn>
-        </v-snackbar>
+        <SnackBar></SnackBar>
 
         <!-- SNACKBAR TO SHOW THE SUCCESS OF THE UPDATE -->
-        <v-snackbar v-model="isProjectUpdated" :color="color"> 
-            Reimport of datas done with success !
-            <v-btn color="white" text @click="isProjectUpdated = false">
-                Close
-            </v-btn>
-        </v-snackbar>
+        <SnackBar></SnackBar>
 
 
 
@@ -113,12 +85,14 @@ import { sendRequest } from '@/utils.js';
 
 import ModalDelete from '@/components/home/modals/ModalDelete.vue';
 import ModalUpdate from '@/components/home/modals/ModalUpdate.vue';
+import SnackBar from '@/components/utils/SnackBar.vue';
 
 export default {
     name: 'Open',
     components: {
         ModalDelete,
-        ModalUpdate
+        ModalUpdate,
+        SnackBar
     },
     data: () => ({
         idProject: null,
@@ -139,7 +113,7 @@ export default {
     methods: {
         ...mapActions([
             'setCurrentProject',
-            'deleteProject'
+            'deleteProject',
         ]),
         choseAndOpenProject(project) {
             this.setCurrentProject(project)

@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import { sendRequest, getFileNameOfPath } from '@/utils.js';
 
 export default {
@@ -103,6 +103,11 @@ export default {
         ])
     },
     methods: {
+        ...mapActions([
+            'setMsgSnackBar',
+            'setSnackBarToShow',
+            'setColorSnackBar'
+        ]),
         //get the path of the items data file
         getPathItemsFile() {
             sendRequest('open-dialog').then((arg) =>{
@@ -131,8 +136,14 @@ export default {
             this.loadingUpdate = true
             sendRequest('api-python', 'update_project_by_id', this.idProject, this.pathActivities, this.pathItems).then(() =>{
                 this.close()
+                this.setSnackBarToShow(true)
+                this.setMsgSnackBar("Project updated with success")
+                this.setColorSnackBar("green")
             }).catch((e) => {
                 console.log(e)
+                this.setSnackBarToShow(true)
+                this.setMsgSnackBar("Error: "+e)
+                this.setColorSnackBar("red")
             })
             this.loadingUpdate = false
         },

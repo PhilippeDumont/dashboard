@@ -47,7 +47,10 @@ export default {
     },
     methods: {
         ...mapActions([
-            'deleteProject'
+            'deleteProject',
+            'setMsgSnackBar',
+            'setSnackBarToShow',
+            'setColorSnackBar'
         ]),
         clickDeleteProject() {
             this.loadingDelete = true;
@@ -55,8 +58,14 @@ export default {
                 console.log(arg)
                 this.deleteProject(this.idProject)
                 this.close()
+                // this.setSnackBarToShow(true)
+                // this.setMsgSnackBar("Project deleted with success")
+                // this.setColorSnackBar("green")
             }).catch((e) => {
                 console.log(e)
+                this.setSnackBarToShow(true)
+                this.setMsgSnackBar("Error: "+e)
+                this.setColorSnackBar("red")
             })
             this.loadingDelete = false
         },
