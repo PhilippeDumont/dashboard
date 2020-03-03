@@ -6,7 +6,7 @@ from datetime import datetime
 
 
 def run(project_id):
-    conn = sqlite3.connect('api/database_files/project_db/all_project.db')
+    conn = sqlite3.connect('api/databases_files/projects_db/all_project.db')
     cursor = conn.cursor()
     date_today = datetime.now()
     query = """UPDATE projects SET last_opening_date = ? WHERE id = ?"""

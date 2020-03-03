@@ -12,7 +12,7 @@ import SideBar from '@/components/SideBar';
 import SelectProject from '@/components/SelectProject';
 import { sendRequest } from '@/utils.js';
 import { Project } from '@/model/Project.js'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'App',
@@ -22,7 +22,14 @@ export default {
     components: {
         SideBar,
         SelectProject,
-    }, 
+    },
+    methods: {
+        ...mapActions([
+            'setListProjects'
+        ]),
+    },
+    // check if the database with the list of projects exists, if this is not the case, create it
+    // get the list of projects
     computed: {
        ...mapGetters([
             'getExpansionBarVisibility'
@@ -32,7 +39,7 @@ export default {
     // get the list of projects
     created() {
         sendRequest('api-python', 'init_db_projects').then((arg) => {
-            console.log("init_db_projects: "+arg);
+            console.log("init_db_projects: "+arg)
 
             sendRequest('api-python', 'get_projects').then((arg) => {
 
@@ -41,17 +48,17 @@ export default {
                 const obj = JSON.parse(arg)
                 obj.forEach(element => {
                     listProjects.push(new Project(element.id, element.name, element.creation_date, element.last_opening_date, element.nb_activities, element.nb_items))
-                });
+                })
 
-                this.$store.commit('SET_LIST_PROJECTS', listProjects)
+                this.setListProjects(listProjects)
 
             }).catch((e) => {
-                console.log(e);
-            });
+                console.log(e)
+            })
 
         }).catch((e) => {
-            console.log(e);
-        });  
+            console.log(e)
+        })
     }
 };
 </script>

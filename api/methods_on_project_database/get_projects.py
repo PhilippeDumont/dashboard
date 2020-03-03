@@ -3,13 +3,12 @@ Return the list of project in database
 '''
 import sqlite3
 import logging
-
 from model.project_model import Project
 
 
 def run():
     try:
-        conn = sqlite3.connect('api/database_files/project_db/all_project.db')
+        conn = sqlite3.connect('api/databases_files/projects_db/all_project.db')
         all_projects = _get_all_projects(conn)
         conn.commit()
         conn.close()

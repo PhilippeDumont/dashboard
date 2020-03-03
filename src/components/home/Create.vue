@@ -66,17 +66,17 @@
                         Create
                     </v-btn>
                     <!--ICONS TO SHOW IF PROJECT IS CREATED OR NOT-->
-                    <v-icon v-if="isProjectCreated" color="green">mdi-checkbox-marked-circle</v-icon>
-                    <v-icon v-else color="red">mdi-close-circle</v-icon>
+                    <!-- <v-icon v-if="isProjectCreated" color="green">mdi-checkbox-marked-circle</v-icon> -->
+                    <v-icon v-if="!isProjectCreated" color="red">mdi-close-circle</v-icon>
                 </v-col>
             </v-row>
 
         </v-form>
 
         <!-- SNACKBAR TO SHOW THE SUCCESS OF THE CREATION -->
-        <v-snackbar v-model="isProjectCreated">
+        <v-snackbar v-model="isProjectCreated" :color="color"> 
             Project created with success !
-            <v-btn color="pink" text @click="isProjectCreated = false">
+            <v-btn color="white" text @click="isProjectCreated = false">
                 Close
             </v-btn>
         </v-snackbar>
@@ -118,7 +118,8 @@ export default {
         //boolean to know if there is a path for activities
         isPathActivities: null,
         //boolean to know if project is created
-        isProjectCreated: false
+        isProjectCreated: false,
+        color: "green"
     }),
     methods: {
         ...mapActions([
@@ -199,16 +200,20 @@ export default {
 
 <style scoped>
 
-.custom-loader {
-    animation: loader 1s infinite;
-    display: flex;
-}
+    .custom-loader {
+        animation: loader 1s infinite;
+        display: flex;
+    }
 
-.row-select {
-    height: 94px;
-}
+    .row-select {
+        height: 94px;
+    }
 
-span {
-    margin: 10px;
-}
+    span {
+        margin: 10px;
+    }
+
+    .v-snackbar{
+        background-color: green;
+    }
 </style>

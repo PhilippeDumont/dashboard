@@ -2,10 +2,25 @@
     <v-container>
 
         <!--SHOW CARDS FOR EVERY PROJECT CREATED-->
-        <v-row>
-            <v-col>
-                <h1 class="title">Open a project</h1>
-            </v-col>
+        <v-row align="center" class="row-select">
+            <span><h1 class="title">Open a project</h1></span>
+            <v-spacer></v-spacer>
+            <span>
+                <v-text-field
+                    label="Search a project"
+                ></v-text-field>
+            </span>
+            <span>
+                <v-tooltip right>
+                    <template v-slot:activator="{ on }">
+                        <v-btn icon id="sortProj" v-on="on">
+                            <v-icon v-if="ascending">mdi-sort-ascending</v-icon>
+                            <v-icon v-else>mdi-sort-descending</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Sort projects</span>
+                </v-tooltip>
+            </span>
         </v-row>
 
         <v-row>
@@ -28,14 +43,14 @@
                         <v-tooltip top>
                             <template v-slot:activator="{ on }">
                                 <v-btn icon @click="openDialogUpdate(project.id)" v-on="on">
-                                    <v-icon>mdi-file-import</v-icon>
+                                    <v-icon>mdi-publish</v-icon>
                                 </v-btn>
                             </template>
                             <span>Reimport data</span>
                         </v-tooltip>
                         <v-tooltip top>
                             <template v-slot:activator="{ on }">
-                                <v-btn icon @click="openDialogDelete(project)" v-on="on">
+                                <v-btn icon @click="openDialogDelete(project.id)" v-on="on">
                                     <v-icon>mdi-close-circle</v-icon>
                                 </v-btn>
                             </template>
@@ -49,9 +64,11 @@
         </v-row>
 
         <!-- modal update -->
-        <modal :isOpen="dialog" :idProject="idProject" @update="update"></modal>
+        <modal-update :isOpen="isDialogUpdate" :idProject="idProject" @closeUpdateDialog="closeUpdateDialog()"></modal-update>
 
-        <v-dialog v-model="confirmDelete" max-width="600px" persistent>
+        <modal-delete :isOpen="isDialogDelete" :idProject="idProject" @closeDeleteDialog="closeDeleteDialog()"></modal-delete>
+
+        <!-- <v-dialog v-model="confirmDelete" max-width="600px" persistent>
             <v-card>
                 <v-card-title class="justify-center">
                     <svg style="width:45px; height:45px; color: red;" viewBox="0 0 24 24">
@@ -62,11 +79,30 @@
                 </v-card-title>
                 <v-card-actions style="font-size: 18px;" class="justify-end">
                     <v-btn @click="closeDialog" class="mx-2 mt-4" :disabled="loadingDelete">Cancel</v-btn>
-                    <v-btn class="error mx-2 mt-4" @click="deleteProject()" :disabled="loadingDelete"
+                    <v-btn class="error mx-2 mt-4" @click="clickDeleteProject()" :disabled="loadingDelete"
                         :loading="loadingDelete">Agree</v-btn>
                 </v-card-actions>
             </v-card>
-        </v-dialog>
+        </v-dialog> -->
+
+
+        <!-- SNACKBAR TO SHOW THE SUCCESS OF THE DELETE -->
+        <v-snackbar v-model="isProjectDeleted" :color="color"> 
+            Project deleted with success !
+            <v-btn color="white" text @click="isProjectDeleted = false">
+                Close
+            </v-btn>
+        </v-snackbar>
+
+        <!-- SNACKBAR TO SHOW THE SUCCESS OF THE UPDATE -->
+        <v-snackbar v-model="isProjectUpdated" :color="color"> 
+            Reimport of datas done with success !
+            <v-btn color="white" text @click="isProjectUpdated = false">
+                Close
+            </v-btn>
+        </v-snackbar>
+
+
 
     </v-container>
 </template>
@@ -75,19 +111,25 @@
 import { mapGetters, mapActions } from 'vuex'
 import { sendRequest } from '@/utils.js';
 
-import Modal from '@/components/home/update/Modal.vue';
+import ModalDelete from '@/components/home/modals/ModalDelete.vue';
+import ModalUpdate from '@/components/home/modals/ModalUpdate.vue';
 
 export default {
     name: 'Open',
     components: {
-        Modal
+        ModalDelete,
+        ModalUpdate
     },
     data: () => ({
-        dialog: false,
         idProject: null,
-        confirmDelete: false,
-        loadingDelete: false,
-        project: null
+        project: null,
+        isDialogUpdate: false,
+        isDialogDelete: false,
+        isProjectDeleted: false,
+        isProjectUpdated: false,
+        color: "green",
+        ascending: false
+
     }),
     computed: {
         ...mapGetters([
@@ -101,34 +143,44 @@ export default {
         ]),
         choseAndOpenProject(project) {
             this.setCurrentProject(project)
-            this.$router.push('/Level1')
-        },
-        deleteProject() {
-            this.loadingDelete = true;
-            sendRequest('api-python', 'delete_project_by_id', this.project.id).then((arg) =>{
+            sendRequest('api-python', 'update_last_opening_date_project', project.id).then((arg) =>{
                 console.log(arg)
-                this.s_deleteProject(this.project)
-                this.loadingDelete = false;
-                this.confirmDelete = false;
-            }).catch((e) => {
+            }).catch((e) =>{
                 console.log(e)
             })
+            this.$router.push('/Level1')
         },
+        // clickDeleteProject() {
+        //     this.loadingDelete = true;
+        //     sendRequest('api-python', 'delete_project_by_id', this.project.id).then((arg) =>{
+        //         console.log(arg)
+        //         this.deleteProject(this.project)
+        //         this.loadingDelete = false;
+        //         this.isDialogDelete = false;
+        //         this.isProjectDeleted = true;
+        //     }).catch((e) => {
+        //         console.log(e)
+        //     })
+        // },
+
 
         openDialogUpdate(idProject) {
             this.idProject = idProject
-            this.dialog = true
+            this.isDialogUpdate = true
         },
-        update(bool) {
-            this.dialog = bool
+        closeUpdateDialog() {
+            this.isDialogUpdate = false
+            this.isProjectUpdated = true
         },
-                    
-        openDialogDelete(project){
-            this.project = project;
-            this.confirmDelete = true;
+        
+        
+        openDialogDelete(idProject){
+            this.idProject = idProject
+            this.isDialogDelete = true
         },
-        closeDialog(){
-            this.confirmDelete = false;
+        closeDeleteDialog(){
+            this.isDialogDelete = false
+            this.isProjectDeleted = true
         }
     }
 }
@@ -143,5 +195,28 @@ export default {
 .card:hover{
     box-shadow: 6px 6px 25px 4px rgba(0, 0, 0, 0.18);
     transform: scale(1.02);
+}
+
+.row-select {
+    height: auto;
+    width: auto;
+}
+
+#sortProj{
+     transition: transform 0.5s;
+     transform: rotate(360deg)
+}
+
+#sortProj:active{
+    transform: rotate(0deg);
+    transition: 0s;
+}
+
+span{
+margin: 10px;
+}
+
+.v-text-field{
+    right: 0;
 }
 </style>

@@ -5,8 +5,7 @@ import sqlite3
 
 unittest.TestLoader.sortTestMethodsUsing = None
 
-linkCSV = "../data_format"
-project_id = 1
+linkCSV = "../csv_test"
 
 
 class TestFillDBActivitiesAndItem(unittest.TestCase):
@@ -14,7 +13,7 @@ class TestFillDBActivitiesAndItem(unittest.TestCase):
     def test_is_activity_imported(self):
         # import one line of data in the database
         import_activity_csv.run("1", linkCSV + "/activity_data.csv")
-        conn = sqlite3.connect("../database_files/act_it_db/1.db")
+        conn = sqlite3.connect("../databases_files/activities_items_db/1.db")
         cursor = conn.cursor()
         # get the data back from the database
         cursor.execute('''SELECT * FROM activities''')
@@ -25,7 +24,7 @@ class TestFillDBActivitiesAndItem(unittest.TestCase):
     def test_is_item_imported(self):
         # import one line of data in the database
         import_item_csv.run("1", linkCSV + "/item_data.csv")
-        conn = sqlite3.connect("../database_files/act_it_db/1.db")
+        conn = sqlite3.connect("../databases_files/activities_items_db/1.db")
         cursor = conn.cursor()
         # get the data back from the database
         cursor.execute('''SELECT * FROM items''')
