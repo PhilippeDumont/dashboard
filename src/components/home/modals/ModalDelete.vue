@@ -11,7 +11,7 @@
                     <h5>If you delete the project, you will not be able to recover your datas ?</h5>
                 </v-card-title>
                 <v-card-actions style="font-size: 18px;" class="justify-end">
-                    <v-btn @click="close()" class="mx-2 mt-4" :disabled="loadingDelete">Cancel</v-btn>
+                    <v-btn @click="close(false)" class="mx-2 mt-4" :disabled="loadingDelete">Cancel</v-btn>
                     <v-btn class="error mx-2 mt-4" @click="clickDeleteProject()" :disabled="loadingDelete"
                         :loading="loadingDelete">Agree</v-btn>
                 </v-card-actions>
@@ -24,6 +24,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import { sendRequest } from '@/utils.js';
+import { Project } from '@/model/Project.js'
 
 export default {
     name: 'ModalDelete',
@@ -32,8 +33,8 @@ export default {
             type: Boolean,
             default: false
         },
-        idProject: {
-            type: Number
+        project: {
+            type: Project
         }
     },
     data: () => ({
@@ -54,13 +55,14 @@ export default {
         ]),
         clickDeleteProject() {
             this.loadingDelete = true;
-            sendRequest('api-python', 'delete_project_by_id', this.idProject).then((arg) =>{
-                console.log(arg)
-                this.deleteProject(this.idProject)
-                this.close()
-                // this.setSnackBarToShow(true)
-                // this.setMsgSnackBar("Project deleted with success")
-                // this.setColorSnackBar("green")
+
+            sendRequest('api-python', 'delete_project_by_id', this.project.id).then(() =>{
+                this.deleteProject(this.project)
+                this.loadingDelete = false
+                this.close(true)
+                this.setSnackBarToShow(true)
+                this.setMsgSnackBar("Project deleted with success")
+                this.setColorSnackBar("green")
             }).catch((e) => {
                 console.log(e)
                 this.setSnackBarToShow(true)
@@ -69,8 +71,8 @@ export default {
             })
             this.loadingDelete = false
         },
-        close() {
-            this.$emit('closeDeleteDialog', false)
+        close(success) {
+            this.$emit('close-delete-dialog', success)
         }
     },
     watch: {

@@ -8,24 +8,35 @@
             <span>
                 <v-text-field
                     label="Search a project"
+                    v-model="search"
                 ></v-text-field>
             </span>
             <span>
                 <v-tooltip right>
                     <template v-slot:activator="{ on }">
-                        <v-btn icon id="sortProj" v-on="on">
-                            <v-icon v-if="ascending">mdi-sort-ascending</v-icon>
-                            <v-icon v-else>mdi-sort-descending</v-icon>
+                        <v-btn icon id="sortProj" v-on="on" @click="changeSortType('date-open')">
+                            <v-icon :color="colorDate">mdi-calendar</v-icon>
                         </v-btn>
                     </template>
-                    <span>Sort projects</span>
+                    <span>Sort projects by use</span>
+                </v-tooltip>
+            </span>
+            <span>
+                <v-tooltip right>
+                    <template v-slot:activator="{ on }">
+                        <v-btn icon id="sortProj" v-on="on">
+                            <v-icon v-if="isAscending" :color="colorAlpha" @click="changeSortType('alpha-asc')">mdi-sort-ascending</v-icon>
+                            <v-icon v-else :color="colorAlpha" @click="changeSortType('alpha-desc')">mdi-sort-descending</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Sort {{ isAscending ? "A-Z" : "Z-A" }}</span>
                 </v-tooltip>
             </span>
         </v-row>
 
         <v-row>
-            <v-col v-for="project in getListProjects" v-bind:key="project.id">
-                <v-card class="card" width="160" height="300">
+            <v-col v-for="project in getListProjects(this.sortType, this.search)" v-bind:key="project.id">
+                <v-card class="card" width="150" height="300">
                     <v-img :src="require('@/assets/graph.svg')" height="150" width="150"></v-img>
                     <v-card-text style="overflow-y: auto; height:100px">
                         <span v-if="!project.isRename">{{project.name}}</span>
@@ -64,7 +75,7 @@
                         </v-tooltip>
                         <v-tooltip top>
                             <template v-slot:activator="{ on }">
-                                <v-btn icon @click="openDialogDelete(project.id)" v-on="on">
+                                <v-btn icon @click="openDialogDelete(project)" v-on="on">
                                     <v-icon>mdi-delete</v-icon>
                                 </v-btn>
                             </template>
@@ -77,15 +88,9 @@
             </v-col>
         </v-row>
 
-        <!-- modal update -->
-        <modal-update :isOpen="isDialogUpdate" :idProject="idProject" @closeUpdateDialog="closeUpdateDialog()"></modal-update>
+        <modal-update :isOpen="isDialogUpdate" :idProject="idProject" @close-update-dialog="closeUpdateDialog"></modal-update>
 
-        <modal-delete :isOpen="isDialogDelete" :idProject="idProject" @closeDeleteDialog="closeDeleteDialog()"></modal-delete>
-
-        <!-- SNACKBAR TO SHOW THE SUCCESS OF THE DELETE OR UPDATE OR RENAME-->
-        <SnackBar></SnackBar>
-
-
+        <modal-delete :isOpen="isDialogDelete" :project="project" @close-delete-dialog="closeDeleteDialog"></modal-delete>
 
     </v-container>
 </template>
@@ -96,14 +101,12 @@ import { sendRequest } from '@/utils.js';
 
 import ModalDelete from '@/components/home/modals/ModalDelete.vue';
 import ModalUpdate from '@/components/home/modals/ModalUpdate.vue';
-import SnackBar from '@/components/utils/SnackBar.vue';
 
 export default {
     name: 'Open',
     components: {
         ModalDelete,
-        ModalUpdate,
-        SnackBar
+        ModalUpdate
     },
     data: () => ({
         idProject: null,
@@ -112,6 +115,11 @@ export default {
         isDialogDelete: false,
         isProjectDeleted: false,
         isProjectUpdated: false,
+        sortType: "date-open",
+        isAscending: true,
+        search: "",
+        colorAlpha: null,
+        colorDate: "blue",
         ascending: false,
         wantToRename: false,
         newProjectName: ""
@@ -135,6 +143,7 @@ export default {
             })
             this.$router.push('/Level1')
         },
+
         activeTextFieldToRename(project){
             project.setIsRename(true)
             this.newProjectName = project.name
@@ -151,37 +160,41 @@ export default {
             })
             project.setIsRename(false)
         },
-        // clickDeleteProject() {
-        //     this.loadingDelete = true;
-        //     sendRequest('api-python', 'delete_project_by_id', this.project.id).then((arg) =>{
-        //         console.log(arg)
-        //         this.deleteProject(this.project)
-        //         this.loadingDelete = false;
-        //         this.isDialogDelete = false;
-        //         this.isProjectDeleted = true;
-        //     }).catch((e) => {
-        //         console.log(e)
-        //     })
-        // },
 
+        changeSortType(sortType) {
+            this.sortType = sortType
+
+            if (sortType.includes("alpha")) {
+                this.colorAlpha = "blue"
+                this.colorDate = null
+                this.isAscending = !this.isAscending
+            }
+            else {
+                this.colorAlpha = null
+                this.colorDate = "blue"
+            }
+
+        },
 
         openDialogUpdate(idProject) {
             this.idProject = idProject
             this.isDialogUpdate = true
         },
-        closeUpdateDialog() {
+        closeUpdateDialog(bool) {
+            this.idProject = null
             this.isDialogUpdate = false
-            this.isProjectUpdated = true
+            this.isProjectUpdated = bool
         },
         
         
-        openDialogDelete(idProject){
-            this.idProject = idProject
+        openDialogDelete(project){
+            this.project = project
             this.isDialogDelete = true
         },
-        closeDeleteDialog(){
+        closeDeleteDialog(bool){
+            this.project = null
             this.isDialogDelete = false
-            this.isProjectDeleted = true
+            this.isProjectDeleted = bool
         }
     }
 }

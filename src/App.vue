@@ -1,15 +1,20 @@
 <template>
-  <v-app>
-      <v-container id="app-container" fluid>
-          <SideBar />
-          <SelectProject v-if="getExpansionBarVisibility"></SelectProject>
-          <router-view></router-view>
-      </v-container>
-  </v-app>
+    <v-app>
+        <v-container id="app-container" fluid>
+            <SideBar />
+            <SelectProject v-if="getExpansionBarVisibility"></SelectProject>
+            <router-view></router-view>
+
+            <SnackBar></SnackBar>
+
+        </v-container>
+    </v-app>
 </template>
+
 <script>
 import SideBar from '@/components/SideBar';
 import SelectProject from '@/components/SelectProject';
+import SnackBar from '@/components/utils/SnackBar.vue';
 import { sendRequest } from '@/utils.js';
 import { Project } from '@/model/Project.js'
 import { mapActions, mapGetters } from 'vuex';
@@ -22,11 +27,12 @@ export default {
     components: {
         SideBar,
         SelectProject,
+        SnackBar
     },
     methods: {
         ...mapActions([
             'setListProjects'
-        ]),
+        ])
     },
     // check if the database with the list of projects exists, if this is not the case, create it
     // get the list of projects
@@ -37,7 +43,7 @@ export default {
     },
     // check if the database with the list of projects exists, if this is not the case, create it
     // get the list of projects
-    created() {
+    beforeCreate() {
         sendRequest('api-python', 'init_db_projects').then((arg) => {
             console.log("init_db_projects: "+arg)
 

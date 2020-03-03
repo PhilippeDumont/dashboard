@@ -6,7 +6,7 @@
                 <v-card-title>
                     Update project
                     <v-spacer></v-spacer>
-                    <v-icon @click="close()">mdi-close</v-icon>
+                    <v-icon @click="close(false)">mdi-close</v-icon>
                 </v-card-title>
                 <v-divider />
                 <v-card-text>
@@ -48,7 +48,8 @@
                             <!--BUTTON DISABLED IF NO DATA ITEMS AND ACTIVITIES-->
 
                             <v-btn color="blue-grey" class="ma-2 white--text" width="250" @click="clickUpdateProject()"
-                                :disabled="!isPathItems || !isPathActivities" :loading="loadingUpdate">
+                                :disabled="!isPathItems || !isPathActivities || loader"
+                                :loading="loader">
                                 Update
                             </v-btn>
                         </v-row>
@@ -92,7 +93,7 @@ export default {
         //boolean to know if project is updated
         isProjectUpdated: false,
         isOpenInterne: false,
-        loadingUpdate: false
+        loader: false
     }),
     // created() {
     //     this.isOpenInterne = this.isOpen
@@ -133,13 +134,15 @@ export default {
             })
         },
         clickUpdateProject() {
-            this.loadingUpdate = true
+            this.loader = true
             sendRequest('api-python', 'update_project_by_id', this.idProject, this.pathActivities, this.pathItems).then(() =>{
-                this.close()
+                this.close(true)
+                this.loader = false
                 this.setSnackBarToShow(true)
                 this.setMsgSnackBar("Project updated with success")
                 this.setColorSnackBar("green")
             }).catch((e) => {
+                this.loader = false
                 console.log(e)
                 this.setSnackBarToShow(true)
                 this.setMsgSnackBar("Error: "+e)
@@ -147,14 +150,14 @@ export default {
             })
             this.loadingUpdate = false
         },
-        close() {
+        close(success) {
             this.pathActivities = null
             this.activitiesFile = null
             this.isPathActivities = false
             this.pathItems = null
             this.itemsFile = null
             this.isPathItems = false
-            this.$emit('closeUpdateDialog', false)
+            this.$emit('close-update-dialog', success) // bool for success
         }
     },
     watch: {
@@ -166,5 +169,8 @@ export default {
 </script>
 
 <style scoped>
-
+    .custom-loader {
+        animation: loader 1s infinite;
+        display: flex;
+    }
 </style>

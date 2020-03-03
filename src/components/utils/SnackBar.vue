@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-snackbar v-model="getSnackBarToShow" :color="getColorSnackBar">
+        <v-snackbar v-model="isOpenInterne" :color="getColorSnackBar">
             {{getMsgSnackBar}}
             <v-btn color="white" text @click="setBooleanShowSnackBar">
                 Close
@@ -14,6 +14,7 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
     data(){
         return{
+            isOpenInterne: false
         }
     },
     computed: {
@@ -25,11 +26,20 @@ export default {
     },
     methods: {
         ...mapActions([
-            'setSnackBarToShow',
-            'setColorSnackBar'
+            'setSnackBarToShow'
         ]),
         setBooleanShowSnackBar(){
-            this.setSnackBarToShow(false)
+            this.isOpenInterne = false
+        }
+    },
+    watch: {
+        getSnackBarToShow: function(val) {
+            if (val)
+                this.isOpenInterne = val
+        },
+        isOpenInterne: function(val) {
+            if (!val)
+                this.setSnackBarToShow(false)
         }
     }
 }
