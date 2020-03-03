@@ -4,8 +4,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title id="title">Dashboard</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
     <style>
@@ -18,28 +16,28 @@
     </style>
   </head>
   <body>
-    <div id="electron-titlebar"></div>
+    <!-- <div id="electron-titlebar"></div> -->
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
   <script>
-    const { ipcRenderer } = require('electron')
+    // const { ipcRenderer } = require('electron')
 
-    const customTitlebar = require('custom-electron-titlebar')
+    // const customTitlebar = require('custom-electron-titlebar')
  
-    let TitleBar = new customTitlebar.Titlebar({
-      backgroundColor: customTitlebar.Color.fromHex('#013F52'),
-      titleHorizontalAlignment: 'left',
-      icon: 'icon_title_bar.svg'
-    })
+    // let TitleBar = new customTitlebar.Titlebar({
+    //   backgroundColor: customTitlebar.Color.fromHex('#013F52'),
+    //   titleHorizontalAlignment: 'left',
+    //   icon: 'icon_title_bar.svg'
+    // })
     
-    //GET VERSION APP
-      // Ask version application
-    ipcRenderer.send('app_version')
-      // Reply on event listener
-    ipcRenderer.on('app_version', (event, arg) => {
-      ipcRenderer.removeAllListeners('app_version')
-      TitleBar.updateTitle("Dashboard "+arg.version)
-    })
+    // //GET VERSION APP
+    //   // Ask version application
+    // ipcRenderer.send('app_version')
+    //   // Reply on event listener
+    // ipcRenderer.on('app_version', (event, arg) => {
+    //   ipcRenderer.removeAllListeners('app_version')
+    //   TitleBar.updateTitle("Dashboard "+arg.version)
+    // })
   </script>
 </html>
