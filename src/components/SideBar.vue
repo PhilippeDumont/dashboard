@@ -101,10 +101,6 @@
         cursor: pointer;
     }
 
-    .sideBar {
-        margin-top: 15px;
-    }
-
     .sideBar button:hover{
         border-left: solid 5px#2196f3;
         transition: border-left 150ms ease-out;
