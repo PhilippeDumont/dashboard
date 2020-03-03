@@ -3,12 +3,9 @@
   <v-container fluid>
      <v-row>
       <v-col cols="12">
-          <h3 id="version">Version : <span>{{versionApp}}</span> </h3>
-      </v-col>
-      <v-col cols="12">
           <v-row>
                <v-col cols="4">
-                  <v-btn id="btn_download" :rounded="true" color="#013F52" :disabled="loadingUpdate" :loading="loadingUpdate" @click="openDialog()">Download Update</v-btn>
+                  <v-btn id="btn_download" :rounded="true" color="blue-grey" :disabled="loadingUpdate" :loading="loadingUpdate" @click="openDialog()">Download Update</v-btn>
                </v-col>
 
              <v-dialog v-model="modalDialog" max-width="500px" persistent> 
@@ -46,22 +43,11 @@ export default {
     data: () => ({
         loadingUpdate: false,
         updateAvailable: false,
-        versionApp: "",
         updateMessage: "",
         modalDialog: false,
     }),
     created() {
       this.setExpansionBarVisibility(false)
-    },
-    mounted: function() {
-     //GET VERSION APP
-        // Ask version application
-        ipcRenderer.send('app_version')
-        // Reply on event listener
-        ipcRenderer.on('app_version', (event, arg) => {
-            ipcRenderer.removeAllListeners('app_version')
-            this.versionApp =  arg.version
-        });  
     },
     methods: {
         openDialog() {

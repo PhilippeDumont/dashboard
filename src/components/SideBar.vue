@@ -101,8 +101,12 @@
         cursor: pointer;
     }
 
+    .sideBar {
+        margin-top: 15px;
+    }
+
     .sideBar button:hover{
-        border-left: solid 5px rgba(138, 43, 226, 1);
+        border-left: solid 5px#2196f3;
         transition: border-left 150ms ease-out;
     }
 
@@ -113,7 +117,7 @@
 
     /*left border in blueviolet to show which routerlink is active*/
     .router-link-active  {
-        border-left: solid 5px rgba(138, 43, 226, 1) !important;
+        border-left: solid 5px #2196f3 !important;
     }
 
     .sideBar {
@@ -127,9 +131,10 @@
         top: 0;
         width: auto;
     }
+    
 
     .sideBar button:hover{
-        border-left: solid 5px rgba(138, 43, 226, 1);
+        border-left: solid 5px #2196f3;
         transition: border-left 150ms ease-out;
     }
 
@@ -150,7 +155,7 @@
         outline:none;
         width: 100px;
         height: 100px;
-        margin: 15px  0;
+        margin: 25px  0;
     }
 
     .sideBar ul li {
@@ -180,18 +185,18 @@
     }
 
     ::-webkit-scrollbar-thumb {
-        background: blueviolet;
-        border: 0px none blueviolet;
+        background: #2196f3;
+        border: 0px none #2196f3;
         border-radius: 50px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-        background: blueviolet;
+        background: #2196f3;
         filter: grayscale(50%);
     }
 
     ::-webkit-scrollbar-thumb:active {
-        background: blueviolet;
+        background: #2196f3;
     }
 
     ::-webkit-scrollbar-track {
