@@ -48,17 +48,25 @@ export default {
     },
     methods: {
         ...mapActions([
-            'deleteProject'
+            'deleteProject',
+            'setMsgSnackBar',
+            'setSnackBarToShow',
+            'setColorSnackBar'
         ]),
         clickDeleteProject() {
             this.loadingDelete = true;
+
             sendRequest('api-python', 'delete_project_by_id', this.project.id).then(() =>{
                 this.deleteProject(this.project)
                 this.loadingDelete = false
                 this.close(true)
             }).catch((e) => {
                 console.log(e)
+                this.setSnackBarToShow(true)
+                this.setMsgSnackBar("Error: "+e)
+                this.setColorSnackBar("red")
             })
+            this.loadingDelete = false
         },
         close(success) {
             this.$emit('close-delete-dialog', success)

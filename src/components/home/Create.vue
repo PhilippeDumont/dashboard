@@ -74,13 +74,7 @@
 
         </v-form>
 
-        <!-- SNACKBAR TO SHOW THE SUCCESS OF THE CREATION -->
-        <v-snackbar v-model="isProjectCreated" :color="color"> 
-            Project created with success !
-            <v-btn color="white" text @click="isProjectCreated = false">
-                Close
-            </v-btn>
-        </v-snackbar>
+        <SnackBar></SnackBar>
 
     </v-container>
 </template>
@@ -89,9 +83,13 @@
 import { sendRequest, getFileNameOfPath } from '@/utils.js';
 import { mapActions } from 'vuex';
 import { Project } from '@/model/Project.js'
+import SnackBar from '@/components/utils/SnackBar.vue'
 
 export default {
     name: 'Create',
+    components: {
+        SnackBar
+    },
     data: () => ({
         valid: true,
         //project_name init
@@ -125,7 +123,10 @@ export default {
     }),
     methods: {
         ...mapActions([
-            'addProject'
+            'addProject',
+            'setMsgSnackBar',
+            'setSnackBarToShow',
+            'setColorSnackBar'
         ]),
         //reset form elements
         resetForm() {
@@ -149,9 +150,15 @@ export default {
 
                 this.isProjectCreated = true
                 this.resetForm()
+                this.setSnackBarToShow(true)
+                this.setMsgSnackBar("Project created with success")
+                this.setColorSnackBar("green")
             }
             catch(error) {
                 console.log(error)
+                this.setSnackBarToShow(true)
+                this.setMsgSnackBar("Error: "+error)
+                this.setColorSnackBar("red")
             }
             
             this.loader = false

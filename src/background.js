@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow , ipcMain, dialog } from 'electron'
+import { app, protocol, BrowserWindow , ipcMain, dialog, Tray } from 'electron'
 import { pythonProcess } from './pythonProcess.js'
 import { pathToStandardFormat } from './utils.js'
 import { autoUpdater } from "electron-updater"
@@ -13,18 +13,22 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
+let path = require('path')
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{scheme: 'app', privileges: { secure: true, standard: true } }])
 
 function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow({ width: 800, height: 600, 
-   webPreferences: {
-    nodeIntegration: true
-   } 
+  win = new BrowserWindow({ 
+    width: 800, 
+    height: 600, 
+    webPreferences: {
+     nodeIntegration: true
+    },
+    title: "Dashboard "+app.getVersion(),
   })
-
+ 
   win.setMenuBarVisibility(false)
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
@@ -35,13 +39,14 @@ function createWindow () {
     createProtocol('app')
     // Load the index.html when not in development
     win.loadURL('app://./index.html')
-    }
+  }
 
   win.on('closed', () => {
     win = null
   })
 
 }
+
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {

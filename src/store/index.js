@@ -7,7 +7,10 @@ export default new Vuex.Store({
   state: {
     currentProject: null,
     listProjects:[],
-    expansionBarVisibility: true
+    expansionBarVisibility: true,
+    msgSnackBar: "",
+    snackBarToShow: false,
+    colorSnackBar: ""
   },
   getters: {
     getListProjects(state, getters) {
@@ -37,7 +40,10 @@ export default new Vuex.Store({
       return new Date(b.last_opening_date) - new Date(a.last_opening_date);
     }),
 
-    getExpansionBarVisibility: state => state.expansionBarVisibility
+    getExpansionBarVisibility: state => state.expansionBarVisibility,
+    getMsgSnackBar: state => state.msgSnackBar,
+    getSnackBarToShow: state => state.snackBarToShow,
+    getColorSnackBar: state => state.colorSnackBar
   },
   mutations: {
     /* Project */
@@ -58,6 +64,15 @@ export default new Vuex.Store({
     },
     SET_EXPANSION_BAR_VISIBILITY(state, visibility) {
       state.expansionBarVisibility = visibility
+    },
+    SET_MSG_SNACKBAR(state, msgSnackBar) {
+        state.msgSnackBar = msgSnackBar
+    },
+    SET_COLOR_SNACKBAR(state, colorSnackBar) {
+        state.colorSnackBar = colorSnackBar
+    },
+    SET_SNAKBAR_TO_SHOW(state, snackBarToShow) {
+        state.snackBarToShow = snackBarToShow
     }
   },
   actions: {
@@ -75,6 +90,15 @@ export default new Vuex.Store({
     },
     setExpansionBarVisibility({ commit }, visibility) {
       commit('SET_EXPANSION_BAR_VISIBILITY', visibility)
+    },
+    setMsgSnackBar({ commit }, msgSnackBar) {
+        commit('SET_MSG_SNACKBAR', msgSnackBar)
+    },
+    setSnackBarToShow({ commit }, snackBarToShow) {
+        commit('SET_SNAKBAR_TO_SHOW', snackBarToShow)
+    },
+    setColorSnackBar({ commit }, colorSnackBar) {
+        commit('SET_COLOR_SNACKBAR', colorSnackBar)
     }
   },
   modules: {}

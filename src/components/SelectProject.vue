@@ -78,6 +78,6 @@ li a {
   position: fixed;
   /*TO BE BEFORE EVERYTHING*/
   z-index: 3;
-  top: 3px;
+  top: 35px;
 }
 </style>

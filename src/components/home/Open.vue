@@ -62,7 +62,7 @@
                         <v-tooltip top>
                             <template v-slot:activator="{ on }">
                                 <v-btn icon @click="openDialogDelete(project)" v-on="on">
-                                    <v-icon>mdi-close-circle</v-icon>
+                                    <v-icon>mdi-delete</v-icon>
                                 </v-btn>
                             </template>
                             <span>Delete project</span>
@@ -74,26 +74,15 @@
             </v-col>
         </v-row>
 
-        <!-- modal update -->
         <modal-update :isOpen="isDialogUpdate" :idProject="idProject" @close-update-dialog="closeUpdateDialog"></modal-update>
 
         <modal-delete :isOpen="isDialogDelete" :project="project" @close-delete-dialog="closeDeleteDialog"></modal-delete>
 
         <!-- SNACKBAR TO SHOW THE SUCCESS OF THE DELETE -->
-        <v-snackbar v-model="isProjectDeleted" :color="color"> 
-            Project deleted with success !
-            <v-btn color="white" text @click="isProjectDeleted = false">
-                Close
-            </v-btn>
-        </v-snackbar>
+        <SnackBar></SnackBar>
 
         <!-- SNACKBAR TO SHOW THE SUCCESS OF THE UPDATE -->
-        <v-snackbar v-model="isProjectUpdated" :color="color"> 
-            Reimport of datas done with success !
-            <v-btn color="white" text @click="isProjectUpdated = false">
-                Close
-            </v-btn>
-        </v-snackbar>
+        <SnackBar></SnackBar>
 
 
 
@@ -106,12 +95,14 @@ import { sendRequest } from '@/utils.js';
 
 import ModalDelete from '@/components/home/modals/ModalDelete.vue';
 import ModalUpdate from '@/components/home/modals/ModalUpdate.vue';
+import SnackBar from '@/components/utils/SnackBar.vue';
 
 export default {
     name: 'Open',
     components: {
         ModalDelete,
-        ModalUpdate
+        ModalUpdate,
+        SnackBar
     },
     data: () => ({
         idProject: null,
@@ -135,7 +126,7 @@ export default {
     methods: {
         ...mapActions([
             'setCurrentProject',
-            'deleteProject'
+            'deleteProject',
         ]),
         choseAndOpenProject(project) {
             this.setCurrentProject(project)
