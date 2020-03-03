@@ -12,7 +12,7 @@
        <v-expansion-panel-content>
            <v-row>
             <!-- Project Item -->
-             <v-col cols="12"  v-for="(project,index) in getListProjects().slice(0, 3)" :key="index">
+             <v-col cols="12"  v-for="(project,index) in getListProjectsSortedByDate().slice(0, 3)" :key="index">
                  <v-row>
                    <v-col cols="8">
                      <span>{{project.name}}</span>
@@ -52,7 +52,7 @@ export default {
        'setCurrentProject'
       ]),
       ...mapGetters([
-        'getListProjects'
+        'getListProjectsSortedByDate'
       ])
   }
 }  

@@ -27,7 +27,7 @@ export default {
     methods: {
         ...mapActions([
             'setListProjects'
-        ]),
+        ])
     },
     // check if the database with the list of projects exists, if this is not the case, create it
     // get the list of projects
@@ -36,7 +36,7 @@ export default {
             'getExpansionBarVisibility'
         ])
     },
-    created() {
+    beforeCreate() {
         sendRequest('api-python', 'init_db_projects').then((arg) => {
             console.log("init_db_projects: "+arg)
 
@@ -58,8 +58,6 @@ export default {
         }).catch((e) => {
             console.log(e)
         })
-
-        
     }
 };
 </script>

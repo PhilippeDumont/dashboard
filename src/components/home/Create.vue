@@ -62,12 +62,13 @@
                 <v-col>
                     <!--BUTTON DISABLED IF NO DATA ITEMS AND ACTIVITIES-->
                     <v-btn color="blue-grey" class="ma-2 white--text" width="250" @click="createProject()"
-                        :disabled="!isPathItems || !isPathActivities || !valid">
+                        :disabled="!isPathItems || !isPathActivities || !valid || loader"
+                        :loading="loader">
                         Create
                     </v-btn>
                     <!--ICONS TO SHOW IF PROJECT IS CREATED OR NOT-->
                     <!-- <v-icon v-if="isProjectCreated" color="green">mdi-checkbox-marked-circle</v-icon> -->
-                    <v-icon v-if="!isProjectCreated" color="red">mdi-close-circle</v-icon>
+                    <!-- <v-icon v-if="!isProjectCreated" color="red">mdi-close-circle</v-icon> -->
                 </v-col>
             </v-row>
 
@@ -119,7 +120,8 @@ export default {
         isPathActivities: null,
         //boolean to know if project is created
         isProjectCreated: false,
-        color: "green"
+        color: "green",
+        loader: false
     }),
     methods: {
         ...mapActions([
@@ -137,6 +139,7 @@ export default {
         },
         //create new project
         async createProject() {
+            this.loader = true
             try {
                 let idProject = parseInt(await sendRequest('api-python', 'create_new_project', this.projectName))
                 console.log('id: ' + idProject)
@@ -150,6 +153,8 @@ export default {
             catch(error) {
                 console.log(error)
             }
+            
+            this.loader = false
         },
         // import items from a CSV file for the project with the specified id
         async importItems(idProject) {
