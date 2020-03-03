@@ -48,7 +48,7 @@
                             <!--BUTTON DISABLED IF NO DATA ITEMS AND ACTIVITIES-->
 
                             <v-btn color="blue-grey" class="ma-2 white--text" width="250" @click="clickUpdateProject()"
-                                :disabled="!isPathItems || !isPathActivities">
+                                :disabled="!isPathItems || !isPathActivities" :loading="loadingUpdate">
                                 Update
                             </v-btn>
                         </v-row>
@@ -91,7 +91,8 @@ export default {
         isPathActivities: null,
         //boolean to know if project is updated
         isProjectUpdated: false,
-        isOpenInterne: false
+        isOpenInterne: false,
+        loadingUpdate: false
     }),
     // created() {
     //     this.isOpenInterne = this.isOpen
@@ -127,11 +128,13 @@ export default {
             })
         },
         clickUpdateProject() {
+            this.loadingUpdate = true
             sendRequest('api-python', 'update_project_by_id', this.idProject, this.pathActivities, this.pathItems).then(() =>{
                 this.close()
             }).catch((e) => {
                 console.log(e)
             })
+            this.loadingUpdate = false
         },
         close() {
             this.pathActivities = null

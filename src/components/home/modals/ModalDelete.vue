@@ -54,11 +54,11 @@ export default {
             sendRequest('api-python', 'delete_project_by_id', this.idProject).then((arg) =>{
                 console.log(arg)
                 this.deleteProject(this.idProject)
-                this.loadingDelete = false
                 this.close()
             }).catch((e) => {
                 console.log(e)
             })
+            this.loadingDelete = false
         },
         close() {
             this.$emit('closeDeleteDialog', false)
