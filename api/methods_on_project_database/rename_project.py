@@ -6,4 +6,5 @@ def run(project_id, project_new_name):
     cursor = conn.cursor()
     query = """UPDATE projects SET name = ? WHERE id = ?"""
     data = (project_new_name, str(project_id))
-    cursor.execute(query, data)
+    cursor.execute(query,data)
+    conn.commit()

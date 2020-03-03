@@ -19,7 +19,7 @@ from database import init_database_project
 from database import init_database_activities_items
 from methods_on_csv import import_activity_csv
 from methods_on_csv import import_item_csv
-from methods_on_project_database import get_projects
+from methods_on_project_database import get_projects, rename_project
 from methods_on_project_database import get_project_with_id
 from import_in_database import create_project
 from methods_on_project_database import delete_project
@@ -64,6 +64,8 @@ try:
         print(update_activity_item.run(input_options[0], input_options[1], input_options[2]))
     elif input_method == 'update_last_opening_date_project':
         print(update_project_last_opening_date.run(input_options[0]))
+    elif input_method == 'rename_project':
+        print(rename_project.run(input_options[0], input_options[1]))
     else:
         print('The function ' + input_method + ' doesn\'t exist. The list of functions is: \n' + '\n'.join(list_of_function))
 except IndexError as e:
