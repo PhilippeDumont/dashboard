@@ -57,6 +57,7 @@ L'API est divisée en plusieurs dossiers contenant méthodes, modèles objets, t
   - *get_project_with_id* : méthode qui, grace à l'ID du projet, permet de récuperer le projet en entier (sans les activités et objets).
   - *get_projects* : méthode qui renvoie une liste de tout les projets existant (sans les activités et objets).
   - *project_not_exist* : méthode qui, grace au nom du projet, permet de savoir si un projet du même nom existe déja.
+  - *rename_project* : méthode qui, grace à l'id du projet, permet de renommer un projet.
   - *update_project_last_opening_date* : méthode qui permet grace à l'id d'un projet, de changer la date de dernière ouverture.
  
 
