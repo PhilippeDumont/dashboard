@@ -7,12 +7,12 @@
  <div id="selector_projects">
     <v-expansion-panels>
      <v-expansion-panel>    
-       <v-expansion-panel-header v-if="currentProject">{{ currentProject.name }}</v-expansion-panel-header>
+       <v-expansion-panel-header v-if="getCurrentProject()">{{ getCurrentProject().name }}</v-expansion-panel-header>
        <v-expansion-panel-header v-else>None current project</v-expansion-panel-header>
        <v-expansion-panel-content>
            <v-row>
             <!-- Project Item -->
-             <v-col cols="12"  v-for="(project,index) in getListProjectsSortedByDate().slice(0, 3)" :key="index">
+             <v-col cols="12" v-for="(project,index) in getAllProjectsSortedByDate().slice(0, 3)" :key="index">
                  <v-row>
                    <v-col cols="8">
                      <span>{{project.name}}</span>
@@ -40,21 +40,19 @@
 
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  computed: mapState({
-    listProjects: 'listProjects',
-    currentProject: 'currentProject'
-  }),
   methods: {
       ...mapActions([
        'setCurrentProject'
       ]),
       ...mapGetters([
-        'getListProjectsSortedByDate'
+        'getAllProjectsSortedByDate',
+        'getCurrentProject'
       ])
-  }
+  },
+
 }  
 </script>
 
