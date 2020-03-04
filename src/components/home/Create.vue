@@ -136,7 +136,7 @@ export default {
         async createProject() {
             this.loader = true
             try {
-                let idProject = parseInt(await sendRequest('api-python', 'create_new_project', this.projectName.trime()))
+                let idProject = parseInt(await sendRequest('api-python', 'create_new_project', this.projectName.trim()))
                 console.log('id: ' + idProject)
                 await this.importItems(idProject)
                 await this.importActivities(idProject)

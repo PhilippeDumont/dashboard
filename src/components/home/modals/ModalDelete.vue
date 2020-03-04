@@ -43,7 +43,7 @@ export default {
     }),
     computed: {
         ...mapGetters([
-            'getListProjects'
+            'getAllProjects'
         ])
     },
     methods: {

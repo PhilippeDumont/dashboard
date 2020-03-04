@@ -1,8 +1,8 @@
 <template>
     <div>
         <v-container fluid>
-            <div v-if="currentProject">
-                {{ currentProject.name }}
+            <div v-if="getCurrentProject()">
+                {{ getCurrentProject().name }}
             </div>
             <div v-else>
                 <AlertNoProject/>
@@ -16,22 +16,23 @@
 <script>
 
 import AlertNoProject from '@/components/utils/AlertNoProject.vue'
-import { mapState, mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
     components: {
-    AlertNoProject
-  },
-    computed: mapState({
-        currentProject: 'currentProject'
-    }),
+      AlertNoProject
+    },
     created() {
       this.setExpansionBarVisibility(true)
     },
     methods: {
-     ...mapActions([
-       'setExpansionBarVisibility',
+      ...mapActions([
+        'setExpansionBarVisibility',
       ]),
+      ...mapGetters([
+        'getAllProjectsSortedByDate',
+        'getCurrentProject'
+      ])
     }
 }
 </script>
