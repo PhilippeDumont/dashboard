@@ -13,7 +13,7 @@
                     <v-col>
 
                         <!--BUTTON TO IMPORT ITEMS FILE-->
-                        <v-row>
+                        <v-row class="justify-center">
                             <v-btn color="blue-grey" class="ma-2 white--text" width="250" @click="getPathItemsFile()">
                                 <v-icon medium dark>mdi-plus</v-icon>
                                 Select ITEMS file
@@ -22,13 +22,13 @@
                             <v-icon v-if="isPathItems" color="green">mdi-checkbox-marked-circle</v-icon>
                             <v-icon v-else color="red">mdi-close-circle</v-icon>
                         </v-row>
-                        <v-row>
+                        <v-row class="justify-center">
                             <!--FILE TO SHOW IF DATA FILE CHOOSEN OR NOT-->
                             <span v-if="isPathItems">{{ itemsFile }}</span>
                         </v-row>
 
                         <!--BUTTON TO IMPORT ACTIVITIES FILE-->
-                        <v-row>
+                        <v-row class="justify-center">
                             <v-btn color="blue-grey" class="ma-2 white--text" width="250"
                                 @click="getPathActivitiesFile()">
                                 <v-icon medium dark>mdi-plus</v-icon>
@@ -38,13 +38,13 @@
                             <v-icon v-if="isPathActivities" color="green">mdi-checkbox-marked-circle</v-icon>
                             <v-icon v-else color="red">mdi-close-circle</v-icon>
                         </v-row>
-                        <v-row>
+                        <v-row class="justify-center">
                             <!--FILE TO SHOW IF DATA FILE CHOOSEN OR NOT-->
                             <span v-if="isPathActivities">{{ activitiesFile }}</span>
                         </v-row>
 
                         <!--BUTTON TO CREATE THE PROJECT-->
-                        <v-row>
+                        <v-row class="justify-center" style="margin-right: 15px">
                             <!--BUTTON DISABLED IF NO DATA ITEMS AND ACTIVITIES-->
 
                             <v-btn color="blue-grey" class="ma-2 white--text" width="250" @click="clickUpdateProject()"
