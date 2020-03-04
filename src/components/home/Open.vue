@@ -35,7 +35,7 @@
         </v-row>
 
         <v-row>
-            <v-col v-for="project in getListProjects(this.sortType, this.search)" v-bind:key="project.id">
+            <v-col v-for="project in getAllProjects(this.sortType, this.search)" v-bind:key="project.id">
                 <v-card class="card" width="150" height="300">
                     <v-img :src="require('@/assets/graph.svg')" height="150" width="150"></v-img>
                     <v-card-text style="overflow-y: auto; height:100px">
@@ -127,7 +127,7 @@ export default {
     }),
     computed: {
         ...mapGetters([
-            'getListProjects'
+            'getAllProjects'
         ])
     },
     methods: {

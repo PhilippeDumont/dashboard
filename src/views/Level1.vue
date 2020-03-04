@@ -56,7 +56,6 @@
                  </v-card>
                 </v-col>
               </v-row>
-              
             </div>
             <div v-else>
                 <AlertNoProject/>
@@ -78,13 +77,18 @@ export default {
     computed: mapState({
         currentProject: 'currentProject'
     }),
+
     created() {
       this.setExpansionBarVisibility(true)
     },
     methods: {
-     ...mapActions([
-       'setExpansionBarVisibility',
+      ...mapActions([
+        'setExpansionBarVisibility',
       ]),
+      ...mapGetters([
+        'getAllProjectsSortedByDate',
+        'getCurrentProject'
+      ])
     }
 }
 </script>
