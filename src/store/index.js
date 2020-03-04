@@ -52,6 +52,9 @@ export default new Vuex.Store({
             state.listProjects.sort((a, b) => (a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : -1)
         },
         DELETE_PROJECT(state, project) {
+            if (project == state.currentProject) {
+                state.currentProject = null
+            }
             state.listProjects.splice(state.listProjects.indexOf(project), 1)
         },
         SET_CURRENT_PROJECT(state, newCurrentProject) {
