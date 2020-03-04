@@ -91,8 +91,8 @@ export default {
         //constraints for form elements
         rules: [
             value => !!value || 'Required.',
-            value => (value && value.length >= 3) || 'Min 3 characters',
-            value => (value && value.length <= 40) || 'Max 40 characters'
+            value => (value && value.trim().length >= 3) || 'Min 3 characters',
+            value => (value && value.length <= 40) || 'Max 40 characters',
         ],
         //plateform init
         plateform: null,
@@ -136,7 +136,7 @@ export default {
         async createProject() {
             this.loader = true
             try {
-                let idProject = parseInt(await sendRequest('api-python', 'create_new_project', this.projectName))
+                let idProject = parseInt(await sendRequest('api-python', 'create_new_project', this.projectName.trime()))
                 console.log('id: ' + idProject)
                 await this.importItems(idProject)
                 await this.importActivities(idProject)
