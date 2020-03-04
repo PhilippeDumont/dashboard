@@ -102,6 +102,7 @@ import { sendRequest } from '@/utils.js';
 import ModalDelete from '@/components/home/modals/ModalDelete.vue';
 import ModalUpdate from '@/components/home/modals/ModalUpdate.vue';
 
+
 export default {
     name: 'Open',
     components: {
@@ -133,6 +134,10 @@ export default {
         ...mapActions([
             'setCurrentProject',
             'deleteProject',
+            'setNameProject',
+            'setMsgSnackBar',
+            'setSnackBarToShow',
+            'setColorSnackBar'
         ]),
         choseAndOpenProject(project) {
             this.setCurrentProject(project)
@@ -149,14 +154,19 @@ export default {
             this.newProjectName = project.name
         },
         updateProjectName(project){
-            console.log(this.newProjectName)
-            console.log(project.id)
             sendRequest('api-python', 'rename_project', project.id, this.newProjectName).then((arg) =>{
+                let valueToRename = {'project': project, 'nameToRename': this.newProjectName}
+                this.setNameProject(valueToRename)
                 console.log(arg)
-                console.log("pass")
                 this.newProjectName = ""
+                this.setSnackBarToShow(true)
+                this.setMsgSnackBar("Project renamed with success")
+                this.setColorSnackBar("green")
             }).catch((e) =>{
                 console.log(e)
+                this.setSnackBarToShow(true)
+                this.setMsgSnackBar("Error: "+e)
+                this.setColorSnackBar("red")
             })
             project.setIsRename(false)
         },
