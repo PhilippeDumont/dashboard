@@ -20,9 +20,9 @@ npm run electron:build
 #### Windows
 Le fichier qui contient l'application s'appelle 'dist_electron'. 
  * Le fichier possède un fichier appellé win--unpacked cotnenant l'application exécutable. 
- ![alt text](Documentation/pictures/Build/win-unpacked.png)
+ ![alt text](Documentation/pictures/Building/win-unpacked.png)
  * Le fichier possède également un installateur basique de l'application.
- ![alt text](Documentation/pictures/Build/installer.png)
+ ![alt text](Documentation/pictures/Building/installer.png)
 
  
 ### Compilation pour une "release" sur GitHub
