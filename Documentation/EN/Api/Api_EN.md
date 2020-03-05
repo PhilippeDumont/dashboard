@@ -10,7 +10,7 @@ The API was divided into folders containing methods, models, tests, databases fi
 
 ### List of the folders and what's inside of them
 
-![alt text](../../pictures/Api/Api_resume.png)
+![alt text](../../pictures/Api/API_resume.png)
 
 - **csv_test** : contain the CSV files necessary for the tests.
 - **database** : contain the methods that create and reset the database.
@@ -33,7 +33,7 @@ The API was divided into folders containing methods, models, tests, databases fi
   - *reset_database_activities_items* : methods called to reset the activities and items databases.
   - *reset_database_project* : methods called to reset the projects database.
 
-  ![alt text](../../pictures/Api/Api_detail_1.png)
+  ![alt text](../../pictures/Api/API_detail_1.png)
   
   
 - **import_in_database** : the methods in import_in_database are :
@@ -51,14 +51,14 @@ The API was divided into folders containing methods, models, tests, databases fi
   - *get_activities_items_with_project_id* : methods that get back the activities, items and project id.
   - *get_items_with_project_id* : methods that get back the items linked to a project.
 
-  ![alt text](../../pictures/Api/Api_detail_3.png)
+  ![alt text](../../pictures/Api/API_detail_3.png)
   
   
 - **methods_on_csv** : methods in methods_on_csv are : 
   - *import_activity_csv* : methods that import a CSV with a specific format to turn the row into activities to put in database.
   - *import_item_csv* : methods that import a CSV with a specific format to turn the row into items to put in database.
 
-  ![alt text](../../pictures/Api/Api_detail_4.png)
+  ![alt text](../../pictures/Api/API_detail_4.png)
   
   
 - **methods_on_project_database** : methods on methods_on_project_database are : 
@@ -70,11 +70,11 @@ The API was divided into folders containing methods, models, tests, databases fi
   - *rename_project* : methods that rename a project thanks to is id.
   - *update_project_last_opening_date* : methods that update the last opening date of a project.
 
-  ![alt text](../../pictures/Api/Api_detail_5.png)
+  ![alt text](../../pictures/Api/API_detail_5.png)
  
 
 ## Tests
 The tests all have a number (test1_******* par exemple) They must be launch in order or they'll bug.
 The "all_test" file can launch all test at the same time.
 
-![alt text](../../pictures/Api/Api_test.png)
+![alt text](../../pictures/Api/API_test.png)
