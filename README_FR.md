@@ -1,12 +1,12 @@
 # Dashboard
 
-## Application overview
+## Description de l'application
 
 Dashboard permettant la visualisation de données sous la forme de graphique avec différent niveau d'analyse.
 
-## Project setup
-1) Télécharger ou cloner le répertoire GitHub sur votre ordinateur.
-2) Executer une des commandes ci-dessous
+## Mise en place du projet
+1) Téléchargez/clonez le répertoire GitHub sur votre ordinateur.
+2) Executez une des commandes ci-dessous
 
 ### Compilation de l'application et de l'api locale avec rechargement à chaud.
 ```bash
