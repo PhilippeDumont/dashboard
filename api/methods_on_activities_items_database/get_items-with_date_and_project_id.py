@@ -3,7 +3,7 @@ from model.item_model import Item
 
 # Methods to get items for a project (with project_id) and in a time interval
 def run(project_id, begin_date, end_date):
-    conn = sqlite3.connect("api/databases_files/activities_items_db/" + str(project_id) + ".db")
+    conn = sqlite3.connect("../databases_files/activities_items_db/" + str(project_id) + ".db")
     cursor = conn.cursor()
     # Get items in a time interval => INNER JOIN because the row date is in the table activities
     query = """SELECT * FROM items INNER JOIN activities ON items.parent_id = activities.activity_id WHERE activities.date BETWEEN date(?) AND date(?)"""

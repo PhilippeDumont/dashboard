@@ -12,7 +12,7 @@ def get_activities_for_hours_in_week_by_day_by_project_id(project_id, date_debut
     ending_day = date_fin_datetime.weekday()
     differences_day = abs((date_fin_datetime - date_debut_datetime).days)
     nb_week = math.ceil((differences_day/7))
-    conn = sqlite3.connect("api/databases_files/activities_items_db/" + str(project_id) + ".db")
+    conn = sqlite3.connect("../databases_files/activities_items_db/" + str(project_id) + ".db")
     cursor = conn.cursor()
     list_activities_by_day_and_hours = ListActivitiesByDayAndHours()   ## Init all the list containing all of the hours
 

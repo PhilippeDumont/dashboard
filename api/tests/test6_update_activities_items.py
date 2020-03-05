@@ -5,7 +5,7 @@ from import_in_database import update_activity_item
 
 unittest.TestLoader.sortTestMethodsUsing = None
 
-linkCSV = "../data_format"
+linkCSV = "../csv_test"
 project_id = 1
 
 

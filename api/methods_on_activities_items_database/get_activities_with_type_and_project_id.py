@@ -3,7 +3,7 @@ from model.activity_model import Activity
 
 
 def run(project_id, type_necessary):
-    conn = sqlite3.connect("api/databases_files/activities_items_db/" + str(project_id) + ".db")
+    conn = sqlite3.connect("../databases_files/activities_items_db/" + str(project_id) + ".db")
     cursor = conn.cursor()
     query = """SELECT * FROM activities WHERE activity_type = ?"""
     cursor.execute(query, type_necessary)

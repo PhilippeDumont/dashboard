@@ -5,7 +5,7 @@ import sqlite3
 
 
 def run(project_name):
-    conn = sqlite3.connect("api/databases_files/projects_db/all_project.db")
+    conn = sqlite3.connect("../databases_files/projects_db/all_project.db")
     cursor = conn.cursor()
     query = ("SELECT * FROM  projects WHERE name=?")
     cursor.execute(query,[project_name])

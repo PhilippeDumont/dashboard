@@ -16,7 +16,7 @@ class TestGetFromDB(unittest.TestCase):
     # test query all projects
     def test_get_projects_from_db(self):
         list_project = get_projects.run()
-        self.assertEqual(list_project[0].id, 1)
+        self.assertEqual(list_project[0].get("id"), 1)
 
     # test query one project
     def test_get_project_from_db(self):
@@ -26,7 +26,7 @@ class TestGetFromDB(unittest.TestCase):
     # test query project by project_id
     def test_get_project_with_id(self):
         project_id = get_project_with_id.run(project_id_to_search)
-        self.assertEqual(project_id.id, 1)
+        self.assertEqual(project_id.get("id"), 1)
 
     # test if project exists
     def test_if_project_exist(self):
@@ -48,7 +48,7 @@ class TestGetFromDB(unittest.TestCase):
         object_temp = get_activities_items_project_with_project_id.run(project_id_to_search)
         self.assertEqual(len(object_temp.activities), 1)
         self.assertEqual(len(object_temp.items), 1)
-        self.assertEqual(object_temp.project.id, 1)
+        self.assertEqual(object_temp.project.get("id"), 1)
 
     # test query activities, items and project
     def test_get_activity_item_with_project_id(self):

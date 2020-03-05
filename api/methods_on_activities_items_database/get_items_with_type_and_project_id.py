@@ -3,7 +3,7 @@ from model.item_model import Item
 
 # Methods to get items for a project (with project_id) and of a certain type
 def run(project_id, item_type):
-    conn = sqlite3.connect("api/databases_files/activities_items_db/" + str(project_id) + ".db")
+    conn = sqlite3.connect("../databases_files/activities_items_db/" + str(project_id) + ".db")
     cursor = conn.cursor()
     # Get items of a certain type
     query = """SELECT * FROM items WHERE item_type = ?"""

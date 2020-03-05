@@ -8,7 +8,7 @@ class RenameProject(unittest.TestCase):
         rename_project.run(1, "leMeilleurProjet")
         conn = sqlite3.connect("../databases_files/projects_db/all_project.db")
         cursor = conn.cursor()
-        cursor.execute("""SELECT name FROM projects WHERE id = ? """)
+        cursor.execute("""SELECT name FROM projects WHERE id = ? """, str(1))
         self.assertEqual("leMeilleurProjet", cursor.fetchone()[0])
 
 if __name__ == '__main__':

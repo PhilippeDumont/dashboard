@@ -1,6 +1,6 @@
 import unittest
 
-from methods_on_project_database.get_activities_for_hours_in_week_by_day_by_project_id import \
+from methods_on_activities_items_database.get_activities_for_hours_in_week_by_day_by_project_id import \
     get_activities_for_hours_in_week_by_day_by_project_id
 
 

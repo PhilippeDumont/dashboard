@@ -2,7 +2,7 @@ import sqlite3
 
 # Get the id of the project thanks to his name off the database
 def run(project_name):
-    conn = sqlite3.connect("api/databases_files/projects_db/all_project.db")
+    conn = sqlite3.connect("../databases_files/projects_db/all_project.db")
     cursor = conn.cursor()
     query = "SELECT id FROM projects WHERE name=?"
     cursor.execute(query, [project_name])

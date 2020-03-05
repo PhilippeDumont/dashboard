@@ -5,7 +5,7 @@ import sqlite3
 
 
 def run(project_id):
-    conn = sqlite3.connect("api/databases_files/activities_items_db/" + str(project_id) + ".db")
+    conn = sqlite3.connect("../databases_files/activities_items_db/" + str(project_id) + ".db")
     cursor = conn.cursor()
     _reset_database(cursor)
     cursor.close()

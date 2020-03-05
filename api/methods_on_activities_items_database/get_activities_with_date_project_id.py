@@ -3,7 +3,7 @@ from model.activity_model import Activity
 
 
 def run(project_id, date_start, date_end):
-    conn = sqlite3.connect("api/databases_files/activities_items_db/" + str(project_id) + ".db")
+    conn = sqlite3.connect("../databases_files/activities_items_db/" + str(project_id) + ".db")
     cursor = conn.cursor()
     query = """SELECT * FROM activities WHERE date BETWEEN date(?) AND date(?)"""
     dataset = (type_necessary, date_start, date_end)
