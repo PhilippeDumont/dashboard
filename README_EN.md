@@ -20,9 +20,9 @@ npm run electron:build
 #### Windows
 The file which contains the compile application is called 'dist_electron'. 
  * This file has a compress directory called 'win-unpacked' containing application. 
- ![alt text](Documentation/pictures/Build/win-unpacked.png)
+ ![alt text](Documentation/pictures/Building/win-unpacked.png)
  * This file has a basic installer.
- ![alt text](Documentation/pictures/Build/installer.png)
+ ![alt text](Documentation/pictures/Building/installer.png)
 
  
 ### Compiles and minifies for release on GitHub
@@ -43,4 +43,4 @@ publish:
 
 # API
 
-[APi Documentation](Documentation/EN/Api/Api_EN.md)
+[API's Documentation](Documentation/EN/Api/Api_EN.md)
