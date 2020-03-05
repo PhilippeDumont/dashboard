@@ -39,6 +39,7 @@ npm run release
 * Vue Cli
 * VueX
 * Vue-router
+* Vuetify
 * Node JS
 * ChartJS
 
