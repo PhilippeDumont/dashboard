@@ -30,6 +30,26 @@ The file which contains the compile application is called 'dist_electron'.
 npm run release
 ```
 
+# Dependancies
+### Dependancies Electron
+* Electron
+* Electron builder
+* Electron updater 
+
+### Dependancies JS
+* Vue Cli
+* VueX
+* Vue-router
+* Node JS
+* ChartJS
+
+### Dependancies PYTHON
+* Python
+* Pyinstaller
+* Coverage
+* Numpy
+* Pandas
+
 <span style="color: red;">The release of application need the token from Github, please check this page for more informations : <a href="https://github.com/settings/tokens">Generate Token on GitHub</a></span>.
 
 <span style="color: red;">If you are contributor in the project and you have a token from GitHub, you should create a file nammed "electron-builder.yml" and introduce this code : </span>

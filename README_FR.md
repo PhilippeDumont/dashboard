@@ -29,11 +29,30 @@ Le fichier qui contient l'application s'appelle 'dist_electron'.
 ```bash
 npm run release
 ```
+# Dépendances
+### Dépendances Electron
+* Electron
+* Electron builder
+* Electron updater 
+
+### Dépendances JS
+* Vue Cli
+* VueX
+* Vue-router
+* Node JS
+* ChartJS
+
+### Dépendances PYTHON
+* Python
+* Pyinstaller
+* Coverage
+* Numpy
+* Pandas
+
 
 <span style="color: red;">La "release" nécéssite un token d'accès afin de pouvoir publier une "release" sur GitHub, plus d'informations sur <a href="https://github.com/settings/tokens">Générer un token sur GitHub</a></span>.
 
 <span style="color: red;">Si vous êtes contributeur du projet et que vous possédez un token provenant de GitHub , vous devrez créer un fichier nommé "electron-builder.yml" et insérer le code suivant :  </span>
-
 
 ```yml
 appId: dashboard
